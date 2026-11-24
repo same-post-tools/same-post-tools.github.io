@@ -1,0 +1,35 @@
+name: Idea or request
+description: A new tool, a feature, or a missing event or Post.
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Everything you post here is public and stays online.** Do not include member names, contact details, or member data.
+
+        This is a volunteer project. Reports are read and answered promptly.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy
+      options:
+        - label: This request contains no member names, contact details, roster or registration data, or screenshots of them.
+          required: true
+  - type: dropdown
+    id: tool
+    attributes:
+      label: Which tool?
+      options:
+        - SAME Events Near You
+        - SAME Post Membership Numbers
+        - A new tool
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would help?
+      description: What you want to do and how it would help your Post. For a missing event, include the event name, date, and a public link.
+    validations:
+      required: true

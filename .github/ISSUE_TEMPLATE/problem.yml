@@ -1,0 +1,45 @@
+name: Something is not working
+description: A tool shows the wrong thing, breaks, or will not open a file.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Everything you post here is public and stays online.** Do not include member names, email addresses, phone numbers, rosters, StarChapter exports, screenshots of member data, or the file you opened. Describe the problem in words instead.
+
+        This is a volunteer project. Reports are read and answered promptly.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy
+      options:
+        - label: This report contains no member names, contact details, roster or registration data, or screenshots of them.
+          required: true
+  - type: dropdown
+    id: tool
+    attributes:
+      label: Which tool?
+      options:
+        - SAME Events Near You
+        - SAME Post Membership Numbers
+        - Home page
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, and what you saw instead.
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and device
+      placeholder: For example, Chrome on Windows, or Safari on iPhone
+  - type: input
+    id: version
+    attributes:
+      label: Tool version
+      description: Shown at the bottom of the tool's page.

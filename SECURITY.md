@@ -11,7 +11,7 @@ If you find a way for a page to send data off your device, run a script it shoul
 
 Please do not open a public issue for a security problem, and never post member names, email addresses, rosters, exports, or other personal information in an issue.
 
-This is a volunteer project. Reports are read and answered as soon as possible, usually within a week.
+This is a volunteer project. Reports are read and answered promptly.
 
 ## What is in scope
 
