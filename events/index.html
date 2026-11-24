@@ -35,7 +35,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--font);o
 .wm1{font:bold 28px var(--font);letter-spacing:.04em;color:var(--blue)}
 .wm2{font:bold 13px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
 a.wordmark{text-decoration:none}
-.unofficial{font:bold 10px var(--font);letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:2px}
+.unofficial{font:italic 15px Georgia,'Times New Roman',serif;letter-spacing:.03em;text-transform:none;color:var(--mute);margin-bottom:1px}
 .home{font:bold 15px var(--font);color:var(--blue);text-decoration:none;min-height:44px;display:flex;align-items:center}
 .home:hover,.home:focus{text-decoration:underline}
 :root[data-theme=dark] .home{color:#8fb2ee}
@@ -231,7 +231,7 @@ summary{font-weight:bold;cursor:pointer;min-height:44px;display:flex;align-items
 <body data-mode="month">
 <header>
   <nav class="topbar" aria-label="SAME events">
-    <a class="wordmark" href="https://same-post-tools.github.io/" title="SAME Post Tools home"><span class="unofficial">Unofficial</span><span class="wm1">SAME</span><span class="wm2">Events Near You</span></a>
+    <a class="wordmark" href="https://same-post-tools.github.io/" title="SAME Post Tools home"><span class="unofficial">Unofficial</span><span class="wm1">SAME</span><span class="wm2">Post Tools</span></a>
     <a class="home" href="https://same-post-tools.github.io/">&larr; All SAME Post Tools</a>
     <details class="disp" id="disp"><summary title="Theme, font, and text size">Options</summary>
       <div class="disp-panel">
@@ -967,7 +967,7 @@ const D={"map":{"w":975,"h":610,"states":[{"n":"Alabama","d":"M648,492.4L648,492
    the newest it has seen in this browser, so copies passed around by email stay current. The connection rule above
    allows only that one address; nothing is ever sent from this page. */
 const DATA_URL="https://same-post-tools.github.io/events/data.json";
-const TOOL_VERSION="0.5.3";
+const TOOL_VERSION="0.5.4";
 /* Load checks (GUARD): the built-in list, a saved newer list, and any online list are all checked item by item. */
 {const b=GUARD.eventList(D);if(b){D.events=b.events;D.posts=b.posts}}
 try{const c=GUARD.eventList(JSON.parse(localStorage.getItem("sameEventsData")||"null"));if(c&&c.built>D.built){D.events=c.events;D.posts=c.posts;D.wb=c.wb;D.built=c.built;D.online=1}else if(localStorage.getItem("sameEventsData")&&!c)localStorage.removeItem("sameEventsData")}catch(e){try{localStorage.removeItem("sameEventsData")}catch(e2){}}

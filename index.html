@@ -17,13 +17,14 @@ body{margin:0;font:17px/1.55 var(--font);color:var(--ink);background:var(--bg)}
 header{border-bottom:1px solid var(--rule)}
 header .band{display:flex;align-items:center;min-height:76px}
 .wordmark{display:flex;flex-direction:column;line-height:1.05}
-.unofficial{font:bold 10px var(--font);letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:2px}
+.unofficial{font:italic 15px Georgia,'Times New Roman',serif;letter-spacing:.03em;text-transform:none;color:var(--mute);margin-bottom:1px}
 .ver{font-size:13px;color:var(--mute);margin:8px 0 10px}
 .wm1{display:block;font:bold 28px var(--font);letter-spacing:.04em;color:var(--blue);line-height:1}
 .wm2{display:block;font:bold 13px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
 .hero{background:linear-gradient(100deg,#0d1d3f 0%,#132b5c 60%,#1E407A 100%);color:#fff;border-bottom:6px solid var(--red)}
 .hero .band{padding-top:44px;padding-bottom:40px}
 h1{font-size:44px;line-height:1.1;margin:0 0 10px}
+h1 .unoff{font:italic 400 .8em Georgia,'Times New Roman',serif;color:#c9d8f2;letter-spacing:.01em;margin-right:.1em}
 .hero p{margin:0;max-width:760px;font-size:19px;color:#dbe5f7}
 main .band{padding-top:30px;padding-bottom:20px}
 h2{color:var(--navy);font-size:24px;margin:30px 0 12px}
@@ -87,7 +88,7 @@ dialog.panel h2{margin-top:18px}dialog.panel ul{margin:0 0 10px;padding-left:22p
   </nav>
 </div></header>
 <section class="hero"><div class="band">
-  <h1>SAME Post Tools</h1>
+  <h1><em class="unoff">Unofficial</em> SAME Post Tools</h1>
   <p>Free, unofficial browser tools for SAME Post leaders and members: find events, track Post membership, build newsletter pieces, and turn routine exports into reports. The goal is to bring information and open up insights for Posts of all sizes.</p>
 </div></section>
 <main><div class="band">
@@ -103,7 +104,7 @@ dialog.panel h2{margin-top:18px}dialog.panel ul{margin:0 0 10px;padding-left:22p
       <span class="banner">Available now</span>
       <h3>SAME Events Near You</h3>
       <p>Industry days, conferences, Post meetings, and golf events across SAME, by month, by driving distance from a Post, or on a calendar. Save any view as a PDF or a newsletter block.</p>
-      <p class="ver">Version 0.5.3 &middot; Data: Industry Days list of November 23, 2026</p>
+      <p class="ver">Version 0.5.4 &middot; Data: Industry Days list of November 23, 2026</p>
       <a class="go" href="events/">Open the events finder</a>
     </div>
   </div>
@@ -115,14 +116,14 @@ dialog.panel h2{margin-top:18px}dialog.panel ul{margin:0 0 10px;padding-left:22p
       <span class="banner">Available now</span>
       <h3>SAME Post Membership Numbers</h3>
       <p>Every Post's individual and organization member counts from SAME National's monthly reports since January 2023: changes this month and this year, trends, and a one-page report for your Post. Open National's newest PDF to add it.</p>
-      <p class="ver">Version 0.5.2 &middot; Data: National report of November 1, 2026</p>
+      <p class="ver">Version 0.5.3 &middot; Data: National report of November 1, 2026</p>
       <a class="go" href="membership/">Open membership numbers</a>
     </div>
     <div class="tool">
       <span class="banner">Available now</span>
       <h3>SAME Post Member Roster Report</h3>
       <p>For Post officers: open your Post's roster export from National and see members by type, renewals coming due, who joined or lapsed since an earlier export, and a member map of where your members are. Contact details are dropped as the file is read and never leave your computer.</p>
-      <p class="ver">Version 0.6.1 &middot; Data: none built in; reads only the files you open</p>
+      <p class="ver">Version 0.6.2 &middot; Data: none built in; reads only the files you open</p>
       <a class="go" href="roster/">Open the roster report</a>
     </div>
     <div class="tool soon"><span class="tag">Coming soon</span><h3>Word to web page</h3><p>Turn a Word file into clean text for a StarChapter page or an email newsletter.</p></div>
@@ -165,7 +166,7 @@ dialog.panel h2{margin-top:18px}dialog.panel ul{margin:0 0 10px;padding-left:22p
   <p>Questions: <a class="mailto" data-u="same.post.tools" data-d="gmail.com" href="#">same.post.tools (at) gmail.com</a></p>
 </dialog>
 <footer><div class="band">
-  <p style="margin:0 0 6px">SAME Post Tools site version 0.8.0.</p>
+  <p style="margin:0 0 6px">SAME Post Tools site version 0.8.1.</p>
   SAME Post Tools is a volunteer-built member resource, not an official SAME National site. SAME Post Tools is not endorsed, licensed, sponsored, or approved by SAME National or any SAME Post. The SAME name and colors belong to the Society of American Military Engineers. Code is shared under the MIT License; see the <a href="https://github.com/same-post-tools/same-post-tools.github.io">source code and license notices</a>.
 </div></footer>
 <script>
