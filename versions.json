@@ -1,5 +1,5 @@
 {
-  "hub": "0.6.0",
+  "hub": "0.6.1",
   "events": {
     "version": "0.5.1",
     "data": "November 23, 2026"
@@ -9,7 +9,7 @@
     "data": "2026-11-01"
   },
   "roster": {
-    "version": "0.1.0",
+    "version": "0.2.0",
     "data": "none built in"
   }
 }
