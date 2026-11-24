@@ -17,10 +17,10 @@ Each page carries a Content Security Policy that blocks outside connections. The
 | For members | SAME Events Near You | [/events/](https://same-post-tools.github.io/events/) | Available |
 | For all Posts | SAME Post Membership Numbers | [/membership/](https://same-post-tools.github.io/membership/) | Available |
 | For all Posts | SAME Post Member Roster Report | [/roster/](https://same-post-tools.github.io/roster/) | Available |
-| For all Posts | Word to web page | | Coming |
-| For all Posts | Newsletter block builder | | Coming |
-| For all Posts | PDH certificates | | Coming |
-| For Posts on specific platforms | Event attendance report (StarChapter, Eventbrite) | | Coming |
+| For all Posts | Word to web page | | Planned |
+| For all Posts | Newsletter block builder | | Planned |
+| For all Posts | PDH certificates | | Planned |
+| For all Posts | Event attendance report (any platform's export, by column mapping) | | Planned |
 
 ## What is here
 
