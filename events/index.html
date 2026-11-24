@@ -138,7 +138,12 @@ footer p{max-width:85ch;margin:0 0 6px}
 .vt:hover:not([aria-selected=true]){background:#d6e0ee}
 @media(max-width:700px){.vt{padding:10px 10px;margin-right:4px}.vt-t{font-size:16px}.vt-s{display:none}}
 body:not([data-mode=cal]) .only-cal{display:none!important}
-body[data-mode=post] .mo{display:none}
+body[data-mode=month] .pp{display:none}
+.mypost{align-self:flex-end;min-height:40px;white-space:nowrap}
+.mypost[aria-pressed=true]{border-style:dashed}
+body[data-allpost="1"][data-mode=post] .rad,body[data-allpost="1"][data-mode=cal] .rad{display:none!important}
+body[data-mode=cal] label.rad{display:flex!important}
+body[data-allpost="1"][data-mode=cal] label.rad{display:none!important}
 body[data-mode=cal] .no-cal,body[data-mode=cal] .only-post,body[data-mode=cal] #map,body[data-mode=cal] #zoom,body[data-mode=cal] .legend:not(.only-cal),body[data-mode=cal] #list{display:none!important}
 body[data-mode=cal] main.grid{grid-template-columns:minmax(0,1fr)}
 body[data-mode=cal] .mapcol{position:static;order:2}
@@ -270,13 +275,14 @@ summary{font-weight:bold;cursor:pointer;min-height:44px;display:flex;align-items
   </div>
 </nav>
 <div class="band controls">
-  <label class="f only-post">Your Post
-    <select id="post" aria-label="Your Post" title="Choose the Post to measure driving distance from"><option value="">Choose a Post</option></select>
+  <label class="f pp">Your Post
+    <select id="post" aria-label="Your Post" title="Choose the Post to measure driving distance from, or All Posts"><option value="">All Posts</option></select>
   </label>
+  <button type="button" class="ghost pp mypost" id="mypost" title="Open this page on this Post next time, here and in the other SAME Post Tools. Saved in this browser only.">Make this my Post</button>
   <label class="f mo">Month
     <select id="month" aria-label="Month" title="Choose the month to show"></select>
   </label>
-  <label class="f no-cal"><span id="radius-label">Driving distance</span>
+  <label class="f no-cal rad"><span id="radius-label">Driving distance</span>
     <select id="radius" aria-label="Driving distance" title="Rough drive time, estimated from straight-line distance. Local only shows events in your Post's own area.">
       <option value="0.75">Local only, no travel (about 45 minutes)</option><option value="2">About 2 hours</option><option value="4" selected>About 4 hours</option><option value="6">About 6 hours</option>
     </select>
@@ -875,7 +881,7 @@ const D={"map":{"w":975,"h":610,"states":[{"n":"Alabama","d":"M648,492.4L648,492
    the newest it has seen in this browser, so copies passed around by email stay current. The connection rule above
    allows only that one address; nothing is ever sent from this page. */
 const DATA_URL="https://same-post-tools.github.io/events/data.json";
-const TOOL_VERSION="1.1";
+const TOOL_VERSION="1.2";
 try{const c=JSON.parse(localStorage.getItem("sameEventsData")||"null");if(c&&c.built>D.built&&Array.isArray(c.events)&&Array.isArray(c.posts)){D.events=c.events;D.posts=c.posts;D.wb=c.wb;D.built=c.built;D.online=1}}catch(e){}
 const $=s=>document.querySelector(s);
 const KIND={industry:"Industry day or conference",post:"Post meeting or social",golf:"Golf or sporting",veteran:"Veteran"};
@@ -911,7 +917,21 @@ $("#month").innerHTML=MONTHS.map(m=>`<option value="${m}">${fmt(m+"-01",{month:"
 $("#ver").textContent=`SAME Events Near You version ${TOOL_VERSION}. Data version: Industry Days list (Bobbi Jo Lang) version of ${D.wb}; SAME event listings and the Southeast regional calendar read ${fmt(D.built,{month:"long",day:"numeric",year:"numeric"})}. ${D.events.length} events on file.`;
 const base=`<defs><marker id="arr" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="4.2" markerHeight="4.2" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1E407A"/></marker></defs><g>${D.map.states.map(s=>`<path d="${s.d}" fill="var(--land)"><title>${esc(s.n)}</title></path>`).join("")}</g><path class="st-borders" d="${D.map.borders}" fill="none" stroke="var(--line)" stroke-width="1.2" vector-effect="non-scaling-stroke"/><path class="st-nation" d="${D.map.nation}" fill="none" stroke="var(--postdot)" stroke-width=".8" vector-effect="non-scaling-stroke"/>`;
 const postDots=f=>D.posts.flatMap(p=>p.locs.map(l=>[p,proj(l[1],l[0])])).map(([p,q])=>{return q?`<circle data-post="${p.slug}" tabindex="0" role="button" aria-label="Show events near the ${esc(unit(p))}" cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="${5*f}" fill="var(--postdot)" stroke="transparent" stroke-width="${10*f}"><title>${esc(unit(p))}: select to see events near it</title></circle>`:""}).join("");
-let mode="month",wide=false,sel=null;
+let mode="month",wide=false,sel=null,postMonth="all",calMonth="";
+/* The Month picker: Near my Post offers "All upcoming"; By month and Calendar show one month. */
+function syncMonth(){const el=$("#month"),opts=MONTHS.map(m=>`<option value="${m}">${fmt(m+"-01",{month:"long",year:"numeric"})}</option>`).join("");
+ if(mode==="post"){if(!el.querySelector('option[value="all"]')){const cur=el.value;el.innerHTML='<option value="all">All upcoming</option>'+opts;calMonth=cur||calMonth}el.value=MONTHS.includes(postMonth)?postMonth:"all"}
+ else{if(el.querySelector('option[value="all"]'))el.innerHTML=opts;if(calMonth&&MONTHS.includes(calMonth))el.value=calMonth;else if(MONTHS.length&&!el.value)el.value=mode==="month"?firstBusyMonth():MONTHS[0]}}
+/* My Post: one saved choice shared by every SAME Post Tools page (this browser only). */
+const MYKEY="samePostToolsMyPost",PALIAS={"southern nevada":"las vegas","las vegas (southern nv)":"las vegas","washington":"washington dc","houston/galveston":"houston","minneapolis-st paul":"minneapolis-st. paul","fort liberty":"fort bragg"};
+const pnorm=n=>{n=String(n||"").toLowerCase().replace(/\s+post$/,"").trim();n=PALIAS[n]||n;return n.replace(/[^a-z0-9]+/g," ").trim()};
+function myPost(){try{return localStorage.getItem(MYKEY)||""}catch(e){return ""}}
+function mySlug(){const k=myPost();if(!k)return "";const P=D.posts.find(p=>pnorm(p.name)===k);return P?P.slug:""}
+function syncMyPost(){const b=$("#mypost"),v=$("#post").value,P=bySlug[v],mine=!!P&&pnorm(P.name)===myPost();
+ b.hidden=!P&&!myPost();b.setAttribute("aria-pressed",String(mine));b.textContent=mine?"\u2605 My Post (click to forget)":P?"Make this my Post":"Forget my Post"}
+/* Events near the chosen Post (within the driving distance), plus SAME National events; every event when All Posts. */
+function nearPost(e,R){const P=bySlug[$("#post").value];if(!P)return true;if(e.n)return true;if(e.la==null)return false;return postHrs(P,e.la,e.lo)<=R}
+function inMonth(e,m){if(!m||m==="all")return true;const ms=m+"-01",me=iso(new Date(+m.slice(0,4),+m.slice(5,7),0));return e.s<=me&&e.e>=ms}
 const rt=R=>R<1?"about 45 minutes":`about ${R} hours`;
 function kinds(){return new Set([...document.querySelectorAll('.chips input[value]:checked')].map(i=>i.value))}
 function when(e){const s=dt(e.s),t=dt(e.e);const day=fmt(e.s,{month:"short",day:"numeric"});let sub=fmt(e.s,{weekday:"short"});if(e.e!==e.s)sub+=" to "+(s.getMonth()===t.getMonth()?fmt(e.e,{weekday:"short"})+" "+t.getDate():fmt(e.e,{month:"short",day:"numeric"}));return `<div class="when"><b>${day}</b><span>${sub}</span></div>`}
@@ -934,18 +954,22 @@ function evDot(ev,p,f,alpha,col="#BF0A30"){const label=ev.length>1?`${ev.length}
 function spots(list,f){const s={};for(const e of list){const p=proj(e.lo,e.la);if(!p)continue;const k=Math.round(p[0]/(4*f))+","+Math.round(p[1]/(4*f));(s[k]=s[k]||{p,ev:[]}).ev.push(e)}return Object.values(s)}
 /* ---------- Near my Post ---------- */
 function renderPost(R,K){
- const P=bySlug[$("#post").value];
+ const P=bySlug[$("#post").value],PM=$("#month").value,pmn=PM&&PM!=="all"?" in "+fmt(PM+"-01",{month:"long",year:"numeric"}):"";
  const locs=P?P.locs.map(l=>({lat:l[0],lon:l[1],q:proj(l[1],l[0])})).filter(l=>l.q):[],q=locs.length?locs[0].q:null;
- const live=D.events.filter(e=>e.e>=today&&K.has(e.k));
+ const live=D.events.filter(e=>e.e>=today&&K.has(e.k)&&inMonth(e,PM));
+ if(!P){/* All Posts: every upcoming event, by date */
+  const all=live.slice().sort((a,b)=>a.s.localeCompare(b.s)||a.t.localeCompare(b.t));
+  $("#list").innerHTML=all.length?`<h3>Every SAME event on file${esc(pmn)}</h3>`+group(all,e=>item(e,null)):`<div class="empty">Nothing on file${esc(pmn)} for the types you picked.</div>`;
+  $("#summary").textContent=`${all.length} upcoming event${all.length===1?"":"s"}${pmn}, all Posts`;
+  $("#zoom").hidden=true;setMap([0,0,975,610],base+postDots(1)+spots(all,1).map(s=>evDot(s.ev,s.p,1,1)).join(""));return}
  let near=[],nat=[];
  if(P){for(const e of live){const h=e.la==null?null:postHrs(P,e.la,e.lo);if(h!=null&&h<=R)near.push([e,h]);else if(e.n)nat.push(e)}}else nat=live.filter(e=>e.n);
  let html="";
- if(!P)html+=`<div class="empty">Choose your Post to see what is within driving distance. SAME National events are below either way.</div>`;
- else if(!near.length&&!q)html+=`<div class="empty">No events on file near the ${esc(unit(P))} yet. Many Posts outside the mainland list their events on their own websites, which this page does not read yet. SAME National events are below.</div>`;
- else html+=near.length?`<h3>Within ${rt(R)} of the ${esc(unit(P))}</h3>`+group(near.map(x=>Object.assign({},x[0],{_h:x[1]})),e=>item(e,e._h)):`<div class="empty">Nothing on file within ${rt(R)} of the ${esc(unit(P))} for the types you picked. Try a longer drive or more event types.</div>`;
+ if(!near.length&&!q)html+=`<div class="empty">No events on file near the ${esc(unit(P))} yet. Many Posts outside the mainland list their events on their own websites, which this page does not read yet. SAME National events are below.</div>`;
+ else html+=near.length?`<h3>Within ${rt(R)} of the ${esc(unit(P))}${esc(pmn)}</h3>`+group(near.map(x=>Object.assign({},x[0],{_h:x[1]})),e=>item(e,e._h)):`<div class="empty">Nothing on file within ${rt(R)} of the ${esc(unit(P))}${esc(pmn)} for the types you picked. Try a longer drive or more event types.</div>`;
  if(nat.length)html+=`<section class="natcard" aria-label="SAME National events"><h3><span style="color:#F5C518;-webkit-text-stroke:.8px #6b4e00">&#9733;</span> SAME National events, anywhere</h3><p class="natnote">National events are listed for every Post, wherever they are held, so some are far from you.</p>`+group(nat,e=>item(e,null))+`</section>`;
  $("#list").innerHTML=html;
- $("#summary").textContent=P?`${near.length} event${near.length===1?"":"s"} within ${rt(R)} of the ${unit(P)}`:"Choose a Post to see events near it";
+ $("#summary").textContent=`${near.length} event${near.length===1?"":"s"} within ${rt(R)} of the ${unit(P)}${pmn}`;
  const ev=near.map(x=>x[0]);
  const vb=q&&!wide?fit([...locs.flatMap(l=>[l.q,...circlePts(l,R,10)]),...ev.map(e=>proj(e.lo,e.la)).filter(Boolean)],1.35,R<1?110:240):[0,0,975,610],f=vb[2]/975;
  const zb=$("#zoom");zb.hidden=!q;zb.textContent=wide?"Zoom to this Post's area":"Show all of the U.S.";
@@ -1028,8 +1052,8 @@ function renderMonth(R,K){
 /* Every upcoming event (type filters apply), on each day it runs; later days of a multi-day event are lighter. */
 const WD=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
 const iso=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
-function calData(m,K){const ms=m+"-01",last=new Date(+m.slice(0,4),+m.slice(5,7),0),me=iso(last);
- const evs=D.events.filter(e=>K.has(e.k)&&e.e>=today&&e.s<=me&&e.e>=ms).sort((a,b)=>a.s.localeCompare(b.s)||a.t.localeCompare(b.t));
+function calData(m,K){const ms=m+"-01",last=new Date(+m.slice(0,4),+m.slice(5,7),0),me=iso(last),R=+$("#radius").value;
+ const evs=D.events.filter(e=>K.has(e.k)&&e.e>=today&&e.s<=me&&e.e>=ms&&nearPost(e,R)).sort((a,b)=>a.s.localeCompare(b.s)||a.t.localeCompare(b.t));
  const start=dt(weekOf(ms)),weeks=[];let d=new Date(start);
  while(true){const wk=[];for(let i=0;i<7;i++){const x=iso(d);wk.push({d:x,inm:x.slice(0,7)===m,ev:x.slice(0,7)===m?evs.filter(e=>e.s<=x&&e.e>=x):[]});d.setDate(d.getDate()+1)}weeks.push(wk);if(iso(d)>me)break}
  return{m,evs,weeks}}
@@ -1045,31 +1069,33 @@ function renderCal(K){
  h+=`<table class="cal"><thead><tr>${WD.map(w=>`<th scope="col">${w}</th>`).join("")}</tr></thead><tbody>`+C.weeks.map(wk=>"<tr>"+wk.map(c=>`<td class="${c.inm?"":"out"}${c.d<today?" past":""}${c.d===today?" today":""}">${c.inm?`<div class="dn">${+c.d.slice(8)}</div>`+c.ev.map(e=>chip(e,c.d)).join(""):""}</td>`).join("")+"</tr>").join("")+"</tbody></table>";
  h+=`<div class="agenda">${C.evs.length?`<ul>${C.evs.map(e=>item(e,null)).join("")}</ul>`:`<div class="empty">No events on file for ${esc(mn)} with these types.</div>`}</div>`;
  $("#cal").innerHTML=h;
- $("#summary").textContent=`${C.evs.length} event${C.evs.length===1?"":"s"} in ${mn}`;}
+ const CP=bySlug[$("#post").value];$("#summary").textContent=`${C.evs.length} event${C.evs.length===1?"":"s"} in ${mn}`+(CP?` within ${rt(+$("#radius").value)} of the ${unit(CP)}, plus SAME National events`:", all Posts");}
 /* ---------- Shared ---------- */
 let monthPicked=false;
 function firstBusyMonth(){const R=+$("#radius").value,K=kinds();return MONTHS.find(m=>groupsFor(m,R,K).groups.length)||MONTHS[0]}
-function linkFor(){const href=location.href.split(/[?#]/)[0];if(mode==="about")return href+"#about";if(mode==="cal")return href+"#calendar-"+$("#month").value;if(mode==="month")return href+"#month-"+$("#month").value;const v=$("#post").value;return v?href+"#"+v:href}
+function linkFor(){const href=location.href.split(/[?#]/)[0];if(mode==="about")return href+"#about";if(mode==="cal")return href+"#calendar-"+$("#month").value+($("#post").value?"/"+$("#post").value:"");if(mode==="month")return href+"#month-"+$("#month").value;const v=$("#post").value,pm=$("#month").value;return href+"#"+(v||"near")+(pm&&pm!=="all"?"/"+pm:"")}
 function render(){
- document.body.dataset.mode=mode;
+ document.body.dataset.mode=mode;document.body.dataset.allpost=$("#post").value?"0":"1";syncMonth();syncMyPost();
  for(const t of document.querySelectorAll(".vt"))t.setAttribute("aria-selected",String(t.dataset.mode===mode));
  const ab=$("#tab-about");if(mode==="about")ab.setAttribute("aria-current","page");else ab.removeAttribute("aria-current");
  $("#radius-label").textContent=mode==="month"?"Group events within":"Driving distance";
  if(mode==="about")return;
  const R=+$("#radius").value,K=kinds();
- if(mode==="cal"){renderCal(K);$("#sub").textContent=`Every upcoming SAME event on file: ${fmt($("#month").value+"-01",{month:"long",year:"numeric"})}`;return}
+ if(mode==="cal"){renderCal(K);const CP=bySlug[$("#post").value];$("#sub").textContent=(CP?`SAME events near the ${unit(CP)}: `:`Every upcoming SAME event on file: `)+fmt($("#month").value+"-01",{month:"long",year:"numeric"});return}
  if(mode==="month")renderMonth(R,K);else renderPost(R,K);
  const P=bySlug[$("#post").value];
- $("#sub").textContent=mode==="month"?`Where SAME events cluster, week by week: ${fmt($("#month").value+"-01",{month:"long",year:"numeric"})}`:(P?`All upcoming events near the ${unit(P)}`:"All upcoming SAME events by Post");
+ $("#sub").textContent=mode==="month"?`Where SAME events cluster, week by week: ${fmt($("#month").value+"-01",{month:"long",year:"numeric"})}`:(P?`Upcoming events near the ${unit(P)}`:"Every upcoming SAME event, all Posts")+($("#month").value!=="all"&&$("#month").value?": "+fmt($("#month").value+"-01",{month:"long",year:"numeric"}):"");
 }
 function setUrl(){const h=linkFor().split("#")[1];try{history.replaceState(null,"",h?"#"+h:location.pathname)}catch(e){location.hash=h||""}}
 function fromUrl(){const q=new URLSearchParams(location.search);const h=decodeURIComponent(location.hash.slice(1));
  if(h==="about"){mode="about";return}
- const cm=(h.match(/^calendar-(\d{4}-\d{2})$/)||[])[1];
- if(cm||h==="calendar"){mode="cal";if(MONTHS.includes(cm)){$("#month").value=cm;monthPicked=true}else if(MONTHS.length&&!monthPicked)$("#month").value=MONTHS[0];return}
+ const cx=h.match(/^calendar-(\d{4}-\d{2})(?:\/([a-z0-9-]+))?$/)||[],cm=cx[1];
+ if(cm||h==="calendar"){mode="cal";if(cx[2]&&bySlug[cx[2]])$("#post").value=cx[2];if(MONTHS.includes(cm)){$("#month").value=cm;monthPicked=true}else if(MONTHS.length&&!monthPicked)$("#month").value=MONTHS[0];return}
  const mm=(h.match(/^month-(\d{4}-\d{2})$/)||[])[1]||q.get("month");
  if(mm||q.has("month")||h==="month"){mode="month";if(MONTHS.includes(mm)){$("#month").value=mm;monthPicked=true}else if(MONTHS.length)$("#month").value=firstBusyMonth();return}
- const s=bySlug[h]?h:(bySlug[q.get("post")]?q.get("post"):"");
+ const hx=h.match(/^([a-z0-9-]+)(?:\/(\d{4}-\d{2}))?$/)||[];if(hx[2])postMonth=hx[2];
+ if(hx[1]==="near"){mode="post";$("#post").value="";return}
+ const s=bySlug[hx[1]]?hx[1]:(bySlug[q.get("post")]?q.get("post"):"");
  if(s){mode="post";$("#post").value=s;return}
  /* No Post or month in the link: open By month on the first month with a grouping. */
  mode="month";if(MONTHS.length&&!monthPicked)$("#month").value=firstBusyMonth()}
@@ -1086,10 +1112,11 @@ $("#map").addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&pick
 $("#list").addEventListener("click",e=>{const b=e.target.closest&&e.target.closest(".glink");if(b){sel=+b.dataset.group;wide=false;render();window.scrollTo({top:$("#map").getBoundingClientRect().top+scrollY-16,behavior:"smooth"})}});
 $("#zoom").addEventListener("click",()=>{wide=!wide;render()});
 $("#howto-link").addEventListener("click",e=>{e.preventDefault();mode="about";setUrl();render();setTimeout(()=>document.getElementById("howto").scrollIntoView({behavior:"smooth"}),50)});
-$("#cal").addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-cal]");if(!b)return;const i=MONTHS.indexOf($("#month").value)+ +b.dataset.cal;if(i<0||i>=MONTHS.length)return;$("#month").value=MONTHS[i];monthPicked=true;setUrl();render()});
-for(const t of document.querySelectorAll("button[data-mode]"))t.addEventListener("click",()=>{mode=t.dataset.mode;wide=false;sel=null;if(mode==="month"&&!monthPicked&&MONTHS.length){$("#month").value=firstBusyMonth();monthPicked=true}setUrl();render()});
+$("#cal").addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-cal]");if(!b)return;const i=MONTHS.indexOf($("#month").value)+ +b.dataset.cal;if(i<0||i>=MONTHS.length)return;$("#month").value=MONTHS[i];calMonth=postMonth=MONTHS[i];monthPicked=true;setUrl();render()});
+for(const t of document.querySelectorAll("button[data-mode]"))t.addEventListener("click",()=>{mode=t.dataset.mode;wide=false;sel=null;if(mode==="month"&&!monthPicked&&MONTHS.length){calMonth=firstBusyMonth();monthPicked=true}setUrl();render()});
 $("#post").addEventListener("change",()=>{wide=false;setUrl();render()});
-$("#month").addEventListener("change",()=>{monthPicked=true;sel=null;wide=false;setUrl();render()});
+$("#mypost").addEventListener("click",()=>{const P=bySlug[$("#post").value];try{if(P&&pnorm(P.name)!==myPost())localStorage.setItem(MYKEY,pnorm(P.name));else localStorage.removeItem(MYKEY)}catch(e){}syncMyPost()});
+$("#month").addEventListener("change",()=>{const v=$("#month").value;if(mode==="post"){postMonth=v;if(v!=="all"){calMonth=v;monthPicked=true}}else{monthPicked=true;calMonth=v;postMonth=v}sel=null;wide=false;setUrl();render()});
 $("#radius").addEventListener("change",()=>{sel=null;render()});
 document.querySelectorAll(".chips input[value]").forEach(i=>i.addEventListener("change",()=>{sel=null;render()}));
 /* ---------- Newsletter exports (local: no links back to this page) ---------- */
@@ -1121,9 +1148,9 @@ function suitsText(evs,R){const ev=evs.filter(e=>e.la!=null);if(!ev.length)retur
  const more=near.length>8?`, plus ${nw(near.length-8)} more`:"",nat=ev.some(e=>e.n)?" SAME National events here are open to members from every Post.":"";
  return `A good fit for members who live or work in the ${joinAnd(names)}${fc?"":(top.length>1?" Post areas":" Post area")}${more}: each area is within ${rt(R)} of a stop.${nat}`}
 function viewData(){const R=+$("#radius").value,K=kinds();
- if(mode==="cal"){const C=calData($("#month").value,K),mn=fmt(C.m+"-01",{month:"long",year:"numeric"});
+ if(mode==="cal"){const C=calData($("#month").value,K),mn=fmt(C.m+"-01",{month:"long",year:"numeric"}),CP=bySlug[$("#post").value];
   const sec=C.weeks.map(wk=>({head:`Week of ${fmt(wk[0].d,{month:"long",day:"numeric"})}`,note:"",ev:C.evs.filter(e=>weekOf(e.s<C.m+"-01"?C.m+"-01":e.s)===wk[0].d)})).filter(x=>x.ev.length);
-  return{title:`SAME events calendar: ${mn}`,intro:`Every upcoming SAME event on file for ${mn}, from industry days to Post meetings and golf.`,sections:sec,cal:C,file:`same-events-calendar-${C.m}`}}
+  return{title:CP?`SAME events near the ${unit(CP)}: ${mn}`:`SAME events calendar: ${mn}`,intro:CP?`SAME events within ${rt(R)} of the ${unit(CP)} in ${mn}, plus SAME National events.`:`Every upcoming SAME event on file for ${mn}, from industry days to Post meetings and golf.`,sections:sec,cal:C,file:`same-events-calendar-${C.m}`+(CP?"-"+CP.slug:"")}}
  if(mode==="month"){const m=$("#month").value,mn=fmt(m+"-01",{month:"long",year:"numeric"}),{groups}=groupsFor(m,R,K);
   const pick=sel!=null&&!wide&&groups[sel]?[groups[sel]]:groups;
   const one=pick.length===1&&sel!=null;
@@ -1131,10 +1158,12 @@ function viewData(){const R=+$("#radius").value,K=kinds();
    intro:one?`${pick[0].ev.length} SAME events in one week, ${spanText(pick[0].start,pick[0].end)}, each within ${rt(R)} of another, so one trip can cover them.`:`Where SAME events cluster in ${mn}: events in the same week, each within ${rt(R)} of another, so one trip can cover several.`,
    sections:pick.map(g=>({trip:tripText(g.ev),suits:suitsText(g.ev,R),head:`${g.name}, week of ${fmt(g.wk,{month:"long",day:"numeric"})}`,note:`${g.ev.length} events, ${spanText(g.start,g.end)}${g.cities.length>1?" | "+g.cities.slice(0,4).join(", "):""}`,ev:g.ev})),
    file:one?`same-events-${slugify(pick[0].name)}-week-of-${pick[0].wk}`:`same-events-${m}`}}
- const P=bySlug[$("#post").value];if(!P)return{title:"Choose a Post first",intro:"",sections:[],file:"same-events"};
- const near=[];for(const e of D.events){if(e.e<today||!K.has(e.k)||e.la==null)continue;const h=postHrs(P,e.la,e.lo);if(h<=R)near.push(Object.assign({},e,{_h:h}))}
+ const P=bySlug[$("#post").value],PM=$("#month").value,pmn=PM&&PM!=="all"?fmt(PM+"-01",{month:"long",year:"numeric"}):"";
+ if(!P){const all=D.events.filter(e=>e.e>=today&&K.has(e.k)&&inMonth(e,PM)).sort((a,b)=>a.s.localeCompare(b.s)||a.t.localeCompare(b.t));const mo={};for(const e of all){const mm=fmt(e.s,{month:"long",year:"numeric"});(mo[mm]=mo[mm]||[]).push(e)}
+  return{title:pmn?`SAME events: ${pmn}`:"Upcoming SAME events",intro:`Every upcoming SAME event on file${pmn?" for "+pmn:""}, all Posts.`,sections:Object.entries(mo).map(([mm,ev])=>({head:mm,note:"",ev})),file:"same-events-all"+(pmn?"-"+PM:"")}}
+ const near=[];for(const e of D.events){if(e.e<today||!K.has(e.k)||e.la==null||!inMonth(e,PM))continue;const h=postHrs(P,e.la,e.lo);if(h<=R)near.push(Object.assign({},e,{_h:h}))}
  const months={};for(const e of near){const mm=fmt(e.s,{month:"long",year:"numeric"});(months[mm]=months[mm]||[]).push(e)}
- return{title:`SAME events near the ${unit(P)}`,intro:`Upcoming SAME events within ${rt(R)} of the ${unit(P)}.`,
+ return{title:`SAME events near the ${unit(P)}`+(pmn?`: ${pmn}`:""),intro:`Upcoming SAME events within ${rt(R)} of the ${unit(P)}${pmn?" in "+pmn:""}.`,
   sections:Object.entries(months).map(([mm,ev])=>({head:mm,note:"",ev})),file:`same-events-near-${P.slug}`}}
 const slugify=t=>t.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 const dateLine=e=>e.e!==e.s?spanText(e.s,e.e):fmt(e.s,{weekday:"short",month:"long",day:"numeric"});
@@ -1309,7 +1338,10 @@ if(MQ&&MQ.addEventListener)MQ.addEventListener("change",applyPrefs);
 document.addEventListener("click",e=>{const d=$("#disp");if(d.open&&!d.contains(e.target))d.open=false});
 applyPrefs();
 window.addEventListener("hashchange",()=>{fromUrl();sel=null;wide=false;render()});
-fromUrl();render();
+fromUrl();
+/* Reopening with no link: a saved My Post opens Near my Post on it. A link that names a view or Post wins. */
+if(!$("#post").value&&!/^#near/.test(location.hash)){const m=mySlug();if(m){$("#post").value=m;if(!location.hash&&!location.search)mode="post"}}
+render();
 fetch(DATA_URL,{cache:"no-cache"}).then(r=>r.ok?r.json():null).then(n=>{if(!n||!(n.built>D.built)||!Array.isArray(n.events))return;try{localStorage.setItem("sameEventsData",JSON.stringify(n))}catch(e){return}location.reload()}).catch(()=>{});
 }
 </script>
