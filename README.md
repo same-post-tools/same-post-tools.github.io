@@ -34,6 +34,12 @@ These files are built and published from a private working repository. Changes m
 
 The code in this repository is shared under the MIT License (`LICENSE`). The license covers the code only. It does not cover the event information in `events/data.json`, which is gathered from public listings and from the Industry Days list, or the SAME name and colors, which belong to the Society of American Military Engineers. No SAME logo is used. Third-party parts keep their own licenses (see `THIRD-PARTY-NOTICES.md`).
 
+## Credits
+
+SAME Post Tools grew out of the Industry Days list that Bobbi Jo Lang builds by hand, on her own time, every week, so Posts can plan their events around each other and members can plan their attendance. Her list, and the thinking behind it, are the foundation of this site.
+
+The tools were built by Scott DeGaro, a member of the SAME Membership Community of Interest, with the help of AI tools.
+
 ## Contact
 
 same.post.tools (at) gmail.com
