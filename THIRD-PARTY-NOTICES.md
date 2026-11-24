@@ -5,7 +5,7 @@ Everything in this repository was written for SAME Post Tools, except the items 
 | Item | Used in | Source | License |
 |---|---|---|---|
 | jsPDF 4.2.1 | Events finder, Save as PDF | Copyright (c) 2010-2021 James Hall, (c) 2015-2021 yWorks GmbH | MIT (`licenses/jspdf-LICENSE.txt`; the notice is also inside the inlined library) |
-| Atkinson Hyperlegible, Regular and Bold, Latin subset | Events finder, optional font in Options | Copyright 2020 Braille Institute of America, Inc., via the Fontsource Latin subset | SIL Open Font License 1.1 (`licenses/OFL.txt`) |
+| Atkinson Hyperlegible, Regular and Bold, Latin subset | Optional font in Options (embedded in the events finder; `assets/fonts/` for the home page) | Copyright 2020 Braille Institute of America, Inc., via the Fontsource Latin subset | SIL Open Font License 1.1 (`licenses/OFL.txt`) |
 | U.S. state, Alaska, Hawaii, and Puerto Rico outlines | Events finder map | us-atlas 3.0.1 (Copyright 2013-2019 Michael Bostock), repackaging the U.S. Census Bureau's 2017 cartographic boundary files (public domain) | ISC (notice below) |
 | Map projection | Events finder map | Written for this project; checked against d3-geo's geoAlbersUsa (Copyright 2010-2026 Mike Bostock) | ISC (notice below), as a courtesy |
 | SAME name and colors | All pages | Society of American Military Engineers | Belong to SAME. No SAME logo is used |

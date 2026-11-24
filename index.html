@@ -3,18 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; font-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'">
 <title>SAME Post Tools</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3CclipPath id='c'%3E%3Crect width='64' height='64' rx='12'/%3E%3C/clipPath%3E%3Cg clip-path='url(%23c)'%3E%3Crect width='64' height='64' fill='%231E407A'/%3E%3Crect y='52' width='64' height='12' fill='%23BF0A30'/%3E%3Cpolygon points='32.0,10.0 36.5,22.9 50.1,23.1 39.2,31.3 43.2,44.4 32.0,36.6 20.8,44.4 24.8,31.3 13.9,23.1 27.5,22.9' fill='%23fff'/%3E%3C/g%3E%3C/svg%3E">
 <meta name="description" content="Free browser tools for SAME Post leaders. Files you open are processed in your browser and never uploaded. Volunteer-built; not an official SAME National site.">
 <style>
-:root{--blue:#1E407A;--red:#BF0A30;--navy:#10234a;--ink:#14213a;--mute:#55627a;--rule:#d9e0ea;--tint:#EAF0F8;color-scheme:light dark}
+@font-face{font-family:"Atkinson Hyperlegible";font-weight:400;font-display:swap;src:url(assets/fonts/atkinson-hyperlegible-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Atkinson Hyperlegible";font-weight:700;font-display:swap;src:url(assets/fonts/atkinson-hyperlegible-latin-700-normal.woff2) format("woff2")}
+:root{--font:Arial,Helvetica,sans-serif;--blue:#1E407A;--red:#BF0A30;--navy:#10234a;--ink:#14213a;--mute:#55627a;--rule:#d9e0ea;--tint:#EAF0F8;--bg:#fff;color-scheme:light}
 *{box-sizing:border-box}
-body{margin:0;font:17px/1.55 Arial,Helvetica,sans-serif;color:var(--ink);background:#fff}
+body{margin:0;font:17px/1.55 var(--font);color:var(--ink);background:var(--bg)}
 .band{max-width:1100px;margin:0 auto;padding:0 28px}
 header{border-bottom:1px solid var(--rule)}
 header .band{display:flex;align-items:center;min-height:76px}
-.wm1{display:block;font:bold 28px Arial,Helvetica,sans-serif;letter-spacing:.04em;color:var(--blue);line-height:1}
-.wm2{display:block;font:bold 13px Arial,Helvetica,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+.wm1{display:block;font:bold 28px var(--font);letter-spacing:.04em;color:var(--blue);line-height:1}
+.wm2{display:block;font:bold 13px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
 .hero{background:linear-gradient(100deg,#0d1d3f 0%,#132b5c 60%,#1E407A 100%);color:#fff;border-bottom:6px solid var(--red)}
 .hero .band{padding-top:44px;padding-bottom:40px}
 h1{font-size:44px;line-height:1.1;margin:0 0 10px}
@@ -34,16 +37,32 @@ a{color:var(--blue)}
 .go{display:inline-block;margin-top:4px;padding:8px 14px;background:var(--blue);color:#fff;font-weight:bold;text-decoration:none;border-radius:4px}
 footer{border-top:1px solid var(--rule);margin-top:30px}
 footer .band{padding-top:18px;padding-bottom:30px;font-size:14px;color:var(--mute)}
-@media (prefers-color-scheme:dark){
- body{background:#0f1726;color:#e6ebf3}:root{--ink:#e6ebf3;--mute:#a9b4c6;--rule:#2b3a55;--navy:#dbe5f7}
- header{background:#0f1726}.wm1{color:#8fb2ee}.wm2{color:#ef6a83}a{color:#9cc0ff}
- .promise{background:#18253d;border-color:#2b3a55;border-left-color:#8fb2ee}.tool{background:#141f33}.tool.soon{background:#111a2b}
- .tag{background:#24324a;color:#c9d3e3}.go{background:#2a56a3;color:#fff}
-}
+/* Dark theme: chosen in Options, or the device setting under "Match my device" */
+:root[data-theme=dark]{color-scheme:dark;--ink:#e6ebf3;--mute:#a9b4c6;--rule:#2b3a55;--navy:#dbe5f7;--bg:#0f1726}
+:root[data-theme=dark] .wm1{color:#8fb2ee}:root[data-theme=dark] .wm2{color:#ef6a83}:root[data-theme=dark] a{color:#9cc0ff}
+:root[data-theme=dark] .promise{background:#18253d;border-color:#2b3a55;border-left-color:#8fb2ee}:root[data-theme=dark] .tool{background:#141f33}:root[data-theme=dark] .tool.soon{background:#111a2b}
+:root[data-theme=dark] .tag{background:#24324a;color:#c9d3e3}:root[data-theme=dark] .go{background:#2a56a3;color:#fff}
+/* Options menu */
+.opts{margin-left:auto;position:relative}
+.opts>summary{list-style:none;cursor:pointer;min-height:44px;display:flex;align-items:center;padding:0 16px;border:1px solid var(--blue);border-radius:4px;color:var(--blue);font:bold 15px var(--font)}
+:root[data-theme=dark] .opts>summary{border-color:#8fb2ee;color:#8fb2ee}
+.opts>summary::-webkit-details-marker{display:none}
+.opts-panel{position:absolute;right:0;top:calc(100% + 6px);z-index:30;display:grid;gap:12px;min-width:270px;padding:16px;background:var(--bg);border:1px solid var(--rule);border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.opts-panel label{display:grid;gap:4px;font-weight:bold;font-size:14px}
+.opts-panel select{font:15px var(--font);padding:6px 8px;border:1px solid var(--rule);border-radius:4px;background:var(--bg);color:var(--ink)}
 </style>
 </head>
 <body>
-<header><div class="band"><span><span class="wm1">SAME</span><span class="wm2">Post Tools</span></span></div></header>
+<header><div class="band"><span><span class="wm1">SAME</span><span class="wm2">Post Tools</span></span>
+  <details class="opts" id="opts"><summary title="Theme, font, and text size">Options</summary>
+    <div class="opts-panel">
+      <label>Theme<select id="opt-theme"><option value="system">Match my device</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+      <label>Font<select id="opt-font"><option value="arial">Arial (SAME standard)</option><option value="atkinson">Atkinson Hyperlegible (made for low vision)</option><option value="verdana">Verdana (wider, easy to read)</option><option value="georgia">Georgia (serif)</option><option value="system">My device's font</option></select></label>
+      <label>Text size<select id="opt-size"><option value="0.9">Small</option><option value="1">Normal</option><option value="1.15">Large</option><option value="1.3">Extra large</option></select></label>
+      <p style="margin:0;font-size:13px;font-weight:normal;color:var(--mute)">Saved in this browser only, and used on every SAME Post Tools page.</p>
+    </div>
+  </details>
+</div></header>
 <section class="hero"><div class="band">
   <h1>SAME Post Tools</h1>
   <p>Free browser tools for SAME Post leaders and members: find events, build newsletter pieces, and turn routine exports into reports.</p>
@@ -77,6 +96,15 @@ footer .band{padding-top:18px;padding-bottom:30px;font-size:14px;color:var(--mut
 </div></footer>
 <script>
 for(const a of document.querySelectorAll("a.mailto")){const m=a.dataset.u+"@"+a.dataset.d;a.href="mailto:"+m;a.textContent=m}
+/* Display options, shared with every SAME Post Tools page through one saved setting in this browser. */
+const FONTS={arial:"Arial,Helvetica,sans-serif",atkinson:"'Atkinson Hyperlegible',Arial,Helvetica,sans-serif",verdana:"Verdana,Geneva,sans-serif",georgia:"Georgia,'Times New Roman',serif",system:"system-ui,-apple-system,'Segoe UI',Roboto,sans-serif"};
+const KEY="samePostToolsDisplay";let PREF={theme:"system",font:"arial",size:"1"};try{Object.assign(PREF,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
+const MQ=window.matchMedia?matchMedia("(prefers-color-scheme: dark)"):null;
+function apply(){document.documentElement.dataset.theme=PREF.theme==="dark"||(PREF.theme==="system"&&MQ&&MQ.matches)?"dark":"light";document.documentElement.style.setProperty("--font",FONTS[PREF.font]||FONTS.arial);document.body.style.zoom=PREF.size;for(const k of ["theme","font","size"])document.getElementById("opt-"+k).value=PREF[k]}
+for(const k of ["theme","font","size"])document.getElementById("opt-"+k).addEventListener("change",e=>{PREF[k]=e.target.value;try{localStorage.setItem(KEY,JSON.stringify(PREF))}catch(err){}apply()});
+if(MQ&&MQ.addEventListener)MQ.addEventListener("change",apply);
+document.addEventListener("click",e=>{const d=document.getElementById("opts");if(d.open&&!d.contains(e.target))d.open=false});
+apply();
 </script>
 </body>
 </html>
