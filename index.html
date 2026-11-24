@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<title>SAME Post Tools</title>
+<meta name="description" content="Free browser tools for SAME Post leaders. Files you open are processed in your browser and never uploaded. Volunteer-built; not an official SAME National site.">
+<style>
+:root{--blue:#1E407A;--red:#BF0A30;--navy:#10234a;--ink:#14213a;--mute:#55627a;--rule:#d9e0ea;--tint:#EAF0F8;color-scheme:light dark}
+*{box-sizing:border-box}
+body{margin:0;font:17px/1.55 Arial,Helvetica,sans-serif;color:var(--ink);background:#fff}
+.band{max-width:1100px;margin:0 auto;padding:0 28px}
+header{border-bottom:1px solid var(--rule)}
+header .band{display:flex;align-items:center;min-height:76px}
+.wm1{display:block;font:bold 28px Arial,Helvetica,sans-serif;letter-spacing:.04em;color:var(--blue);line-height:1}
+.wm2{display:block;font:bold 13px Arial,Helvetica,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+.hero{background:linear-gradient(100deg,#0d1d3f 0%,#132b5c 60%,#1E407A 100%);color:#fff;border-bottom:6px solid var(--red)}
+.hero .band{padding-top:44px;padding-bottom:40px}
+h1{font-size:44px;line-height:1.1;margin:0 0 10px}
+.hero p{margin:0;max-width:760px;font-size:19px;color:#dbe5f7}
+main .band{padding-top:30px;padding-bottom:20px}
+h2{color:var(--navy);font-size:24px;margin:30px 0 12px}
+.promise{background:var(--tint);border:1px solid #c9d6ea;border-left:6px solid var(--blue);border-radius:6px;padding:16px 20px;max-width:900px}
+.promise p{margin:0 0 8px}.promise p:last-child{margin:0}
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.tool{border:1px solid var(--rule);border-top:6px solid var(--blue);border-radius:8px;padding:16px 20px;background:#fff}
+.tool.soon{border-top-color:#9aa8bd;background:#f7f9fc}
+.tool h3{margin:0 0 6px;font-size:20px;color:var(--navy)}
+.tool p{margin:0 0 10px}
+.tag{display:inline-block;font-size:12px;font-weight:bold;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:10px;background:#e6ebf2;color:var(--mute)}
+.tag.live{background:var(--blue);color:#fff}
+a{color:var(--blue)}
+.go{display:inline-block;margin-top:4px;padding:8px 14px;background:var(--blue);color:#fff;font-weight:bold;text-decoration:none;border-radius:4px}
+footer{border-top:1px solid var(--rule);margin-top:30px}
+footer .band{padding-top:18px;padding-bottom:30px;font-size:14px;color:var(--mute)}
+@media (prefers-color-scheme:dark){
+ body{background:#0f1726;color:#e6ebf3}:root{--ink:#e6ebf3;--mute:#a9b4c6;--rule:#2b3a55;--navy:#dbe5f7}
+ header{background:#0f1726}.wm1{color:#8fb2ee}.wm2{color:#ef6a83}a{color:#9cc0ff}
+ .promise{background:#18253d;border-color:#2b3a55;border-left-color:#8fb2ee}.tool{background:#141f33}.tool.soon{background:#111a2b}
+ .tag{background:#24324a;color:#c9d3e3}.go{background:#2a56a3;color:#fff}
+}
+</style>
+</head>
+<body>
+<header><div class="band"><span><span class="wm1">SAME</span><span class="wm2">Post Tools</span></span></div></header>
+<section class="hero"><div class="band">
+  <h1>SAME Post Tools</h1>
+  <p>Free browser tools for SAME Post leaders and members: find events, build newsletter pieces, and turn routine exports into reports.</p>
+</div></section>
+<main><div class="band">
+  <div class="promise">
+    <p><strong>Your files stay on your computer.</strong> Every tool here runs entirely in your web browser. Files you open in a tool are read and processed on your own device and are never uploaded, sent, or saved anywhere else. There is no account, no sign-in, and no tracking.</p>
+    <p>You can check this yourself: each page blocks outside connections, and the code is public. Try a tool with your internet turned off; it still works.</p>
+  </div>
+
+  <h2>Tools</h2>
+  <div class="tools">
+    <div class="tool">
+      <span class="tag live">Available</span>
+      <h3>SAME Events Near You</h3>
+      <p>Industry days, conferences, Post meetings, and golf events across SAME, by month, by driving distance from a Post, or on a calendar. Save any view as a PDF or a newsletter block.</p>
+      <a class="go" href="events/">Open the events finder</a>
+    </div>
+    <div class="tool soon"><span class="tag">Coming</span><h3>Word to web page</h3><p>Turn a Word file into clean text for a StarChapter page or an email newsletter.</p></div>
+    <div class="tool soon"><span class="tag">Coming</span><h3>Newsletter block builder</h3><p>Build an email-safe newsletter section from a simple form, with events pulled from the events finder.</p></div>
+    <div class="tool soon"><span class="tag">Coming</span><h3>StarChapter attendance report</h3><p>Open your StarChapter registration exports and get attendance by meeting, first-time attendees, and member and non-member counts.</p></div>
+    <div class="tool soon"><span class="tag">Coming</span><h3>PDH certificates</h3><p>Turn a sign-in or registration list into a certificate for each attendee and a record list.</p></div>
+  </div>
+
+  <h2>About</h2>
+  <p>Built by Scott DeGaro, a member of the SAME Membership Community of Interest, with the help of AI tools. The events finder is built on the Industry Days list that Bobbi Jo Lang compiles by hand every week.</p>
+  <p>Questions, suggestions, or problems: <a class="mailto" data-u="same.post.tools" data-d="gmail.com" href="#">same.post.tools (at) gmail.com</a></p>
+</div></main>
+<footer><div class="band">
+  SAME Post Tools is a volunteer-built member resource, not an official SAME National site. The SAME name and colors belong to the Society of American Military Engineers. Code is shared under the MIT License; see the <a href="https://github.com/same-post-tools/same-post-tools.github.io">source code and license notices</a>.
+</div></footer>
+<script>
+for(const a of document.querySelectorAll("a.mailto")){const m=a.dataset.u+"@"+a.dataset.d;a.href="mailto:"+m;a.textContent=m}
+</script>
+</body>
+</html>
