@@ -44,6 +44,7 @@ a{color:var(--blue)}
 .go{display:inline-block;margin-top:4px;padding:8px 14px;background:var(--blue);color:#fff;font-weight:bold;text-decoration:none;border-radius:4px}
 .about{background:#f6f7f9;border:1px solid var(--rule);border-radius:8px;padding:6px 22px 8px;max-width:900px;margin-top:36px}
 .about h2{margin-top:16px}
+.about ul{margin:0 0 10px;padding-left:22px}.about li{margin:0 0 8px}#help+.about{margin-top:16px}
 footer{border-top:1px solid var(--rule);margin-top:30px}
 footer .band{padding-top:18px;padding-bottom:30px;font-size:14px;color:var(--mute)}
 /* Dark theme: chosen in Options, or the device setting under "Match my device" */
@@ -112,6 +113,25 @@ footer .band{padding-top:18px;padding-bottom:30px;font-size:14px;color:var(--mut
     <div class="tool soon"><span class="tag">Coming soon</span><h3>PDH certificates</h3><p>Turn a sign-in or registration list into a certificate for each attendee and a record list.</p></div>
   </div>
 
+  <section class="about" id="help">
+  <h2>Help build SAME Post Tools</h2>
+  <p>SAME Post Tools is built by volunteers for Posts. You do not need to write code to help.</p>
+  <ul>
+    <li><strong>Report a problem or suggest an idea.</strong> Use the <a href="https://github.com/same-post-tools/same-post-tools.github.io/issues/new/choose">problem and idea forms on GitHub</a>, or email the address below. Never include member names, email addresses, rosters, or exports in a report.</li>
+    <li><strong>Try a tool with your Post.</strong> Open your own Post's files in a tool and tell us what is wrong, missing, or confusing. Your files stay on your computer while you test.</li>
+    <li><strong>Review the code.</strong> Every page that runs in your browser is public in the <a href="https://github.com/same-post-tools/same-post-tools.github.io">SAME Post Tools repository on GitHub</a>. Reviewers can check the outside-connection block at the top of each page and the checks that run on every file a tool opens and every export it makes.</li>
+    <li><strong>Suggest a change to the code.</strong> Pull requests are welcome as proposals. The pages are built from a separate working copy, so an accepted change is applied there by hand, credited to you, and the pull request is then closed.</li>
+  </ul>
+  <h2>Spread the word</h2>
+  <ul>
+    <li><strong>Share it with your Post.</strong> Show the tools to your Board, your newsletter editor, and whoever plans your events.</li>
+    <li><strong>Tell us what helps.</strong> Which tools your Post uses, and which you would use next, decides what gets built.</li>
+  </ul>
+  <h2>Security</h2>
+  <p>Nothing you open in a tool leaves your computer. Each page blocks outside connections; the only exception is the events finder, which reads its own event list from this site. Every file a tool opens is checked before it is used, and every export is checked for contact details before it leaves your computer.</p>
+  <p>If you find a weakness, please report it privately, not in a public issue. <a href="https://github.com/same-post-tools/same-post-tools.github.io/security/policy">Read the security policy</a> or <a href="https://github.com/same-post-tools/same-post-tools.github.io/security/advisories/new">report a vulnerability</a>.</p>
+  </section>
+
   <section class="about">
   <h2>About</h2>
   <p>SAME Post Tools grew out of the Industry Days list that <strong>Bobbi Jo Lang</strong> builds by hand, on her own time, every week, so Posts can plan their events around each other and members can plan their attendance. Her list is the foundation of this site.</p>
@@ -120,7 +140,7 @@ footer .band{padding-top:18px;padding-bottom:30px;font-size:14px;color:var(--mut
   </section>
 </div></main>
 <footer><div class="band">
-  <p style="margin:0 0 6px">SAME Post Tools site version 0.6.1.</p>
+  <p style="margin:0 0 6px">SAME Post Tools site version 0.6.2.</p>
   SAME Post Tools is a volunteer-built member resource, not an official SAME National site. The SAME name and colors belong to the Society of American Military Engineers. Code is shared under the MIT License; see the <a href="https://github.com/same-post-tools/same-post-tools.github.io">source code and license notices</a>.
 </div></footer>
 <script>
