@@ -38,7 +38,7 @@ These files are built and published from a private working repository. Changes m
 
 SAME Post Tools is built by volunteers for Posts. You do not need to write code to help.
 
-- **Report a problem or suggest an idea.** Use the [problem and idea forms](https://github.com/same-post-tools/same-post-tools.github.io/issues/new/choose), or email the address under Contact. Never include member names, email addresses, rosters, or exports in a report.
+- **Report a problem or suggest an idea.** Use the [feedback form](https://docs.google.com/forms/d/e/1FAIpQLScYdwRseh5rTPF0kljTpPXaNCszXTMybdXyBZqntq3vd8BylQ/viewform) (no account needed, not published), the public [problem and idea forms](https://github.com/same-post-tools/same-post-tools.github.io/issues/new/choose), or email the address under Contact. Never include member names, email addresses, rosters, or exports in a report.
 - **Try a tool with your Post.** Open your own Post's files in a tool and tell us what is wrong, missing, or confusing. Your files stay on your computer while you test.
 - **Review the code.** Every page that runs in the browser is in this repository. Check the Content Security Policy at the top of each page and the load and export checks inside it.
 - **Suggest a change to the code.** Pull requests are welcome as proposals. The pages are built from a separate working copy, so an accepted change is applied there by hand, credited to you, and the pull request is then closed.
@@ -67,5 +67,8 @@ SAME Post Tools grew out of the Industry Days list that Bobbi Jo Lang builds by 
 The tools grew from an idea of Scott DeGaro's: group events that fall in the same week and region into one trip, first tried as a Gulf Coast trip in December 2026. Scott, a member of the SAME Membership Community of Interest, built them with the help of AI tools. The other tools formalize work Scott was already doing for his own Post, so any Post can use them.
 
 ## Contact
+
+[Get email updates](https://docs.google.com/forms/d/e/1FAIpQLSeKe6ADycw1KQlhaF2xdB63aE2GuGtt-yxdSYvzb32ss5bXMA/viewform) when a tool is added or changed.
+
 
 same.post.tools (at) gmail.com
