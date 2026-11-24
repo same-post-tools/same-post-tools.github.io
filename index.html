@@ -88,14 +88,14 @@ footer .band{padding-top:18px;padding-bottom:30px;font-size:14px;color:var(--mut
       <span class="banner">Available now</span>
       <h3>SAME Events Near You</h3>
       <p>Industry days, conferences, Post meetings, and golf events across SAME, by month, by driving distance from a Post, or on a calendar. Save any view as a PDF or a newsletter block.</p>
-      <p class="ver">Version 1.2 &middot; Data: Industry Days list of November 23, 2026</p>
+      <p class="ver">Version 1.3 &middot; Data: Industry Days list of November 23, 2026</p>
       <a class="go" href="events/">Open the events finder</a>
     </div>
     <div class="tool">
       <span class="banner">Available now</span>
       <h3>SAME Post Membership Numbers</h3>
       <p>Every Post's individual and organization member counts from SAME National's monthly reports since January 2023: changes this month and this year, trends, and a one-page report for your Post. Open National's newest PDF to add it.</p>
-      <p class="ver">Version 1.2 &middot; Data: National report of November 1, 2026</p>
+      <p class="ver">Version 1.3 &middot; Data: National report of November 1, 2026</p>
       <a class="go" href="membership/">Open membership numbers</a>
     </div>
     <div class="tool soon"><span class="tag">Coming soon</span><h3>Word to web page</h3><p>Turn a Word file into clean text for a StarChapter page or an email newsletter.</p></div>
@@ -113,14 +113,14 @@ footer .band{padding-top:18px;padding-bottom:30px;font-size:14px;color:var(--mut
   </section>
 </div></main>
 <footer><div class="band">
-  <p style="margin:0 0 6px">SAME Post Tools site version 1.2.</p>
+  <p style="margin:0 0 6px">SAME Post Tools site version 1.3.</p>
   SAME Post Tools is a volunteer-built member resource, not an official SAME National site. The SAME name and colors belong to the Society of American Military Engineers. Code is shared under the MIT License; see the <a href="https://github.com/same-post-tools/same-post-tools.github.io">source code and license notices</a>.
 </div></footer>
 <script>
 for(const a of document.querySelectorAll("a.mailto")){const m=a.dataset.u+"@"+a.dataset.d;a.href="mailto:"+m;a.textContent=m}
 /* Display options, shared with every SAME Post Tools page through one saved setting in this browser. */
 const FONTS={arial:"Arial,Helvetica,sans-serif",atkinson:"'Atkinson Hyperlegible',Arial,Helvetica,sans-serif",verdana:"Verdana,Geneva,sans-serif",georgia:"Georgia,'Times New Roman',serif",system:"system-ui,-apple-system,'Segoe UI',Roboto,sans-serif"};
-const KEY="samePostToolsDisplay";let PREF={theme:"system",font:"arial",size:"1"};try{Object.assign(PREF,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
+const KEY="samePostToolsDisplay";let PREF={theme:"system",font:"arial",size:"1"};try{const p=JSON.parse(localStorage.getItem(KEY)||"{}")||{};/* only known values (load check) */if(["system","light","dark"].includes(p.theme))PREF.theme=p.theme;if(Object.prototype.hasOwnProperty.call(FONTS,p.font))PREF.font=p.font;if(["0.9","1","1.15","1.3"].includes(String(p.size)))PREF.size=String(p.size)}catch(e){}
 const MQ=window.matchMedia?matchMedia("(prefers-color-scheme: dark)"):null;
 function apply(){document.documentElement.dataset.theme=PREF.theme==="dark"||(PREF.theme==="system"&&MQ&&MQ.matches)?"dark":"light";document.documentElement.style.setProperty("--font",FONTS[PREF.font]||FONTS.arial);document.body.style.zoom=PREF.size;for(const k of ["theme","font","size"])document.getElementById("opt-"+k).value=PREF[k]}
 for(const k of ["theme","font","size"])document.getElementById("opt-"+k).addEventListener("change",e=>{PREF[k]=e.target.value;try{localStorage.setItem(KEY,JSON.stringify(PREF))}catch(err){}apply()});
