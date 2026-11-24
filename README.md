@@ -12,15 +12,15 @@ Each page carries a Content Security Policy that blocks outside connections. The
 
 ## Tools
 
-| Tool | Address | Status |
-|---|---|---|
-| SAME Events Near You | [/events/](https://same-post-tools.github.io/events/) | Available |
-| SAME Post Membership Numbers | [/membership/](https://same-post-tools.github.io/membership/) | Available |
-| SAME Post Member Roster Report | [/roster/](https://same-post-tools.github.io/roster/) | Available |
-| Word to web page | | Coming |
-| Newsletter block builder | | Coming |
-| StarChapter attendance report | | Coming |
-| PDH certificates | | Coming |
+| Section | Tool | Address | Status |
+|---|---|---|---|
+| For members | SAME Events Near You | [/events/](https://same-post-tools.github.io/events/) | Available |
+| For all Posts | SAME Post Membership Numbers | [/membership/](https://same-post-tools.github.io/membership/) | Available |
+| For all Posts | SAME Post Member Roster Report | [/roster/](https://same-post-tools.github.io/roster/) | Available |
+| For all Posts | Word to web page | | Coming |
+| For all Posts | Newsletter block builder | | Coming |
+| For all Posts | PDH certificates | | Coming |
+| For Posts on specific platforms | StarChapter attendance report | | Coming |
 
 ## What is here
 
