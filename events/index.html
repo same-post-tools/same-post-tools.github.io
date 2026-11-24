@@ -952,7 +952,7 @@ const D={"map":{"w":975,"h":610,"states":[{"n":"Alabama","d":"M648,492.4L648,492
    the newest it has seen in this browser, so copies passed around by email stay current. The connection rule above
    allows only that one address; nothing is ever sent from this page. */
 const DATA_URL="https://same-post-tools.github.io/events/data.json";
-const TOOL_VERSION="1.4";
+const TOOL_VERSION="0.5.0";
 /* Load checks (GUARD): the built-in list, a saved newer list, and any online list are all checked item by item. */
 {const b=GUARD.eventList(D);if(b){D.events=b.events;D.posts=b.posts}}
 try{const c=GUARD.eventList(JSON.parse(localStorage.getItem("sameEventsData")||"null"));if(c&&c.built>D.built){D.events=c.events;D.posts=c.posts;D.wb=c.wb;D.built=c.built;D.online=1}else if(localStorage.getItem("sameEventsData")&&!c)localStorage.removeItem("sameEventsData")}catch(e){try{localStorage.removeItem("sameEventsData")}catch(e2){}}
