@@ -1,8 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Security problem
-    url: https://github.com/same-post-tools/same-post-tools.github.io/security/advisories/new
-    about: Report it privately here, not in a public issue.
   - name: Private question or anything involving member information
-    url: mailto:same.post.tools@gmail.com
-    about: Email same.post.tools@gmail.com. Use this for anything you would not want public.
+    url: https://github.com/same-post-tools/same-post-tools.github.io#contact
+    about: Email the address in the Contact section instead. Use it for anything you would not want public.
