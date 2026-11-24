@@ -7,7 +7,7 @@ SAME Post Tools runs entirely in your web browser. Files you open are processed 
 If you find a way for a page to send data off your device, run a script it should not, or accept a file or event listing that breaks it, please report it privately:
 
 - On GitHub: the **Security** tab of this repository, then **Report a vulnerability**.
-- By email: same.post.tools (at) gmail.com
+- By email: [same.post.tools@gmail.com](mailto:same.post.tools@gmail.com)
 
 Please do not open a public issue for a security problem, and never post member names, email addresses, rosters, exports, or other personal information in an issue.
 

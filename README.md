@@ -71,4 +71,4 @@ The tools grew from an idea of Scott DeGaro's: group events that fall in the sam
 [Get email updates](https://docs.google.com/forms/d/e/1FAIpQLSeKe6ADycw1KQlhaF2xdB63aE2GuGtt-yxdSYvzb32ss5bXMA/viewform) when a tool is added or changed.
 
 
-same.post.tools (at) gmail.com
+[same.post.tools@gmail.com](mailto:same.post.tools@gmail.com)
