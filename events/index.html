@@ -336,7 +336,7 @@ summary{font-weight:bold;cursor:pointer;min-height:44px;display:flex;align-items
 
   <h2>Disclaimer</h2>
   <div class="notice">
-    <p><strong>This is a volunteer-built member resource, not an official SAME National website or service.</strong> It is not endorsed by SAME National, and nothing here speaks for SAME National, any Post, any agency, or any company.</p>
+    <p><strong>This is a volunteer-built member resource, not an official SAME National website or service.</strong> It is not endorsed, licensed, sponsored, or approved by SAME National or any SAME Post, and nothing here speaks for SAME National, any Post, any agency, or any company.</p>
     <p>Event details come from public listings and member-kept lists and may be incomplete, out of date, or wrong. Dates, times, places, prices, and registration change: confirm with the host before you register or travel. Drive times are rough estimates from straight-line distance, not driving directions, and are measured from each Post's home city. Members live across a Post's whole area, so your own drive may be shorter or longer. Events are placed at their venue city when listed, otherwise at the host Post.</p>
     <p>Event titles link to the event's own page or registration where one could be found. Where none could be found, the title links to the host Post's website and is marked "Link: Post website." A few events have no link because no page for the event or its host could be reached.</p>
     <p>Listing an event, host, agency, or company is not an endorsement. Links go to other websites, whose content and privacy practices are their own.</p>
@@ -498,6 +498,7 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
 </section>
 <footer class="band">
   <p id="ver"></p>
+  <p>SAME Post Tools is a volunteer-built member resource, not an official SAME National site, and is not endorsed, licensed, sponsored, or approved by SAME National or any SAME Post.</p>
   <p>Drive times are rough estimates from straight-line distance. A grouping is events in the same work week (Monday to Sunday), each within the chosen driving distance of another one in the group. Events are placed at their venue city when it is listed, otherwise at the host Post. Dates and details change: confirm with the host before you register or travel. State boundaries: U.S. Census Bureau cartographic boundary files (2017) via us-atlas (ISC license); Alaska, Hawaii, and Puerto Rico are shown as insets.</p>
 </footer>
 <script>/** @license
@@ -966,7 +967,7 @@ const D={"map":{"w":975,"h":610,"states":[{"n":"Alabama","d":"M648,492.4L648,492
    the newest it has seen in this browser, so copies passed around by email stay current. The connection rule above
    allows only that one address; nothing is ever sent from this page. */
 const DATA_URL="https://same-post-tools.github.io/events/data.json";
-const TOOL_VERSION="0.5.1";
+const TOOL_VERSION="0.5.2";
 /* Load checks (GUARD): the built-in list, a saved newer list, and any online list are all checked item by item. */
 {const b=GUARD.eventList(D);if(b){D.events=b.events;D.posts=b.posts}}
 try{const c=GUARD.eventList(JSON.parse(localStorage.getItem("sameEventsData")||"null"));if(c&&c.built>D.built){D.events=c.events;D.posts=c.posts;D.wb=c.wb;D.built=c.built;D.online=1}else if(localStorage.getItem("sameEventsData")&&!c)localStorage.removeItem("sameEventsData")}catch(e){try{localStorage.removeItem("sameEventsData")}catch(e2){}}

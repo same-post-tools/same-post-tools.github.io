@@ -54,17 +54,28 @@ footer .band{padding-top:18px;padding-bottom:30px;font-size:14px;color:var(--mut
 :root[data-theme=dark] .promise,:root[data-theme=dark] .about{background:#161f30;border-color:#2b3a55;border-left-color:#5d6b84}:root[data-theme=dark] .tool{background:#141f33}:root[data-theme=dark] .tool.soon{background:#111a2b;color:#7f8aa0}:root[data-theme=dark] .tool.soon h3{color:#8b96ab}:root[data-theme=dark] .tool .banner{background:#BF0A30}
 :root[data-theme=dark] .tag{background:#24324a;color:#c9d3e3}:root[data-theme=dark] .go{background:#2a56a3;color:#fff}
 /* Options menu */
-.opts{margin-left:auto;position:relative}
+.topbtns{margin-left:auto;display:flex;gap:8px;align-items:center}
+@media(max-width:520px){header .band{position:relative}.topbtns{margin-left:0;width:100%;padding-bottom:10px}.topbtn,.opts>summary{padding:0 12px}}
+.topbtn{min-height:44px;padding:0 16px;border:1px solid var(--blue);border-radius:4px;background:transparent;color:var(--blue);font:bold 15px var(--font);cursor:pointer}
+:root[data-theme=dark] .topbtn{border-color:#8fb2ee;color:#8fb2ee}
+.opts{position:relative}
+header .band{flex-wrap:wrap;gap:8px 0}
+dialog.panel{max-width:760px;width:calc(100% - 32px);border:1px solid var(--rule);border-radius:8px;padding:8px 28px 18px;background:var(--bg);color:var(--ink);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+dialog.panel::backdrop{background:rgba(10,20,40,.55)}
+dialog.panel h2{margin-top:18px}dialog.panel ul{margin:0 0 10px;padding-left:22px}dialog.panel li{margin:0 0 8px}
+.x{float:right;margin:8px -12px 0 0;width:44px;height:44px;border:0;background:transparent;color:var(--mute);font-size:28px;cursor:pointer}
 .opts>summary{list-style:none;cursor:pointer;min-height:44px;display:flex;align-items:center;padding:0 16px;border:1px solid var(--blue);border-radius:4px;color:var(--blue);font:bold 15px var(--font)}
 :root[data-theme=dark] .opts>summary{border-color:#8fb2ee;color:#8fb2ee}
 .opts>summary::-webkit-details-marker{display:none}
 .opts-panel{position:absolute;right:0;top:calc(100% + 6px);z-index:30;display:grid;gap:12px;min-width:270px;padding:16px;background:var(--bg);border:1px solid var(--rule);border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
 .opts-panel label{display:grid;gap:4px;font-weight:bold;font-size:14px}
 .opts-panel select{font:15px var(--font);padding:6px 8px;border:1px solid var(--rule);border-radius:4px;background:var(--bg);color:var(--ink)}
+@media(max-width:520px){.opts{position:static}.opts-panel{left:16px;right:16px;min-width:0;top:calc(100% - 4px)}}
 </style>
 </head>
 <body>
 <header><div class="band"><span class="wordmark"><span class="unofficial">Unofficial</span><span class="wm1">SAME</span><span class="wm2">Post Tools</span></span>
+  <nav class="topbtns"><button type="button" class="topbtn" data-open="dlg-help">Help build</button><button type="button" class="topbtn" data-open="dlg-security">Security</button>
   <details class="opts" id="opts"><summary title="Theme, font, and text size">Options</summary>
     <div class="opts-panel">
       <label>Theme<select id="opt-theme"><option value="system">Match my device</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
@@ -73,10 +84,11 @@ footer .band{padding-top:18px;padding-bottom:30px;font-size:14px;color:var(--mut
       <p style="margin:0;font-size:13px;font-weight:normal;color:var(--mute)">Saved in this browser only, and used on every SAME Post Tools page.</p>
     </div>
   </details>
+  </nav>
 </div></header>
 <section class="hero"><div class="band">
   <h1>SAME Post Tools</h1>
-  <p>Free, unofficial browser tools for SAME Post leaders and members: find events, track Post membership, build newsletter pieces, and turn routine exports into reports.</p>
+  <p>Free, unofficial browser tools for SAME Post leaders and members: find events, track Post membership, build newsletter pieces, and turn routine exports into reports. The goal is to bring information and open up insights for Posts of all sizes.</p>
 </div></section>
 <main><div class="band">
   <div class="promise">
@@ -91,7 +103,7 @@ footer .band{padding-top:18px;padding-bottom:30px;font-size:14px;color:var(--mut
       <span class="banner">Available now</span>
       <h3>SAME Events Near You</h3>
       <p>Industry days, conferences, Post meetings, and golf events across SAME, by month, by driving distance from a Post, or on a calendar. Save any view as a PDF or a newsletter block.</p>
-      <p class="ver">Version 0.5.1 &middot; Data: Industry Days list of November 23, 2026</p>
+      <p class="ver">Version 0.5.2 &middot; Data: Industry Days list of November 23, 2026</p>
       <a class="go" href="events/">Open the events finder</a>
     </div>
   </div>
@@ -103,14 +115,14 @@ footer .band{padding-top:18px;padding-bottom:30px;font-size:14px;color:var(--mut
       <span class="banner">Available now</span>
       <h3>SAME Post Membership Numbers</h3>
       <p>Every Post's individual and organization member counts from SAME National's monthly reports since January 2023: changes this month and this year, trends, and a one-page report for your Post. Open National's newest PDF to add it.</p>
-      <p class="ver">Version 0.5.1 &middot; Data: National report of November 1, 2026</p>
+      <p class="ver">Version 0.5.2 &middot; Data: National report of November 1, 2026</p>
       <a class="go" href="membership/">Open membership numbers</a>
     </div>
     <div class="tool">
       <span class="banner">Available now</span>
       <h3>SAME Post Member Roster Report</h3>
       <p>For Post officers: open your Post's roster export from National and see members by type, renewals coming due, who joined or lapsed since an earlier export, and a member map of where your members are. Contact details are dropped as the file is read and never leave your computer.</p>
-      <p class="ver">Version 0.6.0 &middot; Data: none built in; reads only the files you open</p>
+      <p class="ver">Version 0.6.1 &middot; Data: none built in; reads only the files you open</p>
       <a class="go" href="roster/">Open the roster report</a>
     </div>
     <div class="tool soon"><span class="tag">Coming soon</span><h3>Word to web page</h3><p>Turn a Word file into clean text for a StarChapter page or an email newsletter.</p></div>
@@ -119,16 +131,23 @@ footer .band{padding-top:18px;padding-bottom:30px;font-size:14px;color:var(--mut
   </div>
 
   <h2>For Posts on specific platforms</h2>
-  <p class="sec-intro">Tools that work with one platform's exports, starting with StarChapter.</p>
+  <p class="sec-intro">Tools that read a specific platform's exports, starting with StarChapter and Eventbrite.</p>
   <div class="tools">
-    <div class="tool soon"><span class="tag">Coming soon</span><h3>StarChapter attendance report</h3><p>Open your StarChapter registration exports and get attendance by meeting, first-time attendees, and member and non-member counts.</p></div>
+    <div class="tool soon"><span class="tag">Coming soon</span><h3>Event attendance report</h3><p>Open your StarChapter or Eventbrite registration exports and see attendance by event, first-time attendees, member and non-member counts, and where attendees came from.</p></div>
   </div>
 
-  <section class="about" id="help">
-  <h2>Help build SAME Post Tools</h2>
+  <section class="about">
+  <h2>About</h2>
+  <p>SAME Post Tools grew out of the Industry Days list that <strong>Bobbi Jo Lang</strong> builds by hand, on her own time, every week, so Posts can plan their events around each other and members can plan their attendance. Her list is the foundation of this site.</p>
+  <p>The tools grew from an idea of <strong>Scott DeGaro</strong>'s: group events that fall in the same week and region into one trip, first tried as a Gulf Coast trip in December 2026. Scott, a member of the SAME Membership Community of Interest, built them with the help of AI tools. The other tools formalize work Scott was already doing for his own Post, so any Post can use them.</p>
+  <p>Questions, suggestions, or problems: <a class="mailto" data-u="same.post.tools" data-d="gmail.com" href="#">same.post.tools (at) gmail.com</a></p>
+  </section>
+</div></main>
+<dialog class="panel" id="dlg-help" aria-labelledby="h-help"><button class="x" type="button" data-close aria-label="Close">&times;</button>
+<h2 id="h-help">Help build SAME Post Tools</h2>
   <p>SAME Post Tools is built by volunteers for Posts. You do not need to write code to help.</p>
   <ul>
-    <li><strong>Report a problem or suggest an idea.</strong> Use the <a href="https://github.com/same-post-tools/same-post-tools.github.io/issues/new/choose">problem and idea forms on GitHub</a>, or email the address below. Never include member names, email addresses, rosters, or exports in a report.</li>
+    <li><strong>Report a problem or suggest an idea.</strong> Use the <a href="https://github.com/same-post-tools/same-post-tools.github.io/issues/new/choose">problem and idea forms on GitHub</a>, or email same.post.tools (at) gmail.com. Never include member names, email addresses, rosters, or exports in a report.</li>
     <li><strong>Try a tool with your Post.</strong> Open your own Post's files in a tool and tell us what is wrong, missing, or confusing. Your files stay on your computer while you test.</li>
     <li><strong>Review the code.</strong> Every page that runs in your browser is public in the <a href="https://github.com/same-post-tools/same-post-tools.github.io">SAME Post Tools repository on GitHub</a>. Reviewers can check the outside-connection block at the top of each page and the checks that run on every file a tool opens and every export it makes.</li>
     <li><strong>Suggest a change to the code.</strong> Pull requests are welcome as proposals. The pages are built from a separate working copy, so an accepted change is applied there by hand, credited to you, and the pull request is then closed.</li>
@@ -138,23 +157,21 @@ footer .band{padding-top:18px;padding-bottom:30px;font-size:14px;color:var(--mut
     <li><strong>Share it with your Post.</strong> Show the tools to your Board, your newsletter editor, and whoever plans your events.</li>
     <li><strong>Tell us what helps.</strong> Which tools your Post uses, and which you would use next, decides what gets built.</li>
   </ul>
-  <h2>Security</h2>
+</dialog>
+<dialog class="panel" id="dlg-security" aria-labelledby="h-sec"><button class="x" type="button" data-close aria-label="Close">&times;</button>
+<h2 id="h-sec">Security</h2>
   <p>Nothing you open in a tool leaves your computer. Each page blocks outside connections; the only exception is the events finder, which reads its own event list from this site. Every file a tool opens is checked before it is used, and every export is checked for contact details before it leaves your computer.</p>
   <p>If you find a weakness, please report it privately, not in a public issue. <a href="https://github.com/same-post-tools/same-post-tools.github.io/security/policy">Read the security policy</a> or <a href="https://github.com/same-post-tools/same-post-tools.github.io/security/advisories/new">report a vulnerability</a>.</p>
-  </section>
-
-  <section class="about">
-  <h2>About</h2>
-  <p>SAME Post Tools grew out of the Industry Days list that <strong>Bobbi Jo Lang</strong> builds by hand, on her own time, every week, so Posts can plan their events around each other and members can plan their attendance. Her list is the foundation of this site.</p>
-  <p>The tools grew from an idea of <strong>Scott DeGaro</strong>'s: group events that fall in the same week and region into one trip, first tried as a Gulf Coast trip in December 2026. Scott, a member of the SAME Membership Community of Interest, built them with the help of AI tools. The other tools formalize work Scott was already doing for his own Post, so any Post can use them.</p>
-  <p>Questions, suggestions, or problems: <a class="mailto" data-u="same.post.tools" data-d="gmail.com" href="#">same.post.tools (at) gmail.com</a></p>
-  </section>
-</div></main>
+  <p>Questions: same.post.tools (at) gmail.com.</p>
+</dialog>
 <footer><div class="band">
-  <p style="margin:0 0 6px">SAME Post Tools site version 0.6.4.</p>
+  <p style="margin:0 0 6px">SAME Post Tools site version 0.7.0.</p>
   SAME Post Tools is a volunteer-built member resource, not an official SAME National site. SAME Post Tools is not endorsed, licensed, sponsored, or approved by SAME National or any SAME Post. The SAME name and colors belong to the Society of American Military Engineers. Code is shared under the MIT License; see the <a href="https://github.com/same-post-tools/same-post-tools.github.io">source code and license notices</a>.
 </div></footer>
 <script>
+for(const b of document.querySelectorAll("[data-open]"))b.addEventListener("click",()=>{const d=document.getElementById(b.dataset.open);if(d.showModal)d.showModal();else d.setAttribute("open","")});
+for(const d of document.querySelectorAll("dialog.panel")){d.querySelector("[data-close]").addEventListener("click",()=>d.close());d.addEventListener("click",e=>{if(e.target===d)d.close()})}
+{const h={"#help":"dlg-help","#security":"dlg-security"}[location.hash];if(h){const d=document.getElementById(h);if(d.showModal)d.showModal()}}
 for(const a of document.querySelectorAll("a.mailto")){const m=a.dataset.u+"@"+a.dataset.d;a.href="mailto:"+m;a.textContent=m}
 /* Display options, shared with every SAME Post Tools page through one saved setting in this browser. */
 const FONTS={arial:"Arial,Helvetica,sans-serif",atkinson:"'Atkinson Hyperlegible',Arial,Helvetica,sans-serif",verdana:"Verdana,Geneva,sans-serif",georgia:"Georgia,'Times New Roman',serif",system:"system-ui,-apple-system,'Segoe UI',Roboto,sans-serif"};

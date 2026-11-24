@@ -1,6 +1,6 @@
 # SAME Post Tools
 
-Free browser tools for SAME Post leaders and members. Live at **https://same-post-tools.github.io/**.
+Free browser tools for SAME Post leaders and members. The goal is to bring information and open up insights for Posts of all sizes. Live at **https://same-post-tools.github.io/**.
 
 Unofficial and volunteer-built; not an official SAME National site. SAME Post Tools is not endorsed, licensed, sponsored, or approved by SAME National or any SAME Post.
 
@@ -20,7 +20,7 @@ Each page carries a Content Security Policy that blocks outside connections. The
 | For all Posts | Word to web page | | Coming |
 | For all Posts | Newsletter block builder | | Coming |
 | For all Posts | PDH certificates | | Coming |
-| For Posts on specific platforms | StarChapter attendance report | | Coming |
+| For Posts on specific platforms | Event attendance report (StarChapter, Eventbrite) | | Coming |
 
 ## What is here
 
