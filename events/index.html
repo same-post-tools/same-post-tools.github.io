@@ -35,6 +35,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--font);o
 .wm1{font:bold 28px var(--font);letter-spacing:.04em;color:var(--blue)}
 .wm2{font:bold 13px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
 a.wordmark{text-decoration:none}
+.unofficial{font:bold 10px var(--font);letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:2px}
 .home{font:bold 15px var(--font);color:var(--blue);text-decoration:none;min-height:44px;display:flex;align-items:center}
 .home:hover,.home:focus{text-decoration:underline}
 :root[data-theme=dark] .home{color:#8fb2ee}
@@ -225,7 +226,7 @@ summary{font-weight:bold;cursor:pointer;min-height:44px;display:flex;align-items
 <body data-mode="month">
 <header>
   <nav class="topbar" aria-label="SAME events">
-    <a class="wordmark" href="https://same-post-tools.github.io/" title="SAME Post Tools home"><span class="wm1">SAME</span><span class="wm2">Events Near You</span></a>
+    <a class="wordmark" href="https://same-post-tools.github.io/" title="SAME Post Tools home"><span class="unofficial">Unofficial</span><span class="wm1">SAME</span><span class="wm2">Events Near You</span></a>
     <a class="home" href="https://same-post-tools.github.io/">&larr; All SAME Post Tools</a>
     <details class="disp" id="disp"><summary title="Theme, font, and text size">Options</summary>
       <div class="disp-panel">
@@ -874,6 +875,7 @@ const D={"map":{"w":975,"h":610,"states":[{"n":"Alabama","d":"M648,492.4L648,492
    the newest it has seen in this browser, so copies passed around by email stay current. The connection rule above
    allows only that one address; nothing is ever sent from this page. */
 const DATA_URL="https://same-post-tools.github.io/events/data.json";
+const TOOL_VERSION="1.1";
 try{const c=JSON.parse(localStorage.getItem("sameEventsData")||"null");if(c&&c.built>D.built&&Array.isArray(c.events)&&Array.isArray(c.posts)){D.events=c.events;D.posts=c.posts;D.wb=c.wb;D.built=c.built;D.online=1}}catch(e){}
 const $=s=>document.querySelector(s);
 const KIND={industry:"Industry day or conference",post:"Post meeting or social",golf:"Golf or sporting",veteran:"Veteran"};
@@ -906,7 +908,7 @@ $("#month").innerHTML=MONTHS.map(m=>`<option value="${m}">${fmt(m+"-01",{month:"
 {const asof=fmt(D.built,{month:"long",day:"numeric",year:"numeric"}),age=Math.round((dt(today)-dt(D.built))/864e5),fr=$("#fresh");
  if(age>21){fr.className="fresh old";fr.textContent=`This copy uses the event list as of ${asof}, ${age} days ago, and may be out of date. Newer events will be missing: ask your Post or the SAME Membership Community of Interest for the latest copy.`}
  else fr.textContent=`Event list as of ${asof}${D.online?" (updated from the online list)":""}.`}
-$("#ver").textContent=`Industry Days list (Bobbi Jo Lang) version of ${D.wb}; SAME event listings and the Southeast regional calendar read ${fmt(D.built,{month:"long",day:"numeric",year:"numeric"})}. ${D.events.length} events on file.`;
+$("#ver").textContent=`SAME Events Near You version ${TOOL_VERSION}. Data version: Industry Days list (Bobbi Jo Lang) version of ${D.wb}; SAME event listings and the Southeast regional calendar read ${fmt(D.built,{month:"long",day:"numeric",year:"numeric"})}. ${D.events.length} events on file.`;
 const base=`<defs><marker id="arr" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="4.2" markerHeight="4.2" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1E407A"/></marker></defs><g>${D.map.states.map(s=>`<path d="${s.d}" fill="var(--land)"><title>${esc(s.n)}</title></path>`).join("")}</g><path class="st-borders" d="${D.map.borders}" fill="none" stroke="var(--line)" stroke-width="1.2" vector-effect="non-scaling-stroke"/><path class="st-nation" d="${D.map.nation}" fill="none" stroke="var(--postdot)" stroke-width=".8" vector-effect="non-scaling-stroke"/>`;
 const postDots=f=>D.posts.flatMap(p=>p.locs.map(l=>[p,proj(l[1],l[0])])).map(([p,q])=>{return q?`<circle data-post="${p.slug}" tabindex="0" role="button" aria-label="Show events near the ${esc(unit(p))}" cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="${5*f}" fill="var(--postdot)" stroke="transparent" stroke-width="${10*f}"><title>${esc(unit(p))}: select to see events near it</title></circle>`:""}).join("");
 let mode="month",wide=false,sel=null;

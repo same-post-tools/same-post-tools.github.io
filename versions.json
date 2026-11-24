@@ -1,0 +1,11 @@
+{
+  "hub": "1.1",
+  "events": {
+    "version": "1.1",
+    "data": "November 23, 2026"
+  },
+  "membership": {
+    "version": "1.0",
+    "data": "2026-11-01"
+  }
+}
