@@ -16,7 +16,7 @@ Each page carries a Content Security Policy that blocks outside connections. The
 |---|---|---|
 | SAME Events Near You | [/events/](https://same-post-tools.github.io/events/) | Available |
 | SAME Post Membership Numbers | [/membership/](https://same-post-tools.github.io/membership/) | Available |
-| Member roster report | | Coming |
+| SAME Post Member Roster Report | [/roster/](https://same-post-tools.github.io/roster/) | Available |
 | Word to web page | | Coming |
 | Newsletter block builder | | Coming |
 | StarChapter attendance report | | Coming |
@@ -27,6 +27,7 @@ Each page carries a Content Security Policy that blocks outside connections. The
 - `index.html`: the home page.
 - `events/index.html`: the events finder. One self-contained file; it also works when saved and opened offline.
 - `membership/index.html`: membership numbers. One self-contained file with every Post's counts from SAME National's public monthly Post Membership Stats reports (January 1, 2023 on), and Mozilla PDF.js to read a newer report you open. Works offline.
+- `roster/index.html`: member roster report for Post officers. Reads the Post's own roster export (.csv) in the browser; keeps no contact details; nothing built in, nothing saved.
 - `events/data.json`: the current event list, updated weekly. Event facts and links come from public listings and from the Industry Days list Bobbi Jo Lang compiles by hand each week.
 - `licenses/`: license texts for the third-party parts shipped inside the pages.
 - `THIRD-PARTY-NOTICES.md`: what those parts are.
