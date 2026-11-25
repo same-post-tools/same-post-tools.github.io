@@ -292,8 +292,8 @@ summary{font-weight:bold;cursor:pointer;min-height:44px;display:flex;align-items
   </div>
 </nav>
 <div class="band controls">
-  <label class="f pp">Your Post
-    <select id="post" aria-label="Your Post" title="Choose the Post to measure driving distance from, or All Posts"><option value="">All Posts</option></select>
+  <label class="f pp">Your Post or Region
+    <select id="post" aria-label="Your Post or Region" title="Choose the Post to measure driving distance from, a Region to measure from every Post in it, or All Posts"><option value="">All Posts</option></select>
   </label>
   <button type="button" class="ghost pp mypost" id="mypost" title="Open this page on this Post next time, here and in the other SAME Post Tools. Saved in this browser only.">Make this my Post</button>
   <label class="f mo">Month
@@ -325,8 +325,9 @@ summary{font-weight:bold;cursor:pointer;min-height:44px;display:flex;align-items
         <button type="button" id="x-pdf" class="ghost" title="Download this view as a PDF: numbered maps and linked events, ready to print or attach">Save as PDF</button>
         <button type="button" id="x-copy" class="ghost" title="Copy this view, with maps and links, to paste into an email newsletter">Copy for email</button>
         <button type="button" id="x-png" class="ghost no-cal" title="Save the map shown here as a picture">Download map image</button>
+        <button type="button" id="x-xlsx" class="ghost" title="Download the events in this view as an Excel spreadsheet, one row per event, to sort, filter, or plan with">Download spreadsheet (.xlsx)</button>
       </div>
-      <p class="xnote" id="xnote">Save as PDF downloads the map and the events in this view (one grouping, if you have selected one). Copy for email copies the same view, with the SAME header, the map, and linked events, ready to paste into a Post's email newsletter. Download map image saves the map alone. <a href="#" id="x-html" title="The same email block as a file, for newsletter tools that drop pasted maps">Download the email version as an HTML file</a>.</p>
+      <p class="xnote" id="xnote">Save as PDF downloads the map and the events in this view (one grouping, if you have selected one). Copy for email copies the same view, with the SAME header, the map, and linked events, ready to paste into a Post's email newsletter. Download map image saves the map alone. Download spreadsheet saves the events in this view as an Excel file, one row per event. <a href="#" id="x-html" title="The same email block as a file, for newsletter tools that drop pasted maps">Download the email version as an HTML file</a>.</p>
     </div>
   </div>
   <div id="list"></div>
@@ -338,11 +339,11 @@ summary{font-weight:bold;cursor:pointer;min-height:44px;display:flex;align-items
   <h2 id="howto">How to use this page</h2>
   <p>With a mouse, hover over any tab, filter, button, or map dot for a short tip.</p>
   <ol class="howto">
-    <li><strong>Pick a view</strong> with the tabs above the filters. <strong>By month</strong> finds trips: events in the same week, close enough that one trip covers them. <strong>Near my Post</strong> lists everything within driving distance of your Post. <strong>Calendar</strong> shows every event in a month on a grid.</li>
-    <li><strong>Set the filters.</strong> Choose your Post (Near my Post) or a month (By month and Calendar), how far you will go (Local only for your Post's own area with no travel, or a drive of about 2, 4, or 6 hours), and the event types you want. Clear a type to hide it.</li>
+    <li><strong>Pick a view</strong> with the tabs above the filters. <strong>By month</strong> finds trips: events in the same week, close enough that one trip covers them. <strong>Near my Post</strong> lists everything within driving distance of your Post, or of any Post in a Region. <strong>Calendar</strong> shows every event in a month on a grid.</li>
+    <li><strong>Set the filters.</strong> Choose your Post, or a Region to cover every Post in it (Near my Post and Calendar; useful for Regional leaders), or a month (By month and Calendar), how far you will go (Local only for your Post's own area with no travel, or a drive of about 2, 4, or 6 hours), and the event types you want. Clear a type to hide it.</li>
     <li><strong>Use the map.</strong> In By month, red circles are groupings; select one to zoom to it and see its stops in order. Blue dots are events on their own. In Near my Post, select any gray Post dot to switch to that Post, or an event dot to find it in the list. Use the button under the map to zoom back out.</li>
     <li><strong>Open an event.</strong> Select an event's title to go to its own page or registration. Titles marked "Link: Post website" open the host Post's site because no event page was found.</li>
-    <li><strong>Share it.</strong> <strong>Save as PDF</strong> downloads the current view with numbered maps and linked events, ready to print or attach. <strong>Copy for email</strong> copies the same layout to paste into a Post's email newsletter; if your newsletter tool drops the maps, use <strong>Download the email version as an HTML file</strong> instead. <strong>Download map image</strong> saves the map alone. Select a single grouping first to share just that trip.</li>
+    <li><strong>Share it.</strong> <strong>Save as PDF</strong> downloads the current view with numbered maps and linked events, ready to print or attach. <strong>Copy for email</strong> copies the same layout to paste into a Post's email newsletter; if your newsletter tool drops the maps, use <strong>Download the email version as an HTML file</strong> instead. <strong>Download map image</strong> saves the map alone. <strong>Download spreadsheet (.xlsx)</strong> saves the events in the current view as an Excel file, one row per event with dates, type, host, place, drive time, and link, to sort, filter, or plan with. Select a single grouping first to share just that trip.</li>
     <li><strong>Adjust the display.</strong> Use <strong>Options</strong> at the top right for a dark theme, a different font, or larger text. Your choice is remembered in this browser and applies to every SAME Post Tools page; it is stored only on your device. PDFs and email blocks always print in the standard light colors.</li>
     <li><strong>Save a view.</strong> The address bar keeps your view (for example, a Post or a month), so a bookmark returns to it.</li>
   </ol>
@@ -969,7 +970,7 @@ const D={"map":{"w":975,"h":610,"states":[{"n":"Alabama","d":"M648,492.4L648,492
    the newest it has seen in this browser, so copies passed around by email stay current. The connection rule above
    allows only that one address; nothing is ever sent from this page. */
 const DATA_URL="https://same-post-tools.github.io/events/data.json";
-const TOOL_VERSION="0.5.7";
+const TOOL_VERSION="0.6.0";
 /* Load checks (GUARD): the built-in list, a saved newer list, and any online list are all checked item by item. */
 {const b=GUARD.eventList(D);if(b){D.events=b.events;D.posts=b.posts}}
 try{const c=GUARD.eventList(JSON.parse(localStorage.getItem("sameEventsData")||"null"));if(c&&c.built>D.built){D.events=c.events;D.posts=c.posts;D.wb=c.wb;D.built=c.built;D.online=1}else if(localStorage.getItem("sameEventsData")&&!c)localStorage.removeItem("sameEventsData")}catch(e){try{localStorage.removeItem("sameEventsData")}catch(e2){}}
@@ -994,9 +995,18 @@ const days=(a,b)=>Math.round((dt(b)-dt(a))/864e5);
 const fmt=(s,o)=>dt(s).toLocaleDateString("en-US",o);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 D.events.forEach((e,i)=>e.i=i);
-const unit=P=>/field chapter$/i.test(P.name)?P.name:P.name+" Post";
+const unit=P=>P.isReg?P.name+" Region's Posts":/field chapter$/i.test(P.name)?P.name:P.name+" Post";
 const bySlug=Object.fromEntries(D.posts.map(p=>[p.slug,p]));
 const regions=[...new Set(D.posts.map(p=>p.region))].sort();
+/* Regions as a choice: every Post in the Region, measured from the nearest one (Scott, 2026-11-25). */
+const REG=Object.fromEntries(regions.map(r=>[r,D.posts.filter(p=>p.region===r)]).filter(([r,ps])=>ps.length>1).map(([r,ps])=>{
+ const locs=ps.flatMap(p=>p.locs.map(l=>[l[0],l[1],p])),sl="region-"+r.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+ return[sl,{name:r,region:r,slug:sl,isReg:true,posts:ps,locs,lat:locs.reduce((a,l)=>a+l[0],0)/locs.length,lon:locs.reduce((a,l)=>a+l[1],0)/locs.length}]}));
+const cur=()=>{const v=$("#post").value;return bySlug[v]||REG[v]};
+const known=v=>!!(v&&(bySlug[v]||REG[v]));
+/* Nearest Post to a place: for a Region, which of its Posts is closest (hours, Post); for a Post, itself. */
+function nearest(P,la,lo){if(!P.isReg)return{h:postHrs(P,la,lo),p:P};let b=null;for(const l of P.locs){const h=hrs(l[0],l[1],la,lo);if(!b||h<b.h)b={h,p:l[2]}}return b}
+$("#post").insertAdjacentHTML("beforeend",`<optgroup label="Regions (every Post in the Region)">`+Object.values(REG).sort((a,b)=>a.name.localeCompare(b.name)).map(R=>`<option value="${R.slug}">${esc(R.name)} Region (${R.posts.length} Posts)</option>`).join("")+"</optgroup>");
 $("#post").insertAdjacentHTML("beforeend",regions.map(r=>`<optgroup label="${esc(r)}">`+D.posts.filter(p=>p.region===r).sort((a,b)=>a.name.localeCompare(b.name)).map(p=>`<option value="${p.slug}">${esc(p.name)}</option>`).join("")+"</optgroup>").join(""));
 const MONTHS=[...new Set(D.events.filter(e=>e.e>=today&&e.la!=null).map(e=>(e.s>today?e.s:today).slice(0,7)))].sort().slice(0,12);
 $("#month").innerHTML=MONTHS.map(m=>`<option value="${m}">${fmt(m+"-01",{month:"long",year:"numeric"})}</option>`).join("");
@@ -1018,18 +1028,28 @@ const pnorm=n=>{n=String(n||"").toLowerCase().replace(/\s+post$/,"").trim();n=PA
 function myPost(){try{return pnorm(GUARD.text(localStorage.getItem(MYKEY)||"",80))}catch(e){return ""}}
 function mySlug(){const k=myPost();if(!k)return "";const P=D.posts.find(p=>pnorm(p.name)===k);return P?P.slug:""}
 function syncMyPost(){const b=$("#mypost"),v=$("#post").value,P=bySlug[v],mine=!!P&&pnorm(P.name)===myPost();
- b.hidden=!P&&!myPost();b.setAttribute("aria-pressed",String(mine));b.textContent=mine?"\u2605 My Post (click to forget)":P?"Make this my Post":"Forget my Post"}
+ b.hidden=(!P&&!myPost())||!!REG[v];b.setAttribute("aria-pressed",String(mine));b.textContent=mine?"\u2605 My Post (click to forget)":P?"Make this my Post":"Forget my Post"}
 /* Events near the chosen Post (within the driving distance), plus SAME National events; every event when All Posts. */
-function nearPost(e,R){const P=bySlug[$("#post").value];if(!P)return true;if(e.n)return true;if(e.la==null)return false;return postHrs(P,e.la,e.lo)<=R}
+function nearPost(e,R){const P=cur();if(!P)return true;if(e.n)return true;if(e.la==null)return false;return postHrs(P,e.la,e.lo)<=R}
 function inMonth(e,m){if(!m||m==="all")return true;const ms=m+"-01",me=iso(new Date(+m.slice(0,4),+m.slice(5,7),0));return e.s<=me&&e.e>=ms}
 const rt=R=>R<1?"about 45 minutes":`about ${R} hours`;
 function kinds(){return new Set([...document.querySelectorAll('.chips input[value]:checked')].map(i=>i.value))}
 function when(e){const s=dt(e.s),t=dt(e.e);const day=fmt(e.s,{month:"short",day:"numeric"});let sub=fmt(e.s,{weekday:"short"});if(e.e!==e.s)sub+=" to "+(s.getMonth()===t.getMonth()?fmt(e.e,{weekday:"short"})+" "+t.getDate():fmt(e.e,{month:"short",day:"numeric"}));return `<div class="when"><b>${day}</b><span>${sub}</span></div>`}
 function whereLink(e){return whereLine(e)+(e.u&&e.uk==="post"?" | link opens the Post website":"")}
-function item(e,h){const dist=h==null?"":h<0.75?" | nearby":` | about ${Math.max(1,Math.round(h))} hr drive`;const t=e.u?`<a href="${esc(e.u)}" target="_blank" rel="noopener">${esc(e.t)}</a>`:`<strong>${esc(e.t)}</strong>`;
+function item(e,h,np){const dist=h==null?"":(h<0.75?" | nearby":` | about ${Math.max(1,Math.round(h))} hr drive`)+(np?(h<0.75?` (${pUnit(np)})`:` from the ${pUnit(np)}`):"");const t=e.u?`<a href="${esc(e.u)}" target="_blank" rel="noopener">${esc(e.t)}</a>`:`<strong>${esc(e.t)}</strong>`;
  return `<li class="ev${e.n?" isnat":""}" id="ev-${e.i}">${when(e)}<div>${t}<div class="meta">${esc([e.h,e.w].filter(Boolean).join(" | "))}${dist}</div><div class="tags"><span class="tag${h!=null?" near":""}" title="Event type">${KIND[e.k]}</span><span class="tag" title="Where this listing came from">${SRC[e.src]}</span>${e.n?'<span class="tag nat" title="A SAME National event: shown for every Post, wherever it is held">SAME National</span>':""}${e.tbd?'<span class="tag" title="The host has set this date; the topic and details are still to come">Planned date</span>':""}${e.u&&e.uk==="post"?'<span class="tag" title="No event page was found, so the link opens the host Post\'s website">Link: Post website</span>':""}</div></div></li>`}
 function group(list,fn){if(!list.length)return "";let out="",m="";for(const e of list){const mm=fmt(e.s,{month:"long",year:"numeric"});if(mm!==m){if(m)out+="</ul>";out+=`<h2>${mm}</h2><ul>`;m=mm}out+=fn(e)}return out+"</ul>"}
 function circlePts(P,R,step){const d=R*65/1.2/3958.8,la=P.lat*RAD,lo=P.lon*RAD,pts=[];for(let i=0;i<=360;i+=step){const b=i*RAD;const la2=Math.asin(Math.sin(la)*Math.cos(d)+Math.cos(la)*Math.sin(d)*Math.cos(b));const lo2=lo+Math.atan2(Math.sin(b)*Math.sin(d)*Math.cos(la),Math.cos(d)-Math.sin(la)*Math.sin(la2));const q=proj(lo2/RAD,la2/RAD);if(q)pts.push(q)}return pts}
+/* Several rings (a Region, or a Post with two locations) merge into one shape: the fill is drawn once as a group,
+   so overlaps do not darken, and the dashed outline keeps only the parts of each circle outside the others. */
+function rings(locs,R){if(locs.length<2)return locs.map(l=>ring(l,R)).join("");
+ const d=R*65/1.2/3958.8,fill=[],line=[];
+ for(const [i,l] of locs.entries()){const la=l.lat*RAD,lo=l.lon*RAD,pts=[];
+  for(let a=0;a<=360;a+=2){const b=a*RAD,la2=Math.asin(Math.sin(la)*Math.cos(d)+Math.cos(la)*Math.sin(d)*Math.cos(b)),lo2=lo+Math.atan2(Math.sin(b)*Math.sin(d)*Math.cos(la),Math.cos(d)-Math.sin(la)*Math.sin(la2));pts.push([la2/RAD,lo2/RAD,proj(lo2/RAD,la2/RAD)])}
+  const qs=pts.filter(p=>p[2]);if(qs.length>10)fill.push(`<polygon points="${qs.map(p=>p[2][0].toFixed(1)+","+p[2][1].toFixed(1)).join(" ")}"/>`);
+  let seg=[];const flush=()=>{if(seg.length>1)line.push(`<polyline points="${seg.map(q=>q[0].toFixed(1)+","+q[1].toFixed(1)).join(" ")}" fill="none" stroke="#BF0A30" stroke-width="1.6" stroke-dasharray="5 4" vector-effect="non-scaling-stroke"/>`);seg=[]};
+  for(const p of pts){const inside=locs.some((m,j)=>j!==i&&hrs(m.lat,m.lon,p[0],p[1])<R*0.999);if(!inside&&p[2])seg.push(p[2]);else flush()}flush()}
+ return `<g fill="#BF0A30" opacity=".08">${fill.join("")}</g>${line.join("")}`}
 function ring(P,R){const pts=circlePts(P,R,5);return pts.length>10?`<polygon points="${pts.map(q=>q[0].toFixed(1)+","+q[1].toFixed(1)).join(" ")}" fill="#BF0A30" fill-opacity=".08" stroke="#BF0A30" stroke-width="1.6" stroke-dasharray="5 4" vector-effect="non-scaling-stroke"/>`:""}
 function fit(pts,pad,minW){if(!pts.length)return[0,0,975,610];let x0=Math.min(...pts.map(p=>p[0])),x1=Math.max(...pts.map(p=>p[0])),y0=Math.min(...pts.map(p=>p[1])),y1=Math.max(...pts.map(p=>p[1]));
  let w=Math.max(x1-x0,1)*pad,h=Math.max(y1-y0,1)*pad;w=Math.max(w,h*975/610,minW);h=w*610/975;const cx=(x0+x1)/2,cy=(y0+y1)/2;return[cx-w/2,cy-h/2,w,h]}
@@ -1044,8 +1064,8 @@ function evDot(ev,p,f,alpha,col="#BF0A30"){const label=ev.length>1?`${ev.length}
 function spots(list,f){const s={};for(const e of list){const p=proj(e.lo,e.la);if(!p)continue;const k=Math.round(p[0]/(4*f))+","+Math.round(p[1]/(4*f));(s[k]=s[k]||{p,ev:[]}).ev.push(e)}return Object.values(s)}
 /* ---------- Near my Post ---------- */
 function renderPost(R,K){
- const P=bySlug[$("#post").value],PM=$("#month").value,pmn=PM&&PM!=="all"?" in "+fmt(PM+"-01",{month:"long",year:"numeric"}):"";
- const locs=P?P.locs.map(l=>({lat:l[0],lon:l[1],q:proj(l[1],l[0])})).filter(l=>l.q):[],q=locs.length?locs[0].q:null;
+ const P=cur(),PM=$("#month").value,pmn=PM&&PM!=="all"?" in "+fmt(PM+"-01",{month:"long",year:"numeric"}):"";
+ const locs=P?P.locs.map(l=>({lat:l[0],lon:l[1],q:proj(l[1],l[0])})).filter(l=>l.q):[],q=locs.length?(P.isReg?[locs.reduce((a,l)=>a+l.q[0],0)/locs.length,locs.reduce((a,l)=>a+l.q[1],0)/locs.length]:locs[0].q):null;
  const live=D.events.filter(e=>e.e>=today&&K.has(e.k)&&inMonth(e,PM));
  if(!P){/* All Posts: every upcoming event, by date */
   const all=live.slice().sort((a,b)=>a.s.localeCompare(b.s)||a.t.localeCompare(b.t));
@@ -1053,20 +1073,20 @@ function renderPost(R,K){
   $("#summary").textContent=`${all.length} upcoming event${all.length===1?"":"s"}${pmn}, all Posts`;
   $("#zoom").hidden=true;setMap([0,0,975,610],base+postDots(1)+spots(all,1).map(s=>evDot(s.ev,s.p,1,1)).join(""));return}
  let near=[],nat=[];
- if(P){for(const e of live){const h=e.la==null?null:postHrs(P,e.la,e.lo);if(h!=null&&h<=R)near.push([e,h]);else if(e.n)nat.push(e)}}else nat=live.filter(e=>e.n);
+ if(P){for(const e of live){const nb=e.la==null?null:nearest(P,e.la,e.lo),h=nb?nb.h:null;if(h!=null&&h<=R)near.push([e,h,P.isReg?nb.p:null]);else if(e.n)nat.push(e)}}else nat=live.filter(e=>e.n);
  let html="";
  if(!near.length&&!q)html+=`<div class="empty">No events on file near the ${esc(unit(P))} yet. Many Posts outside the mainland list their events on their own websites, which this page does not read yet. SAME National events are below.</div>`;
- else html+=near.length?`<h3>Within ${rt(R)} of the ${esc(unit(P))}${esc(pmn)}</h3>`+group(near.map(x=>Object.assign({},x[0],{_h:x[1]})),e=>item(e,e._h)):`<div class="empty">Nothing on file within ${rt(R)} of the ${esc(unit(P))}${esc(pmn)} for the types you picked. Try a longer drive or more event types.</div>`;
+ else html+=near.length?`<h3>Within ${rt(R)} of the ${esc(unit(P))}${esc(pmn)}</h3>`+group(near.map(x=>Object.assign({},x[0],{_h:x[1],_np:x[2]})),e=>item(e,e._h,e._np)):`<div class="empty">Nothing on file within ${rt(R)} of the ${esc(unit(P))}${esc(pmn)} for the types you picked. Try a longer drive or more event types.</div>`;
  if(nat.length)html+=`<section class="natcard" aria-label="SAME National events"><h3><span style="color:#F5C518;-webkit-text-stroke:.8px #6b4e00">&#9733;</span> SAME National events, anywhere</h3><p class="natnote">National events are listed for every Post, wherever they are held, so some are far from you.</p>`+group(nat,e=>item(e,null))+`</section>`;
  $("#list").innerHTML=html;
  $("#summary").textContent=`${near.length} event${near.length===1?"":"s"} within ${rt(R)} of the ${unit(P)}${pmn}`;
  const ev=near.map(x=>x[0]);
  const vb=q&&!wide?fit([...locs.flatMap(l=>[l.q,...circlePts(l,R,10)]),...ev.map(e=>proj(e.lo,e.la)).filter(Boolean)],1.35,R<1?110:240):[0,0,975,610],f=vb[2]/975;
- const zb=$("#zoom");zb.hidden=!q;zb.textContent=wide?"Zoom to this Post's area":"Show all of the U.S.";
+ const zb=$("#zoom");zb.hidden=!q;zb.textContent=wide?(P.isReg?"Zoom to this Region's area":"Zoom to this Post's area"):"Show all of the U.S.";
  let g=base+postDots(f);
- if(q){g+=locs.map(l=>ring(l,R)+`<circle cx="${l.q[0]}" cy="${l.q[1]}" r="${11*f}" fill="#fff" stroke="#1E407A" stroke-width="${4*f}"/>`).join("")+spots(ev,f).map(s=>evDot(s.ev,s.p,f,1)).join("");
-  const right=q[0]<vb[0]+vb[2]*0.8;g+=`<text x="${right?q[0]+14*f:q[0]-14*f}" y="${q[1]-12*f}" text-anchor="${right?"start":"end"}" font-size="${20*f}" font-weight="bold" fill="var(--ink)" stroke="var(--bg)" stroke-width="${4*f}" paint-order="stroke" font-family="Arial,Helvetica,sans-serif" pointer-events="none">${esc(P.name)}</text>`}
- else if(P)g+=`<text x="487" y="40" text-anchor="middle" font-size="20" fill="var(--mute)" font-family="Arial,Helvetica,sans-serif">The ${esc(unit(P))} is outside this map</text>`;
+ if(q){g+=rings(locs,R)+locs.map(l=>`<circle cx="${l.q[0]}" cy="${l.q[1]}" r="${11*f}" fill="#fff" stroke="#1E407A" stroke-width="${4*f}"/>`).join("")+spots(ev,f).map(s=>evDot(s.ev,s.p,f,1)).join("");
+  const right=q[0]<vb[0]+vb[2]*0.8;g+=`<text x="${right?q[0]+14*f:q[0]-14*f}" y="${q[1]-12*f}" text-anchor="${right?"start":"end"}" font-size="${20*f}" font-weight="bold" fill="var(--ink)" stroke="var(--bg)" stroke-width="${4*f}" paint-order="stroke" font-family="Arial,Helvetica,sans-serif" pointer-events="none">${esc(P.isReg?P.name+" Region":P.name)}</text>`}
+ else if(P)g+=`<text x="487" y="40" text-anchor="middle" font-size="20" fill="var(--mute)" font-family="Arial,Helvetica,sans-serif">${P.isReg?"The "+esc(P.name)+" Region's Posts are":"The "+esc(unit(P))+" is"} outside this map</text>`;
  setMap(vb,g);
 }
 /* ---------- By month ---------- */
@@ -1159,7 +1179,7 @@ function renderCal(K){
  h+=`<table class="cal"><thead><tr>${WD.map(w=>`<th scope="col">${w}</th>`).join("")}</tr></thead><tbody>`+C.weeks.map(wk=>"<tr>"+wk.map(c=>`<td class="${c.inm?"":"out"}${c.d<today?" past":""}${c.d===today?" today":""}">${c.inm?`<div class="dn">${+c.d.slice(8)}</div>`+c.ev.map(e=>chip(e,c.d)).join(""):""}</td>`).join("")+"</tr>").join("")+"</tbody></table>";
  h+=`<div class="agenda">${C.evs.length?`<ul>${C.evs.map(e=>item(e,null)).join("")}</ul>`:`<div class="empty">No events on file for ${esc(mn)} with these types.</div>`}</div>`;
  $("#cal").innerHTML=h;
- const CP=bySlug[$("#post").value];$("#summary").textContent=`${C.evs.length} event${C.evs.length===1?"":"s"} in ${mn}`+(CP?` within ${rt(+$("#radius").value)} of the ${unit(CP)}, plus SAME National events`:", all Posts");}
+ const CP=cur();$("#summary").textContent=`${C.evs.length} event${C.evs.length===1?"":"s"} in ${mn}`+(CP?` within ${rt(+$("#radius").value)} of the ${unit(CP)}, plus SAME National events`:", all Posts");}
 /* ---------- Shared ---------- */
 let monthPicked=false;
 function firstBusyMonth(){const R=+$("#radius").value,K=kinds();return MONTHS.find(m=>groupsFor(m,R,K).groups.length)||MONTHS[0]}
@@ -1171,21 +1191,21 @@ function render(){
  $("#radius-label").textContent=mode==="month"?"Group events within":"Driving distance";
  if(mode==="about")return;
  const R=+$("#radius").value,K=kinds();
- if(mode==="cal"){renderCal(K);const CP=bySlug[$("#post").value];$("#sub").textContent=(CP?`SAME events near the ${unit(CP)}: `:`Every upcoming SAME event on file: `)+fmt($("#month").value+"-01",{month:"long",year:"numeric"});return}
+ if(mode==="cal"){renderCal(K);const CP=cur();$("#sub").textContent=(CP?`SAME events near the ${unit(CP)}: `:`Every upcoming SAME event on file: `)+fmt($("#month").value+"-01",{month:"long",year:"numeric"});return}
  if(mode==="month")renderMonth(R,K);else renderPost(R,K);
- const P=bySlug[$("#post").value];
+ const P=cur();
  $("#sub").textContent=mode==="month"?`Where SAME events cluster, week by week: ${fmt($("#month").value+"-01",{month:"long",year:"numeric"})}`:(P?`Upcoming events near the ${unit(P)}`:"Every upcoming SAME event, all Posts")+($("#month").value!=="all"&&$("#month").value?": "+fmt($("#month").value+"-01",{month:"long",year:"numeric"}):"");
 }
 function setUrl(){const h=linkFor().split("#")[1];try{history.replaceState(null,"",h?"#"+h:location.pathname)}catch(e){location.hash=h||""}}
 function fromUrl(){const q=new URLSearchParams(location.search);let h="";try{h=decodeURIComponent(location.hash.slice(1))}catch(e){h=""}/* a mangled link opens the default view */
  if(h==="about"){mode="about";return}
  const cx=h.match(/^calendar-(\d{4}-\d{2})(?:\/([a-z0-9-]+))?$/)||[],cm=cx[1];
- if(cm||h==="calendar"){mode="cal";if(cx[2]&&bySlug[cx[2]])$("#post").value=cx[2];if(MONTHS.includes(cm)){$("#month").value=cm;calMonth=cm;monthPicked=true}else if(MONTHS.length&&!monthPicked)$("#month").value=MONTHS[0];return}
+ if(cm||h==="calendar"){mode="cal";if(known(cx[2]))$("#post").value=cx[2];if(MONTHS.includes(cm)){$("#month").value=cm;calMonth=cm;monthPicked=true}else if(MONTHS.length&&!monthPicked)$("#month").value=MONTHS[0];return}
  const mm=(h.match(/^month-(\d{4}-\d{2})$/)||[])[1]||q.get("month");
  if(mm||q.has("month")||h==="month"){mode="month";if(MONTHS.includes(mm)){$("#month").value=mm;calMonth=mm;monthPicked=true}else if(MONTHS.length)$("#month").value=firstBusyMonth();return}
  const hx=h.match(/^([a-z0-9-]+)(?:\/(\d{4}-\d{2}))?$/)||[];if(hx[2])postMonth=hx[2];
  if(hx[1]==="near"){mode="post";$("#post").value="";return}
- const s=bySlug[hx[1]]?hx[1]:(bySlug[q.get("post")]?q.get("post"):"");
+ const s=known(hx[1])?hx[1]:(known(q.get("post"))?q.get("post"):(known(q.get("region"))?q.get("region"):""));
  if(s){mode="post";$("#post").value=s;return}
  /* No Post or month in the link: open By month on the first month with a grouping. */
  mode="month";if(MONTHS.length&&!monthPicked)$("#month").value=firstBusyMonth()}
@@ -1238,7 +1258,7 @@ function suitsText(evs,R){const ev=evs.filter(e=>e.la!=null);if(!ev.length)retur
  const more=near.length>8?`, plus ${nw(near.length-8)} more`:"",nat=ev.some(e=>e.n)?" SAME National events here are open to members from every Post.":"";
  return `A good fit for members who live or work in the ${joinAnd(names)}${fc?"":(top.length>1?" Post areas":" Post area")}${more}: each area is within ${rt(R)} of a stop.${nat}`}
 function viewData(){const R=+$("#radius").value,K=kinds();
- if(mode==="cal"){const C=calData($("#month").value,K),mn=fmt(C.m+"-01",{month:"long",year:"numeric"}),CP=bySlug[$("#post").value];
+ if(mode==="cal"){const C=calData($("#month").value,K),mn=fmt(C.m+"-01",{month:"long",year:"numeric"}),CP=cur();
   const sec=C.weeks.map(wk=>({head:`Week of ${fmt(wk[0].d,{month:"long",day:"numeric"})}`,note:"",ev:C.evs.filter(e=>weekOf(e.s<C.m+"-01"?C.m+"-01":e.s)===wk[0].d)})).filter(x=>x.ev.length);
   return{title:CP?`SAME events near the ${unit(CP)}: ${mn}`:`SAME events calendar: ${mn}`,intro:CP?`SAME events within ${rt(R)} of the ${unit(CP)} in ${mn}, plus SAME National events.`:`Every upcoming SAME event on file for ${mn}, from industry days to Post meetings and golf.`,sections:sec,cal:C,file:`same-events-calendar-${C.m}`+(CP?"-"+CP.slug:"")}}
  if(mode==="month"){const m=$("#month").value,mn=fmt(m+"-01",{month:"long",year:"numeric"}),{groups}=groupsFor(m,R,K);
@@ -1248,16 +1268,16 @@ function viewData(){const R=+$("#radius").value,K=kinds();
    intro:one?`${pick[0].ev.length} SAME events in one week, ${spanText(pick[0].start,pick[0].end)}, each within ${rt(R)} of another, so one trip can cover them.`:`Where SAME events cluster in ${mn}: events in the same week, each within ${rt(R)} of another, so one trip can cover several.`,
    sections:pick.map(g=>({trip:tripText(g.ev),suits:suitsText(g.ev,R),head:`${g.name}, week of ${fmt(g.wk,{month:"long",day:"numeric"})}`,note:`${g.ev.length} events, ${spanText(g.start,g.end)}${g.cities.length>1?" | "+g.cities.slice(0,4).join(", "):""}`,ev:g.ev})),
    file:one?`same-events-${slugify(pick[0].name)}-week-of-${pick[0].wk}`:`same-events-${m}`}}
- const P=bySlug[$("#post").value],PM=$("#month").value,pmn=PM&&PM!=="all"?fmt(PM+"-01",{month:"long",year:"numeric"}):"";
+ const P=cur(),PM=$("#month").value,pmn=PM&&PM!=="all"?fmt(PM+"-01",{month:"long",year:"numeric"}):"";
  if(!P){const all=D.events.filter(e=>e.e>=today&&K.has(e.k)&&inMonth(e,PM)).sort((a,b)=>a.s.localeCompare(b.s)||a.t.localeCompare(b.t));const mo={};for(const e of all){const mm=fmt(e.s,{month:"long",year:"numeric"});(mo[mm]=mo[mm]||[]).push(e)}
   return{title:pmn?`SAME events: ${pmn}`:"Upcoming SAME events",intro:`Every upcoming SAME event on file${pmn?" for "+pmn:""}, all Posts.`,sections:Object.entries(mo).map(([mm,ev])=>({head:mm,note:"",ev})),file:"same-events-all"+(pmn?"-"+PM:"")}}
- const near=[];for(const e of D.events){if(e.e<today||!K.has(e.k)||e.la==null||!inMonth(e,PM))continue;const h=postHrs(P,e.la,e.lo);if(h<=R)near.push(Object.assign({},e,{_h:h}))}
+ const near=[];for(const e of D.events){if(e.e<today||!K.has(e.k)||e.la==null||!inMonth(e,PM))continue;const nb=nearest(P,e.la,e.lo);if(nb.h<=R)near.push(Object.assign({},e,{_h:nb.h,_np:P.isReg?nb.p:null}))}
  const months={};for(const e of near){const mm=fmt(e.s,{month:"long",year:"numeric"});(months[mm]=months[mm]||[]).push(e)}
  return{title:`SAME events near the ${unit(P)}`+(pmn?`: ${pmn}`:""),intro:`Upcoming SAME events within ${rt(R)} of the ${unit(P)}${pmn?" in "+pmn:""}.`,
   sections:Object.entries(months).map(([mm,ev])=>({head:mm,note:"",ev})),file:`same-events-near-${P.slug}`}}
 const slugify=t=>t.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 const dateLine=e=>e.e!==e.s?spanText(e.s,e.e):fmt(e.s,{weekday:"short",month:"long",day:"numeric"});
-const whereLine=e=>[e.h,e.w].filter(Boolean).join(" | ")+(e._h!=null?(e._h<0.75?" | nearby":` | about ${Math.max(1,Math.round(e._h))} hr drive`):"");
+const whereLine=e=>[e.h,e.w].filter(Boolean).join(" | ")+(e._h!=null?(e._h<0.75?" | nearby":` | about ${Math.max(1,Math.round(e._h))} hr drive`)+(e._np?(e._h<0.75?` (${pUnit(e._np)})`:` from the ${pUnit(e._np)}`):""):"");
 const DISCLAIM="Event list as of "+fmt(D.built,{month:"long",day:"numeric",year:"numeric"})+". Event additions or corrections: "+["same.post.tools","gmail.com"].join("@")+". From SAME Events Near You, a volunteer-built member resource (not an official SAME National site), drawn from the Industry Days list Bobbi Jo Lang compiles by hand each week, SAME's event listings, and a Southeast regional calendar of Post events. Drive times are estimates. Confirm details with the host before you register or travel.";
 /* The current map as a PNG data URL, colors resolved, at the given width. */
 function mapPNG(W,caption,src){return new Promise((res,rej)=>{let svg=$("#map");if(src){svg=svg.cloneNode(false);svg.setAttribute("viewBox",src.vb.map(v=>v.toFixed(1)).join(" "));svg.innerHTML=src.g}const vb=svg.getAttribute("viewBox").split(" ").map(Number),H=Math.round(W*vb[3]/vb[2]);
@@ -1313,7 +1333,7 @@ function calEmail(C){const F="font-family:Arial,Helvetica,sans-serif;";
 function emailText(v){return [v.title,v.intro,""].concat((v.cal?v.sections:numbered(v)).flatMap(x=>[x.head.toUpperCase()+(x.note?` (${x.note})`:""),...(x.trip?["The trip: "+x.trip]:[]),...(x.suits?["Who it suits: "+x.suits]:[]),...x.ev.map(e=>`${e._n?e._n+".":"-"} ${dateLine(e)}: ${e.t} | ${whereLink(e)}${e.u?" | "+e.u:""}`),""])).concat([DISCLAIM]).join("\n")}
 function note(msg){const n=$("#xnote");if(!n.dataset.keep)n.dataset.keep=n.innerHTML;n.textContent=msg;clearTimeout(note.t);note.t=setTimeout(()=>{n.innerHTML=n.dataset.keep;bindHtml()},5000)}
 function save(blob,name){const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)}
-function needView(v){if(!v.sections.length){note(mode==="post"&&!$("#post").value?"Choose a Post first.":"Nothing on file for this view.");return false}return true}
+function needView(v){if(!v.sections.length){note(mode==="post"&&!$("#post").value?"Choose a Post or Region first.":"Nothing on file for this view.");return false}return true}
 async function emailBlock(v){if(v.cal){const map=null;return emailHTML(v,map)}const secs=numbered(v);return emailNumbered(v,secs,await exportMaps(v,secs,1200,1100))}
 function bindHtml(){const a=$("#x-html");if(a)a.onclick=async e=>{e.preventDefault();const v=viewData();if(!needView(v))return;const blk=await emailBlock(v);if(!(await GUARD.exportOK(blk,"html","newsletter block")))return;
  save(new Blob([`<!DOCTYPE html><html><head><meta charset="utf-8"><title>${esc(v.title)}</title></head><body style="margin:0;padding:16px;background:#ffffff;">\n<!-- BEGIN NEWSLETTER BLOCK -->\n${blk}\n<!-- END NEWSLETTER BLOCK -->\n</body></html>\n`],{type:"text/html"}),v.file+".html")}}
@@ -1323,6 +1343,72 @@ $("#x-copy").addEventListener("click",async()=>{const v=viewData();if(!needView(
  try{await navigator.clipboard.write([new ClipboardItem({"text/html":htmlP,"text/plain":new Blob([emailText(v)],{type:"text/plain"})})]);note(mode==="cal"?"Copied: header, calendar, and events. Paste into the newsletter.":"Copied: header, map, and events. Paste into the newsletter. If the map does not show there, add it with Download map image.")}
  catch(e){try{await navigator.clipboard.writeText(emailText(v));note("Copied as plain text (this browser blocked formatted copy). For the formatted block, use the HTML file link.")}catch(e2){note("This browser blocked copying. Use the HTML file link instead.")}}});
 $("#x-png").addEventListener("click",async()=>{const v=viewData();if(!(await GUARD.exportOK(emailText(v),"text","map image")))return;try{const m=await mapPNG(1950,v.title);m.canvas.toBlob(b=>b?save(b,v.file+"-map.png"):note("This browser blocked the image download."),"image/png")}catch(e){note("The map image could not be made in this browser.")}});
+/* ---------- Spreadsheet (.xlsx): the events in the current view, one row per event (Scott, 2026-11-25) ----------
+   Written in the page (no library): a stored (uncompressed) zip of the Office Open XML parts. Text cells are inline
+   strings, so nothing in a cell can run as a formula; only http and https links become hyperlinks. */
+const CRC=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+function crc32(b){let c=0xFFFFFFFF;for(let i=0;i<b.length;i++)c=CRC[(c^b[i])&255]^(c>>>8);return(c^0xFFFFFFFF)>>>0}
+function zipStore(files){const enc=new TextEncoder(),parts=[],cen=[];let off=0;
+ const u16=v=>[v&255,(v>>>8)&255],u32=v=>[v&255,(v>>>8)&255,(v>>>16)&255,(v>>>24)&255];
+ for(const[name,txt]of files){const nb=enc.encode(name),db=enc.encode(txt),c=crc32(db);
+  const h=new Uint8Array([0x50,0x4B,3,4,...u16(20),...u16(0x0800),...u16(0),...u16(0),...u16(0x21),...u32(c),...u32(db.length),...u32(db.length),...u16(nb.length),...u16(0)]);
+  parts.push(h,nb,db);cen.push(new Uint8Array([0x50,0x4B,1,2,...u16(20),...u16(20),...u16(0x0800),...u16(0),...u16(0),...u16(0x21),...u32(c),...u32(db.length),...u32(db.length),...u16(nb.length),...u16(0),...u16(0),...u16(0),...u16(0),...u32(0),...u32(off)]),nb);
+  off+=h.length+nb.length+db.length}
+ const cs=cen.reduce((a,b)=>a+b.length,0);
+ return new Blob([...parts,...cen,new Uint8Array([0x50,0x4B,5,6,0,0,0,0,...u16(files.length),...u16(files.length),...u32(cs),...u32(off),0,0])],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"})}
+const xesc=v=>String(v??"").replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\uFFFE\uFFFF]/g,"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const colL=i=>{let s="";i++;while(i){const m=(i-1)%26;s=String.fromCharCode(65+m)+s;i=Math.floor((i-1)/26)}return s};
+const xserial=d=>Math.round((Date.UTC(+d.slice(0,4),+d.slice(5,7)-1,+d.slice(8,10))-Date.UTC(1899,11,30))/864e5);
+/* One sheet: rows of cells; a cell is a string, a number, {d:"YYYY-MM-DD"}, or {t:text,u:link}. Row 0 is the header. */
+function sheetXML(rows,widths,links,opt){const o=opt||{};let x='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">';
+ if(o.freeze)x+='<sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews>';
+ x+='<cols>'+widths.map((w,i)=>`<col min="${i+1}" max="${i+1}" width="${w}" customWidth="1"/>`).join("")+'</cols><sheetData>';
+ rows.forEach((r,ri)=>{x+=`<row r="${ri+1}">`;r.forEach((c,ci)=>{const ref=colL(ci)+(ri+1),hs=ri===0&&o.header?' s="1"':"";
+  if(c==null||c==="")return;
+  if(typeof c==="number")x+=`<c r="${ref}"${hs}><v>${c}</v></c>`;
+  else if(c.d)x+=`<c r="${ref}" s="2"><v>${xserial(c.d)}</v></c>`;
+  else if(c.u!=null){if(/^https?:\/\//i.test(c.u)){links.push([ref,c.u]);x+=`<c r="${ref}" t="inlineStr" s="3"><is><t>${xesc(c.t)}</t></is></c>`}else x+=`<c r="${ref}" t="inlineStr"><is><t>${xesc(c.t)}</t></is></c>`}
+  else x+=`<c r="${ref}" t="inlineStr"${hs||(o.bold&&o.bold.includes(ri)?' s="1"':"")||(o.wrap?' s="4"':"")}><is><t xml:space="preserve">${xesc(c)}</t></is></c>`});x+="</row>"});
+ x+='</sheetData>';if(o.filter&&rows.length)x+=`<autoFilter ref="A1:${colL(rows[0].length-1)}${rows.length}"/>`;
+ if(links.length)x+='<hyperlinks>'+links.map((l,i)=>`<hyperlink ref="${l[0]}" r:id="rId${i+1}"/>`).join("")+'</hyperlinks>';
+ return x+'</worksheet>'}
+function xlsxBlob(sheets){const files=[],H='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n';
+ files.push(["[Content_Types].xml",H+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>'+sheets.map((_,i)=>`<Override PartName="/xl/worksheets/sheet${i+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join("")+'</Types>']);
+ files.push(["_rels/.rels",H+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>']);
+ files.push(["xl/workbook.xml",H+'<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>'+sheets.map((sh,i)=>`<sheet name="${xesc(sh.name)}" sheetId="${i+1}" r:id="rId${i+1}"/>`).join("")+'</sheets>'+(sheets[0].filter&&sheets[0].rows.length?`<definedNames><definedName name="_xlnm._FilterDatabase" localSheetId="0" hidden="1">'${xesc(sheets[0].name)}'!$A$1:$${colL(sheets[0].rows[0].length-1)}$${sheets[0].rows.length}</definedName></definedNames>`:"")+'</workbook>']);
+ files.push(["xl/_rels/workbook.xml.rels",H+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+sheets.map((_,i)=>`<Relationship Id="rId${i+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i+1}.xml"/>`).join("")+`<Relationship Id="rId${sheets.length+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`]);
+ files.push(["xl/styles.xml",H+'<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><numFmts count="1"><numFmt numFmtId="164" formatCode="ddd mmm d, yyyy"/></numFmts><fonts count="3"><font><sz val="11"/><name val="Arial"/><family val="2"/></font><font><b/><sz val="11"/><color rgb="FF1E407A"/><name val="Arial"/><family val="2"/></font><font><u/><sz val="11"/><color rgb="FF1E407A"/><name val="Arial"/><family val="2"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="5"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"/><xf numFmtId="164" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1" applyAlignment="1"><alignment horizontal="left"/></xf><xf numFmtId="0" fontId="2" fillId="0" borderId="0" xfId="0" applyFont="1"/><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1"><alignment wrapText="1" vertical="top"/></xf></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>']);
+ sheets.forEach((sh,i)=>{const links=[];files.push([`xl/worksheets/sheet${i+1}.xml`,sheetXML(sh.rows,sh.widths,links,sh)]);
+  if(links.length)files.push([`xl/worksheets/_rels/sheet${i+1}.xml.rels`,H+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+links.map((l,j)=>`<Relationship Id="rId${j+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink" Target="${xesc(l[1])}" TargetMode="External"/>`).join("")+'</Relationships>'])});
+ return zipStore(files)}
+/* The rows: the view's own sections (months, groupings, or weeks), plus By month's events on their own. */
+function xlsxView(){const v=viewData(),P=mode!=="month"?cur():null,R=+$("#radius").value;
+ const secs=v.sections.map(x=>({head:x.head,ev:x.ev}));
+ if(mode==="post"&&P){const PM=$("#month").value,K=kinds(),shown=new Set(secs.flatMap(x=>x.ev.map(e=>e.i)));
+  const nat=D.events.filter(e=>e.n&&e.e>=today&&K.has(e.k)&&inMonth(e,PM)&&!shown.has(e.i)).sort((a,b)=>a.s.localeCompare(b.s)||a.t.localeCompare(b.t));
+  if(nat.length)secs.push({head:"SAME National events, anywhere",ev:nat})}
+ if(mode==="month"&&!(sel!=null&&!wide)){const{singles}=groupsFor($("#month").value,R,kinds());if(singles.length)secs.push({head:"Events on their own (no grouping)",ev:singles})}
+ const near=!!P,reg=near&&P.isReg;
+ const head=[mode==="month"?"Grouping":mode==="cal"?"Week":"Month","Start","End","Event","Type","SAME National","Host","Where"];
+ if(near)head.push("Drive time (hours, estimate)");if(reg)head.push("Nearest Region Post");
+ head.push("Link","Link opens","Planned date only","Listed on");
+ const rows=[head];
+ for(const x of secs)for(const e of x.ev){const r=[x.head,{d:e.s},{d:e.e},e.t,KIND[e.k]||"",e.n?"Yes":"",e.h||"",e.w||""];
+  const nb=near&&e.la!=null?nearest(P,e.la,e.lo):null;if(near)r.push(nb?Math.round(nb.h*10)/10:"");if(reg)r.push(nb?pUnit(nb.p):"");
+  r.push(e.u?{t:e.u,u:e.u}:"",e.u?(e.uk==="post"?"Host Post website":"Event page"):"",e.tbd?"Yes":"",SRC[e.src]||"");rows.push(r)}
+ const widths=[34,18,18,56,26,10,30,28].concat(near?[14]:[],reg?[26]:[],[60,18,12,26]);
+ const tys=[...kinds()].map(k=>KIND[k]).join("; ");
+ const about=[["SAME Events Near You: spreadsheet"],[],["View",v.title],["About this view",v.intro],
+  ["Tab",{month:"By month",post:"Near my Post",cal:"Calendar"}[mode]],
+  ["Post or Region",P?(P.isReg?P.name+" Region (all "+P.posts.length+" Posts; drive time from the nearest)":unit(P)):(mode==="month"?"Not used in By month":"All Posts")],
+  [mode==="month"?"Group events within":"Driving distance",rt(R)+" (estimated from straight-line distance)"],["Month",$("#month").value==="all"?"All upcoming":fmt(($("#month").value||today.slice(0,7))+"-01",{month:"long",year:"numeric"})],["Event types",tys],
+  ["Events in this file",rows.length-1],["Event list as of",fmt(D.built,{month:"long",day:"numeric",year:"numeric"})],["Made",fmt(today,{month:"long",day:"numeric",year:"numeric"})+" with SAME Events Near You version "+TOOL_VERSION],[],
+  ["Note",DISCLAIM],["Sources","The Industry Days list Bobbi Jo Lang compiles by hand each week; SAME's own event listings (same.org); a Southeast regional calendar of Post events; events added from host pages."],["Page","https://same-post-tools.github.io/events/"]];
+ return{v,sheets:[{name:"Events",rows,widths,header:true,freeze:true,filter:true},{name:"About",rows:about,widths:[24,110],bold:[0],wrap:true}]}}
+$("#x-xlsx").addEventListener("click",async()=>{const v=viewData();if(!needView(v))return;const X=xlsxView();
+ const txt=X.sheets.map(sh=>sh.rows.map(r=>r.map(c=>c&&typeof c==="object"?(c.t??c.d??""):c??"").join("\t")).join("\n")).join("\n");
+ if(!(await GUARD.exportOK(txt,"text","spreadsheet")))return;
+ try{save(xlsxBlob(X.sheets),X.v.file+".xlsx");note(`Saved a spreadsheet of ${X.sheets[0].rows.length-1} event${X.sheets[0].rows.length===2?"":"s"}, with a second tab describing the view.`)}catch(e){note("The spreadsheet could not be made in this browser.")}});
 /* ---------- PDF maps: every event numbered, with its date, matching the numbered list ---------- */
 function fitA(pts,pad,minW,asp){if(!pts.length)return[0,0,975,610];const xs=pts.map(p=>p[0]),ys=pts.map(p=>p[1]),x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
  let w=Math.max(x1-x0,1)*pad,h=Math.max(y1-y0,1)*pad;w=Math.max(w,h/asp,minW);h=w*asp;return[(x0+x1)/2-w/2,(y0+y1)/2-h/2,w,h]}
@@ -1332,35 +1418,46 @@ function gcircle(evs,f){const pts=evs.map(e=>proj(e.lo,e.la)).filter(Boolean);if
  const r=Math.max(Math.max(...pts.map(p=>Math.hypot(p[0]-cx,p[1]-cy)))+10*f,14*f);return `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${r.toFixed(1)}" fill="#BF0A30" fill-opacity=".10" stroke="#BF0A30" stroke-width="1.4" vector-effect="non-scaling-stroke"/>`}
 /* Numbered labels: one red dot per place, then a small white card listing each event there as "number, date".
    Cards try right, left, above, and below the dot, then step down, so neighbors do not cover each other. */
-function numMarks(evs,f,s=1,reserved=[]){const boxes=[...reserved],R=7.5*f*s,FS=9.5*f*s,LH=17*f*s;let dots="",cards="";
+function numMarks(evs,f,s=1,reserved=[],vb=null){const boxes=[...reserved],R=7.5*f*s,FS=9.5*f*s,LH=17*f*s,MAXR=6;let dots="",lines="",cards="";
  const sp=spots(evs,f).sort((a,b)=>Math.min(...a.ev.map(e=>e._n))-Math.min(...b.ev.map(e=>e._n)));
  const hit=(b)=>boxes.some(o=>b[0]<o[0]+o[2]&&b[0]+b[2]>o[0]&&b[1]<o[1]+o[3]&&b[1]+b[3]>o[1]);
- for(const sp1 of sp){const [x,y]=sp1.p;dots+=mark(x,y,3.6*f*s,"#BF0A30",shapeAll(sp1.ev),`stroke="#fff" stroke-width="${f*s}"`)}
+ const inside=(b)=>!vb||(b[0]>=vb[0]+2*f&&b[1]>=vb[1]+2*f&&b[0]+b[2]<=vb[0]+vb[2]-2*f&&b[1]+b[3]<=vb[1]+vb[3]-2*f);
+ const crosses=(x1,y1,x2,y2)=>{for(let k=1;k<12;k++){const t=k/12,px=x1+(x2-x1)*t,py=y1+(y2-y1)*t;if(boxes.some(o=>px>o[0]&&px<o[0]+o[2]&&py>o[1]&&py<o[1]+o[3]))return true}return false};
+ const end=(x,y,b)=>[Math.max(b[0],Math.min(x,b[0]+b[2])),Math.max(b[1],Math.min(y,b[1]+b[3]))];
+ for(const sp1 of sp){const [x,y]=sp1.p;dots+=mark(x,y,3.6*f*s,"#BF0A30",shapeAll(sp1.ev),`stroke="#fff" stroke-width="${f*s}"`);boxes.push([x-4.5*f*s,y-4.5*f*s,9*f*s,9*f*s])}
  for(const sp1 of sp){const [x,y]=sp1.p,list=sp1.ev.slice().sort((a,b)=>a._n-b._n);
-  const tw=Math.max(...list.map(e=>sday(e).length))*FS*.56,w=2*R+5*f*s+tw+5*f*s,h=list.length*LH+3*f*s,g=7*f*s;
-  const cand=[[x+g,y-h/2],[x-g-w,y-h/2],[x-w/2,y-g-h],[x-w/2,y+g]];let b=null;
-  for(const [bx,by] of cand){if(!hit([bx,by,w,h])){b=[bx,by,w,h];break}}
+  const cols=Math.ceil(list.length/MAXR),rows=Math.ceil(list.length/cols);
+  const tw=Math.max(...list.map(e=>sday(e).length))*FS*.56,cw=2*R+5*f*s+tw+5*f*s,w=cols*cw,h=rows*LH+3*f*s,g=7*f*s;
+  /* Its own dot is not an obstacle to its card. */
+  const own=boxes.findIndex(o=>Math.abs(o[0]+o[2]/2-x)<.01&&Math.abs(o[1]+o[3]/2-y)<.01);const saved=own>=0?boxes.splice(own,1)[0]:null;
+  const cand=[];for(const dd of [g,g+14*f*s,g+32*f*s,g+60*f*s,g+100*f*s,g+150*f*s]){const e=dd*.7;
+   cand.push([x+dd,y-h/2],[x-dd-w,y-h/2],[x-w/2,y-dd-h],[x-w/2,y+dd],[x+e,y-e-h],[x-e-w,y-e-h],[x+e,y+e],[x-e-w,y+e])}
+  let b=null;
+  for(const [bx,by] of cand){const t=[bx,by,w,h],[mx,my]=end(x,y,t);if(!hit(t)&&inside(t)&&!crosses(x,y,mx,my)){b=t;break}}
+  if(!b)for(const [bx,by] of cand){const t=[bx,by,w,h];if(!hit(t)&&inside(t)){b=t;break}}
+  if(!b)for(const [bx,by] of cand){const t=[bx,by,w,h];if(!hit(t)){b=t;break}}
   if(!b){let [bx,by]=cand[0];for(let i=0;i<40&&hit([bx,by,w,h]);i++)by+=LH/2;b=[bx,by,w,h]}
-  boxes.push(b);const [bx,by]=b,mx=Math.max(bx,Math.min(x,bx+w)),my=Math.max(by,Math.min(y,by+h));
-  if(Math.hypot(mx-x,my-y)>g*1.5)cards+=`<line x1="${x.toFixed(2)}" y1="${y.toFixed(2)}" x2="${mx.toFixed(2)}" y2="${my.toFixed(2)}" stroke="#55627a" stroke-width="${.8*f*s}"/>`;
-  cards+=`<rect x="${bx.toFixed(2)}" y="${by.toFixed(2)}" width="${w.toFixed(2)}" height="${h.toFixed(2)}" rx="${3*f*s}" fill="#fff" fill-opacity=".93" stroke="#b3bfd0" stroke-width="${.6*f*s}"/>`
-   +list.map((e,i)=>{const cy=by+1.5*f*s+i*LH+LH/2;return `<circle cx="${(bx+2.5*f*s+R).toFixed(2)}" cy="${cy.toFixed(2)}" r="${R.toFixed(2)}" fill="#1E407A"/><text x="${(bx+2.5*f*s+R).toFixed(2)}" y="${(cy+FS*.36).toFixed(2)}" text-anchor="middle" font-size="${(FS*(e._n>99?.8:.95)).toFixed(2)}" font-weight="bold" fill="#fff" font-family="Arial,Helvetica,sans-serif">${e._n}</text><text x="${(bx+2.5*f*s+2*R+4*f*s).toFixed(2)}" y="${(cy+FS*.36).toFixed(2)}" font-size="${FS.toFixed(2)}" font-weight="bold" fill="#14213a" font-family="Arial,Helvetica,sans-serif">${esc(sday(e))}</text>`}).join("")}
- return dots+cards}
+  if(saved)boxes.push(saved);boxes.push(b);const [bx,by]=b,[mx,my]=end(x,y,b);
+  if(Math.hypot(mx-x,my-y)>g*1.5)lines+=`<line x1="${x.toFixed(2)}" y1="${y.toFixed(2)}" x2="${mx.toFixed(2)}" y2="${my.toFixed(2)}" stroke="#55627a" stroke-width="${.8*f*s}"/>`;
+  cards+=`<rect x="${bx.toFixed(2)}" y="${by.toFixed(2)}" width="${w.toFixed(2)}" height="${h.toFixed(2)}" rx="${3*f*s}" fill="#fff" fill-opacity=".96" stroke="#b3bfd0" stroke-width="${.6*f*s}"/>`
+   +list.map((e,i)=>{const c=Math.floor(i/rows),r=i%rows,cx0=bx+c*cw,cy=by+1.5*f*s+r*LH+LH/2;return `<circle cx="${(cx0+2.5*f*s+R).toFixed(2)}" cy="${cy.toFixed(2)}" r="${R.toFixed(2)}" fill="#1E407A"/><text x="${(cx0+2.5*f*s+R).toFixed(2)}" y="${(cy+FS*.36).toFixed(2)}" text-anchor="middle" font-size="${(FS*(e._n>99?.8:.95)).toFixed(2)}" font-weight="bold" fill="#fff" font-family="Arial,Helvetica,sans-serif">${e._n}</text><text x="${(cx0+2.5*f*s+2*R+4*f*s).toFixed(2)}" y="${(cy+FS*.36).toFixed(2)}" font-size="${FS.toFixed(2)}" font-weight="bold" fill="#14213a" font-family="Arial,Helvetica,sans-serif">${esc(sday(e))}</text>`}).join("")}
+ return dots+lines+cards}
 /* The maps a PDF needs for the current view: one at the top, and in a multi-grouping month one per grouping. */
 function pdfMaps(v,secs){const all=secs.flatMap(x=>x.ev);
- if(mode==="post"){const P=bySlug[$("#post").value],R=+$("#radius").value;
+ if(mode==="post"){const P=cur(),R=+$("#radius").value;
   /* All Posts (no Post chosen): the whole U.S. with every event numbered, no ring. */
-  if(!P)return{top:{vb:[0,0,975,610],g:base+postDots(1)+numMarks(all,1,1.3)},per:[]};
-  const locs=P.locs.map(l=>({lat:l[0],lon:l[1],q:proj(l[1],l[0])})).filter(l=>l.q);
+  if(!P)return{top:{vb:[0,0,975,610],g:base+postDots(1)+numMarks(all,1,1.3,[],[0,0,975,610])},per:[]};
+  const locs=P.locs.map(l=>({lat:l[0],lon:l[1],q:proj(l[1],l[0])})).filter(l=>l.q),LN=P.isReg?P.name+" Region":P.name;
+  const lp=locs.length?(P.isReg?[locs.reduce((a,l)=>a+l.q[0],0)/locs.length,locs.reduce((a,l)=>a+l.q[1],0)/locs.length]:locs[0].q):null;
   const vb=locs.length?fit([...locs.flatMap(l=>[l.q,...circlePts(l,R,10)]),...all.map(e=>proj(e.lo,e.la)).filter(Boolean)],1.2,R<1?110:240):[0,0,975,610],f=vb[2]/975;
-  const g=base+postDots(f)+locs.map(l=>ring(l,R)+`<circle cx="${l.q[0]}" cy="${l.q[1]}" r="${10*f}" fill="#fff" stroke="#1E407A" stroke-width="${4*f}"/>`).join("")
-   +(locs.length?`<text x="${locs[0].q[0]}" y="${(locs[0].q[1]+26*f).toFixed(1)}" text-anchor="middle" font-size="${16*f}" font-weight="bold" fill="#1E407A" stroke="#fff" stroke-width="${4*f}" paint-order="stroke" font-family="Arial,Helvetica,sans-serif">${esc(P.name)}</text>`:"")
-   +numMarks(all,f,1.6,locs.length?[[locs[0].q[0]-P.name.length*4.8*f-4*f,locs[0].q[1]+10*f,P.name.length*9.6*f+8*f,22*f],[locs[0].q[0]-12*f,locs[0].q[1]-12*f,24*f,24*f]]:[]);
+  const g=base+postDots(f)+rings(locs,R)+locs.map(l=>`<circle cx="${l.q[0]}" cy="${l.q[1]}" r="${10*f}" fill="#fff" stroke="#1E407A" stroke-width="${4*f}"/>`).join("")
+   +(lp?`<text x="${lp[0]}" y="${(lp[1]+26*f).toFixed(1)}" text-anchor="middle" font-size="${16*f}" font-weight="bold" fill="#1E407A" stroke="#fff" stroke-width="${4*f}" paint-order="stroke" font-family="Arial,Helvetica,sans-serif">${esc(LN)}</text>`:"")
+   +numMarks(all,f,1.6,lp?[[lp[0]-LN.length*4.8*f-4*f,lp[1]+10*f,LN.length*9.6*f+8*f,22*f],...locs.map(l=>[l.q[0]-12*f,l.q[1]-12*f,24*f,24*f])]:[],vb);
   return{top:{vb,g},per:[]}}
  const one=secs.length===1;
- const zoomed=evs=>{const vb=fitA(evs.map(e=>proj(e.lo,e.la)).filter(Boolean),1.9,110,.5),f=vb[2]/975;return{vb,g:base+postDots(f)+gcircle(evs,f)+route(evs,f,false)+numMarks(evs,f,1.9)}};
+ const zoomed=evs=>{const vb=fitA(evs.map(e=>proj(e.lo,e.la)).filter(Boolean),1.9,110,.5),f=vb[2]/975;return{vb,g:base+postDots(f)+gcircle(evs,f)+route(evs,f,false)+numMarks(evs,f,1.9,[],vb)}};
  if(one)return{top:Object.assign(zoomed(secs[0].ev),{}),per:[]};
- const f=1;return{top:{vb:[0,0,975,610],g:base+postDots(f)+secs.map(x=>gcircle(x.ev,f)).join("")+numMarks(all,f,1.3)},per:secs.map(x=>zoomed(x.ev))}}
+ const f=1;return{top:{vb:[0,0,975,610],g:base+postDots(f)+secs.map(x=>gcircle(x.ev,f)).join("")+numMarks(all,f,1.3,[],[0,0,975,610])},per:secs.map(x=>zoomed(x.ev))}}
 /* PDF: built in the page with jsPDF (MIT), downloaded directly. Map plus the events in the view. */
 const pdfText=t=>String(t).replace(/[\u2018\u2019]/g,"'").replace(/[\u201C\u201D]/g,'"').replace(/[\u2013\u2014]/g,"-").replace(/\u2026/g,"...").replace(/[^\x20-\x7E\xA0-\xFF]/g,"");
 $("#x-pdf").addEventListener("click",async()=>{const v=viewData();if(!needView(v))return;if(!(await GUARD.exportOK(emailText(v),"text","PDF")))return;if(!window.jspdf){note("The PDF maker did not load.");return}
