@@ -61,7 +61,15 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .share input{width:min(420px,80vw);font-size:14px}
 .grid{display:grid;grid-template-columns:minmax(0,1fr);gap:28px}
 @media(min-width:900px){.grid{grid-template-columns:minmax(0,6fr) minmax(0,6fr)}.mapcol{position:sticky;top:16px;align-self:start}}
-.map{display:block;width:100%;height:auto;border:1px solid var(--rule);border-radius:6px;background:var(--bg)}
+.map{display:block;width:100%;height:auto;border:1px solid var(--rule);border-radius:6px;background:var(--bg);touch-action:pan-y;cursor:grab}
+.map.dragging{cursor:grabbing}
+.mapwrap{position:relative}
+.mapctl{position:absolute;top:8px;right:8px;display:flex;flex-direction:column;gap:4px}
+.mapctl button{width:34px;height:34px;padding:0;font:bold 20px/1 Arial,Helvetica,sans-serif;color:var(--blue);background:var(--bg);border:1px solid var(--rule);border-radius:6px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.mapctl button:hover,.mapctl button:focus-visible{border-color:var(--blue)}
+.mapctl button[data-z=reset]{font-size:13px}
+.maptip{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);background:rgba(20,33,58,.88);color:#fff;font-size:13px;padding:6px 10px;border-radius:6px;pointer-events:none;opacity:0;transition:opacity .2s}
+.maptip.on{opacity:1}
 .map [data-post],.map [data-ev]{cursor:pointer}
 .map [data-post]:hover,.map [data-post]:focus{fill:#1E407A;outline:none}
 .map [data-ev]:hover .dot,.map [data-ev]:focus .dot{stroke:#1E407A;stroke-width:3px;vector-effect:non-scaling-stroke}
@@ -107,7 +115,7 @@ li.ev.isnat{background:#EAF0F8;border-left:5px solid var(--blue);border-bottom:0
 @media print{
  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
  body{font-size:11pt}
- .controls,.viewbar,.toplink,.calnav,.export,#zoom,.legend span:last-child,.share,.ghost{display:none!important}
+ .controls,.viewbar,.toplink,.calnav,.export,#zoom,.mapctl,.maptip,.legend span:last-child,.share,.ghost{display:none!important}
  .topbar{padding:0 0 6px;border:0}.wm1{font-size:24px}
  .hero{min-height:0;padding:14px 18px}.hero h1{font-size:26pt;max-width:none}
  .band{padding:10px 0}.intro h2{font-size:18pt}.intro p{font-size:11pt}.intro .sub{text-align:left}
@@ -320,7 +328,9 @@ summary{font-weight:bold;cursor:pointer;min-height:44px;display:flex;align-items
 <main class="band grid">
   <div class="mapcol">
     <p class="summary" id="summary"></p>
-    <svg class="map" id="map" viewBox="0 0 975 610" role="img" aria-label="U.S. map by state showing SAME Posts and events"></svg>
+    <div class="mapwrap"><svg class="map" id="map" viewBox="0 0 975 610" role="img" aria-label="U.S. map by state showing SAME Posts and events"></svg>
+    <div class="mapctl" role="group" aria-label="Map zoom"><button type="button" data-z="in" title="Zoom in (or Ctrl and scroll; pinch on a phone or trackpad)" aria-label="Zoom in">+</button><button type="button" data-z="out" title="Zoom out" aria-label="Zoom out">&minus;</button><button type="button" data-z="reset" title="Back to this view's own map" aria-label="Reset the map">&#8634;</button></div>
+    <div class="maptip" id="maptip" aria-hidden="true">Use Ctrl and scroll (Cmd on a Mac) to zoom the map</div></div>
     <button type="button" id="zoom" class="ghost" hidden title="Switch between the zoomed map and the whole country">Show all of the U.S.</button>
     <div class="legend only-post"><span><i style="background:#fff;border:3px solid #1E407A;box-sizing:border-box"></i>Your Post</span><span><i style="background:#BF0A30"></i>Events in range</span><span class="shapes" title="Marker shapes on the map">Shapes: <b class="shp star">&#9733;</b> SAME National <b class="shp">&#9632;</b> industry day or full-day event <b class="shp">&#9679;</b> Post meeting, luncheon, or social</span><span><i style="background:var(--postdot)"></i>Other SAME Posts</span><span>Dashed ring: driving distance (estimate)</span><span>Select a Post dot to switch Posts, or an event dot to find it in the list</span></div>
     <div class="legend only-month"><span><i style="background:rgba(191,10,48,.25);border:2px solid #BF0A30;box-sizing:border-box"></i>Grouping of events (number = events)</span><span><i style="background:#1E407A"></i>Event on its own</span><span class="shapes" title="Marker shapes on the map">Shapes: <b class="shp star">&#9733;</b> SAME National <b class="shp">&#9632;</b> industry day or full-day event <b class="shp">&#9679;</b> Post meeting, luncheon, or social</span><span>Blue arrows: the order of stops within a grouping (numbered when you zoom to one)</span><span><i style="background:var(--postdot)"></i>SAME Posts</span><span>Select a grouping to zoom to it and list its events; select a Post dot to see what is near that Post</span></div>
@@ -347,7 +357,7 @@ summary{font-weight:bold;cursor:pointer;min-height:44px;display:flex;align-items
   <ol class="howto">
     <li><strong>Pick a view</strong> with the tabs above the filters. <strong>By month</strong> finds trips: events in the same week, close enough that one trip covers them. <strong>Near a Post</strong> lists everything within driving distance of a Post. <strong>Calendar</strong> shows every event in a month on a grid.</li>
     <li><strong>Set the filters.</strong> Choose a Post (Near a Post and Calendar), a Region to see only the groupings near that Region's Posts (By month; useful for Regional leaders, and the exports follow it), a month (By month and Calendar), how far you will go (Local only for your Post's own area with no travel, or a drive of about 2, 4, or 6 hours), and the event types you want. Clear a type to hide it.</li>
-    <li><strong>Use the map.</strong> In By month, red circles are groupings; select one to zoom to it and see its stops in order. Blue dots are events on their own. In Near a Post, select any gray Post dot to switch to that Post, or an event dot to find it in the list. Use the button under the map to zoom back out.</li>
+    <li><strong>Use the map.</strong> Zoom with the + and &minus; buttons on the map, with Ctrl and scroll (Cmd and scroll on a Mac), or by pinching on a phone or trackpad; drag to move around, and &#8634; returns to the view's own map. In By month, red circles are groupings; select one to zoom to it and see its stops in order. Blue dots are events on their own. In Near a Post, select any gray Post dot to switch to that Post, or an event dot to find it in the list. Use the button under the map to zoom back out.</li>
     <li><strong>Open an event.</strong> Select an event's title to go to its own page or registration. Titles marked "Link: Post website" open the host Post's site because no event page was found.</li>
     <li><strong>Share it.</strong> <strong>Save as PDF</strong> downloads the current view with numbered maps and linked events, ready to print or attach. <strong>Copy for email</strong> copies the same layout to paste into a Post's email newsletter; if your newsletter tool drops the maps, use <strong>Download the email version as an HTML file</strong> instead. <strong>Download map image</strong> saves the map alone. <strong>Download spreadsheet (.xlsx)</strong> saves the events in the current view as an Excel file, one row per event with dates, type, host, place, drive time, and link, to sort, filter, or plan with. Select a single grouping first to share just that trip.</li>
     <li><strong>Adjust the display.</strong> Use <strong>Options</strong> at the top right for a dark theme, a different font, or larger text. Your choice is remembered in this browser and applies to every SAME Post Tools page; it is stored only on your device. PDFs and email blocks always print in the standard light colors.</li>
@@ -976,7 +986,7 @@ const D={"map":{"w":975,"h":610,"states":[{"n":"Alabama","d":"M648,492.4L648,492
    the newest it has seen in this browser, so copies passed around by email stay current. The connection rule above
    allows only that one address; nothing is ever sent from this page. */
 const DATA_URL="https://same-post-tools.github.io/events/data.json";
-const TOOL_VERSION="0.7.0";
+const TOOL_VERSION="0.8.0";
 /* Load checks (GUARD): the built-in list, a saved newer list, and any online list are all checked item by item. */
 {const b=GUARD.eventList(D);if(b){D.events=b.events;D.posts=b.posts}}
 try{const c=GUARD.eventList(JSON.parse(localStorage.getItem("sameEventsData")||"null"));if(c&&c.built>D.built){D.events=c.events;D.posts=c.posts;D.wb=c.wb;D.built=c.built;D.online=1}else if(localStorage.getItem("sameEventsData")&&!c)localStorage.removeItem("sameEventsData")}catch(e){try{localStorage.removeItem("sameEventsData")}catch(e2){}}
@@ -1062,6 +1072,11 @@ function ring(P,R){const pts=circlePts(P,R,5);return pts.length>10?`<polygon poi
 function fit(pts,pad,minW){if(!pts.length)return[0,0,975,610];let x0=Math.min(...pts.map(p=>p[0])),x1=Math.max(...pts.map(p=>p[0])),y0=Math.min(...pts.map(p=>p[1])),y1=Math.max(...pts.map(p=>p[1]));
  let w=Math.max(x1-x0,1)*pad,h=Math.max(y1-y0,1)*pad;w=Math.max(w,h*975/610,minW);h=w*610/975;const cx=(x0+x1)/2,cy=(y0+y1)/2;return[cx-w/2,cy-h/2,w,h]}
 function setMap(vb,g){$("#map").setAttribute("viewBox",vb.map(v=>v.toFixed(1)).join(" "));$("#map").innerHTML=g}
+/* Map zoom and pan (Scott, 2026-11-25): +, -, and reset buttons; drag to pan; Ctrl or Cmd and scroll, or pinch, to zoom.
+   A plain scroll still scrolls the page. The view's own frame is the start; any change of view, Post, month, Region,
+   distance, type, or grouping goes back to it. Exports keep their own frames (Download map image saves what is on screen). */
+let userVB=null,viewKey="";
+const UV=vb=>userVB||vb;
 /* Marker shape by event: star for SAME National, square for industry days and other full-day events (golf, veteran),
    circle for Post meetings, luncheons, and socials. A place with several events takes the strongest shape there. */
 const shapeOf=e=>e.n?2:e.k==="post"?0:1,shapeAll=ev=>Math.max(...ev.map(shapeOf));
@@ -1079,7 +1094,7 @@ function renderPost(R,K){
   const all=live.slice().sort((a,b)=>a.s.localeCompare(b.s)||a.t.localeCompare(b.t));
   $("#list").innerHTML=all.length?`<h3>Every SAME event on file${esc(pmn)}</h3>`+group(all,e=>item(e,null)):`<div class="empty">Nothing on file${esc(pmn)} for the types you picked.</div>`;
   $("#summary").textContent=`${all.length} upcoming event${all.length===1?"":"s"}${pmn}, all Posts`;
-  $("#zoom").hidden=true;setMap([0,0,975,610],base+postDots(1)+spots(all,1).map(s=>evDot(s.ev,s.p,1,1)).join(""));return}
+  $("#zoom").hidden=true;{const vb=UV([0,0,975,610]),f=vb[2]/975;setMap(vb,base+postDots(f)+spots(all,f).map(s=>evDot(s.ev,s.p,f,1)).join(""))}return}
  let near=[],nat=[];
  if(P){for(const e of live){const nb=e.la==null?null:nearest(P,e.la,e.lo),h=nb?nb.h:null;if(h!=null&&h<=R)near.push([e,h,P.isReg?nb.p:null]);else if(e.n)nat.push(e)}}else nat=live.filter(e=>e.n);
  let html="";
@@ -1089,7 +1104,7 @@ function renderPost(R,K){
  $("#list").innerHTML=html;
  $("#summary").textContent=`${near.length} event${near.length===1?"":"s"} within ${rt(R)} of the ${unit(P)}${pmn}`;
  const ev=near.map(x=>x[0]);
- const vb=q&&!wide?fit([...locs.flatMap(l=>[l.q,...circlePts(l,R,10)]),...ev.map(e=>proj(e.lo,e.la)).filter(Boolean)],1.35,R<1?110:240):[0,0,975,610],f=vb[2]/975;
+ const vb=UV(q&&!wide?fit([...locs.flatMap(l=>[l.q,...circlePts(l,R,10)]),...ev.map(e=>proj(e.lo,e.la)).filter(Boolean)],1.35,R<1?110:240):[0,0,975,610]),f=vb[2]/975;
  const zb=$("#zoom");zb.hidden=!q;zb.textContent=wide?(P.isReg?"Zoom to this Region's area":"Zoom to this Post's area"):"Show all of the U.S.";
  let g=base+postDots(f);
  if(q){g+=rings(locs,R)+locs.map(l=>`<circle cx="${l.q[0]}" cy="${l.q[1]}" r="${11*f}" fill="#fff" stroke="#1E407A" stroke-width="${4*f}"/>`).join("")+spots(ev,f).map(s=>evDot(s.ev,s.p,f,1)).join("");
@@ -1148,7 +1163,7 @@ function route(evs,f,numbered){const stops=[];for(const e of [...evs].sort((a,b)
 /* Map frame for a Region: its Posts plus the events shown. */
 function regVB(G,evs){return fit([...G.locs.map(l=>proj(l[1],l[0])),...evs.map(e=>proj(e.lo,e.la))].filter(Boolean),1.25,240)}
 function renderMonth(R,K){
- const m=$("#month").value;if(!m){$("#list").innerHTML=`<div class="empty">No upcoming events on file.</div>`;setMap([0,0,975,610],base+postDots(1));return}
+ const m=$("#month").value;if(!m){$("#list").innerHTML=`<div class="empty">No upcoming events on file.</div>`;{const vb=UV([0,0,975,610]);setMap(vb,base+postDots(vb[2]/975))}return}
  const {groups,singles}=groupsFor(m,R,K);if(sel!=null&&sel>=groups.length)sel=null;
  const mn=fmt(m+"-01",{month:"long",year:"numeric"});
  const G=curReg(),rn=G?` near the ${esc(G.name)} Region's Posts`:"";
@@ -1158,7 +1173,7 @@ function renderMonth(R,K){
  $("#list").innerHTML=html;
  $("#summary").textContent=`${groups.length} grouping${groups.length===1?"":"s"}${G?" near the "+G.name+" Region's Posts":""} in ${mn}: events in the same week, within ${rt(R)} of each other`;
  const zb=$("#zoom");zb.hidden=sel==null&&!G;zb.textContent=wide?(sel!=null?"Zoom to this grouping":"Zoom to this Region"):"Show all of the U.S.";
- const vb=sel!=null&&!wide?fit(groups[sel].ev.map(e=>proj(e.lo,e.la)).filter(Boolean),1.6,200):(G&&!wide?regVB(G,[...groups.flatMap(x=>x.ev),...singles]):[0,0,975,610]),f=vb[2]/975;
+ const vb=UV(sel!=null&&!wide?fit(groups[sel].ev.map(e=>proj(e.lo,e.la)).filter(Boolean),1.6,200):(G&&!wide?regVB(G,[...groups.flatMap(x=>x.ev),...singles]):[0,0,975,610])),f=vb[2]/975;
  let g=base+postDots(f)+spots(singles,f).map(s=>evDot(s.ev,s.p,f,1,"#1E407A")).join("");
  const badges=[];
  groups.forEach((gr,k)=>{if(sel!=null&&!wide&&k!==sel)return;/* zoomed to one grouping: show only it */const pts=gr.ev.map(e=>proj(e.lo,e.la)).filter(Boolean);if(!pts.length)return;
@@ -1204,6 +1219,7 @@ function render(){
  $("#radius-label").textContent=mode==="month"?"Group events within":"Driving distance";
  if(mode==="about")return;
  const R=+$("#radius").value,K=kinds();
+ {const k=JSON.stringify([mode,$("#post").value,$("#month").value,$("#region").value,R,[...K].sort(),sel,wide]);if(k!==viewKey){viewKey=k;userVB=null}}
  if(mode==="cal"){renderCal(K);const CP=cur();$("#sub").textContent=(CP?`SAME events near the ${unit(CP)}: `:`Every upcoming SAME event on file: `)+fmt($("#month").value+"-01",{month:"long",year:"numeric"});return}
  if(mode==="month")renderMonth(R,K);else renderPost(R,K);
  const P=cur();
@@ -1238,6 +1254,36 @@ $("#map").addEventListener("click",e=>pick(e.target));
 $("#map").addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&pick(e.target))e.preventDefault()});
 $("#list").addEventListener("click",e=>{const b=e.target.closest&&e.target.closest(".glink");if(b){sel=+b.dataset.group;wide=false;render();window.scrollTo({top:$("#map").getBoundingClientRect().top+scrollY-16,behavior:"smooth"})}});
 $("#zoom").addEventListener("click",()=>{wide=!wide;render()});
+{const M=$("#map"),cvb=()=>M.getAttribute("viewBox").split(" ").map(Number);let rt0=0;
+ /* Zoom by k around a point (svg units); keep at least 1/20 of the country and at most about the whole map. */
+ const zoomAt=(vb,k,cx,cy)=>{const w=Math.min(1100,Math.max(975/20,vb[2]*k)),s=w/vb[2],h=vb[3]*s;return clampVB([cx-(cx-vb[0])*s,cy-(cy-vb[1])*s,w,h])};
+ const clampVB=v=>{const cx=Math.min(975,Math.max(0,v[0]+v[2]/2)),cy=Math.min(610,Math.max(0,v[1]+v[3]/2));return[cx-v[2]/2,cy-v[3]/2,v[2],v[3]]};
+ const show=v=>{userVB=v;M.setAttribute("viewBox",v.map(x=>x.toFixed(1)).join(" "))};
+ const settle=(ms)=>{clearTimeout(rt0);rt0=setTimeout(render,ms)};/* redraw markers at the new scale */
+ const toSvg=(x,y)=>{const r=M.getBoundingClientRect(),v=cvb();return[v[0]+(x-r.left)/r.width*v[2],v[1]+(y-r.top)/r.height*v[3]]};
+ document.querySelector(".mapctl").addEventListener("click",e=>{const b=e.target.closest("[data-z]");if(!b)return;const v=cvb();
+  if(b.dataset.z==="reset"){userVB=null;render();return}
+  show(zoomAt(v,b.dataset.z==="in"?1/1.6:1.6,v[0]+v[2]/2,v[1]+v[3]/2));render()});
+ const tip=$("#maptip");let tt=0;
+ M.addEventListener("wheel",e=>{if(!(e.ctrlKey||e.metaKey)){tip.classList.add("on");clearTimeout(tt);tt=setTimeout(()=>tip.classList.remove("on"),1300);return}
+  e.preventDefault();const [x,y]=toSvg(e.clientX,e.clientY);show(zoomAt(cvb(),Math.exp(Math.max(-1,Math.min(1,e.deltaY*(e.deltaMode?0.05:0.002)))),x,y));settle(120)},{passive:false});
+ /* Drag to pan; two fingers pinch and pan. A drag does not count as a click on a dot. */
+ const pts=new Map();let start=null,moved=false;
+ M.addEventListener("pointerdown",e=>{if(e.button)return;pts.set(e.pointerId,[e.clientX,e.clientY]);start={vb:cvb(),pts:new Map(pts)};moved=false});
+ M.addEventListener("pointermove",e=>{if(!pts.has(e.pointerId)||!start)return;pts.set(e.pointerId,[e.clientX,e.clientY]);
+  const r=M.getBoundingClientRect(),v0=start.vb,ids=[...pts.keys()].filter(i=>start.pts.has(i));
+  if(ids.length>=2){const [a,b]=ids,p0=start.pts.get(a),q0=start.pts.get(b),p1=pts.get(a),q1=pts.get(b);
+   const d0=Math.hypot(p0[0]-q0[0],p0[1]-q0[1]),d1=Math.hypot(p1[0]-q1[0],p1[1]-q1[1]);if(!d0||!d1)return;moved=true;M.classList.add("dragging");
+   const m0=[(p0[0]+q0[0])/2,(p0[1]+q0[1])/2],m1=[(p1[0]+q1[0])/2,(p1[1]+q1[1])/2];
+   const sx=v0[0]+(m0[0]-r.left)/r.width*v0[2],sy=v0[1]+(m0[1]-r.top)/r.height*v0[3];
+   const z=zoomAt(v0,d0/d1,sx,sy);show(clampVB([z[0]-(m1[0]-m0[0])/r.width*z[2],z[1]-(m1[1]-m0[1])/r.height*z[3],z[2],z[3]]));e.preventDefault();return}
+  const p0=start.pts.get(e.pointerId);if(!p0)return;const dx=e.clientX-p0[0],dy=e.clientY-p0[1];
+  if(!moved&&Math.hypot(dx,dy)<5)return;
+  if(!moved){moved=true;M.classList.add("dragging");try{M.setPointerCapture(e.pointerId)}catch(x){}}
+  show(clampVB([v0[0]-dx/r.width*v0[2],v0[1]-dy/r.height*v0[3],v0[2],v0[3]]))});
+ const up=e=>{pts.delete(e.pointerId);if(pts.size)start={vb:cvb(),pts:new Map(pts)};else{start=null;M.classList.remove("dragging");if(moved)settle(0)}};
+ M.addEventListener("pointerup",up);M.addEventListener("pointercancel",up);
+ M.addEventListener("click",e=>{if(moved){e.stopImmediatePropagation();e.preventDefault();moved=false}},true)}
 $("#howto-link").addEventListener("click",e=>{e.preventDefault();mode="about";setUrl();render();setTimeout(()=>document.getElementById("howto").scrollIntoView({behavior:"smooth"}),50)});
 $("#cal").addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-cal]");if(!b)return;const i=MONTHS.indexOf($("#month").value)+ +b.dataset.cal;if(i<0||i>=MONTHS.length)return;$("#month").value=MONTHS[i];calMonth=postMonth=MONTHS[i];monthPicked=true;setUrl();render()});
 for(const t of document.querySelectorAll("button[data-mode]"))t.addEventListener("click",()=>{mode=t.dataset.mode;wide=false;sel=null;if(mode==="month"&&!monthPicked&&MONTHS.length){calMonth=firstBusyMonth();monthPicked=true}setUrl();render()});
