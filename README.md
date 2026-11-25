@@ -41,7 +41,7 @@ SAME Post Tools is built by volunteers for Posts. You do not need to write code 
 
 - **Report a problem or suggest an idea.** Use the [feedback form](https://docs.google.com/forms/d/e/1FAIpQLScYdwRseh5rTPF0kljTpPXaNCszXTMybdXyBZqntq3vd8BylQ/viewform) (no account needed, not published), the public [problem and idea forms](https://github.com/same-post-tools/same-post-tools.github.io/issues/new/choose), or email the address under Contact. Never include member names, email addresses, rosters, or exports in a report.
 - **Try a tool with your Post.** Open your own Post's files in a tool and tell us what is wrong, missing, or confusing. Your files stay on your computer while you test.
-- **Review the code.** Every page that runs in the browser is in this repository. Check the Content Security Policy at the top of each page and the load and export checks inside it.
+- **Review the pages.** Every page that runs in the browser is in this repository. Check the Content Security Policy at the top of each page and the load and export checks inside it. The build scripts and tests are kept privately for now.
 - **Suggest a change to the code.** Pull requests are welcome as proposals. The pages are built from a separate working copy, so an accepted change is applied there by hand, credited to you, and the pull request is then closed.
 
 ## Spread the word
