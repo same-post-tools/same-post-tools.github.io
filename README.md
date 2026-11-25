@@ -59,7 +59,17 @@ The home page and each tool carry a version number, and each tool shows the date
 
 ## License
 
-The code in this repository is shared under the MIT License (`LICENSE`). The license covers the code only. It does not cover the event information in `events/data.json`, which is gathered from public listings and from the Industry Days list, or the membership counts in the membership page, which are SAME National's from its public reports, or the SAME name and colors, which belong to the Society of American Military Engineers. No SAME logo is used. Third-party parts keep their own licenses (see `THIRD-PARTY-NOTICES.md`).
+The code in this repository is free to use for noncommercial purposes under the same-post-tools Noncommercial License (`LICENSE`), which is the PolyForm Noncommercial License 1.0.0 with three added terms. In plain terms:
+
+- **Welcome to use the tools:** SAME Posts and other professional and technical societies, their members and volunteers (including people employed by for-profit firms who are doing society work), schools, government agencies, and individuals for personal or noncommercial use.
+- **You may change the tools and share them,** as long as the full `LICENSE` file goes with every copy.
+- **Not allowed without written permission:** selling the tools, or offering them, or a version of them, as a paid product or service.
+- **The maintainer may end anyone's license** at any time, by written notice.
+- **No warranty.** The tools are provided as is.
+
+This summary is for convenience; the terms in `LICENSE` control. Copies of the code obtained before this change (November 24, 2026) were offered under the MIT License. Ask for permission at the address under Contact.
+
+The license covers the code only. It does not cover the event information in `events/data.json`, which is gathered from public listings and from the Industry Days list, or the membership counts in the membership page, which are SAME National's from its public reports, or the SAME name and colors, which belong to the Society of American Military Engineers. No SAME logo is used. Third-party parts keep their own licenses (see `THIRD-PARTY-NOTICES.md`).
 
 ## Credits
 
