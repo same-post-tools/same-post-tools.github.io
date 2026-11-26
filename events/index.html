@@ -15,7 +15,7 @@ WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. SAME name and colors: Society of A
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-5lUfzcMvCdaFOyxRJtGNAdlEfg2mGKQaEevu4PbCDVQ=' 'sha256-KnPVLN2jpcT+M+j3ltebxkR1in6sWZy4WBoM38KgkqU=' 'sha256-j411EVZCOMoV9uOZpQNeQiZQ0ZMdur5z1GyYTDUhAe4=' 'sha256-uc+P5JK1Em1kPdfFc0c3q4O5IgX2YMrkKCaC1qHWumg='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://same-post-tools.github.io; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-5lUfzcMvCdaFOyxRJtGNAdlEfg2mGKQaEevu4PbCDVQ=' 'sha256-KnPVLN2jpcT+M+j3ltebxkR1in6sWZy4WBoM38KgkqU=' 'sha256-bWsSpdnLbH5hxWlvwb8JBcKXU3r9447jZ7EQ9HrwSlg=' 'sha256-uc+P5JK1Em1kPdfFc0c3q4O5IgX2YMrkKCaC1qHWumg='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://same-post-tools.github.io; base-uri 'none'; form-action 'none'">
 <script>/* SAME Post Tools page guard (same-post-tools/shared/page-guard.js). publish.py puts it right after the
    Content Security Policy on every published page (Scott, 2026-11-25).
    1. Framing: a page shown inside another site's frame is hidden and offers a link to open it on its own,
@@ -134,6 +134,8 @@ li.ev.isnat{background:#EAF0F8;border-left:5px solid var(--blue);border-bottom:0
 .xbtns .ghost{margin-top:0}
 .xnote{font-size:13px;color:var(--mute);margin:8px 0 0}
 .xnote a{color:var(--link)}
+.skip{position:absolute;left:-9999px;top:auto}.skip:focus{position:static;display:inline-block;margin:0 0 8px;padding:6px 10px;background:var(--blue);color:#fff;border-radius:4px;outline:3px solid #BF0A30;outline-offset:2px}
+@media print{.skip{display:none}}
 .printonly{display:none}
 @page{size:letter;margin:0.55in 0.6in}
 @media print{
@@ -355,6 +357,7 @@ summary{font-weight:bold;cursor:pointer;min-height:44px;display:flex;align-items
 <main class="band grid">
   <div class="mapcol">
     <p class="summary" id="summary"></p>
+    <a class="skip" href="#share">Skip the map</a>
     <div class="mapwrap"><svg class="map" id="map" viewBox="0 0 975 610" role="group" aria-label="U.S. map of SAME events. Choose your Post with the Your Post list; event markers and groupings can be selected here"></svg>
     <div class="mapctl" role="group" aria-label="Map zoom"><button type="button" data-z="in" title="Zoom in (or Ctrl and scroll; pinch on a phone or trackpad)" aria-label="Zoom in">+</button><button type="button" data-z="out" title="Zoom out" aria-label="Zoom out">&minus;</button><button type="button" data-z="reset" title="Back to this view's own map" aria-label="Reset the map">&#8634;</button></div>
     <div class="maptip" id="maptip" aria-hidden="true">Use Ctrl and scroll (Cmd on a Mac) to zoom the map</div></div>
@@ -362,15 +365,16 @@ summary{font-weight:bold;cursor:pointer;min-height:44px;display:flex;align-items
     <div class="legend only-post"><span><i style="background:#fff;border:3px solid #1E407A;box-sizing:border-box"></i>Your Post</span><span><i style="background:#BF0A30"></i>Events in range</span><span class="shapes" title="Marker shapes on the map">Shapes: <b class="shp star">&#9733;</b> SAME National <b class="shp">&#9632;</b> industry day or full-day event <b class="shp">&#9679;</b> Post meeting, luncheon, or social</span><span><i style="background:var(--postdot)"></i>Other SAME Posts</span><span>Dashed ring: driving distance (estimate)</span><span>Select a Post dot to switch Posts, or an event dot to find it in the list</span></div>
     <div class="legend only-month"><span><i style="background:rgba(191,10,48,.25);border:2px solid #BF0A30;box-sizing:border-box"></i>Grouping of events (number = events)</span><span><i style="background:#1E407A"></i>Event on its own</span><span class="shapes" title="Marker shapes on the map">Shapes: <b class="shp star">&#9733;</b> SAME National <b class="shp">&#9632;</b> industry day or full-day event <b class="shp">&#9679;</b> Post meeting, luncheon, or social</span><span>Blue arrows: the order of stops within a grouping (numbered when you zoom to one)</span><span><i style="background:var(--postdot)"></i>SAME Posts</span><span>Select a grouping to zoom to it and list its events; select a Post dot to see what is near that Post</span></div>
     <div class="legend only-cal calkey"><span><i class="k-industry"></i>Industry day or conference</span><span><i class="k-post"></i>Post meeting or social</span><span><i class="k-golf"></i>Golf or sporting</span><span><i class="k-veteran"></i>Veteran</span><span>Lighter bars continue a multi-day event; select an event to open its page</span></div>
-    <div class="export" role="group" aria-label="Share in a newsletter">
+    <div class="export" id="share" tabindex="-1" role="group" aria-label="Share in a newsletter">
       <p class="xlabel">Share this view in a newsletter</p>
       <div class="xbtns">
+        <button type="button" id="x-print" class="ghost" title="Print this view, or choose Save as PDF in the print window for a PDF that screen readers can read">Print or save accessible PDF</button>
         <button type="button" id="x-pdf" class="ghost" title="Download this view as a PDF: numbered maps and linked events, ready to print or attach">Save as PDF</button>
         <button type="button" id="x-copy" class="ghost" title="Copy this view, with maps and links, to paste into an email newsletter">Copy for email</button>
         <button type="button" id="x-png" class="ghost no-cal" title="Save the map shown here as a picture">Download map image</button>
         <button type="button" id="x-xlsx" class="ghost" title="Download the events in this view as an Excel spreadsheet, one row per event, to sort, filter, or plan with">Download spreadsheet (.xlsx)</button>
       </div>
-      <p class="xnote" id="xnote">Save as PDF downloads the map and the events in this view (one grouping, if you have selected one). Copy for email copies the same view, with the SAME header, the map, and linked events, ready to paste into a Post's email newsletter. Download map image saves the map alone. Download spreadsheet saves the events in this view as an Excel file, one row per event. <a href="#" id="x-html" title="The same email block as a file, for newsletter tools that drop pasted maps">Download the email version as an HTML file</a>.</p>
+      <p class="xnote" id="xnote">Print or save accessible PDF opens your browser's print window; choose Save as PDF there for a PDF that screen readers can read. Save as PDF downloads the map and the events in this view (one grouping, if you have selected one). Copy for email copies the same view, with the SAME header, the map, and linked events, ready to paste into a Post's email newsletter. Download map image saves the map alone. Download spreadsheet saves the events in this view as an Excel file, one row per event. <a href="#" id="x-html" title="The same email block as a file, for newsletter tools that drop pasted maps">Download the email version as an HTML file</a>.</p>
     </div>
   </div>
   <div id="list"></div>
@@ -431,6 +435,9 @@ summary{font-weight:bold;cursor:pointer;min-height:44px;display:flex;align-items
     <tr><td><span class="sw" style="background:#d9e0ea"></span> Rule</td><td>Lines and borders</td><td class="mono">#D9E0EA</td></tr>
   </tbody></table>
   <p><strong>Font:</strong> Arial, with Helvetica as the alternative, as the manual specifies; both come from the viewer's own device, so no font is downloaded. The fallback is the device's default sans-serif.</p>
+
+  <h2>Built with AI assistance, not an AI tool</h2>
+  <p>The code was written with help from an AI coding assistant, then reviewed and tested before release. The page itself contains no AI: nothing you open or enter is sent to, seen by, or processed by any AI service. The events list is compiled with AI help from Post websites and public event pages, using public information only.</p>
 
   <h2>Licensing</h2>
   <table><thead><tr><th>Part</th><th>Owner or source</th><th>Terms</th></tr></thead><tbody>
@@ -1015,7 +1022,7 @@ const D={"map":{"w":975,"h":610,"states":[{"n":"Alabama","d":"M648,492.4L648,492
    the newest it has seen in this browser, so copies passed around by email stay current. The connection rule above
    allows only that one address; nothing is ever sent from this page. */
 const DATA_URL="https://same-post-tools.github.io/events/data.json";
-const TOOL_VERSION="0.9.3";
+const TOOL_VERSION="0.9.4";
 /* Load checks (GUARD): the built-in list, a saved newer list, and any online list are all checked item by item. */
 {const b=GUARD.eventList(D);if(b){D.events=b.events;D.posts=b.posts}}
 try{const c=GUARD.eventList(JSON.parse(localStorage.getItem("sameEventsData")||"null"));if(c&&c.built>D.built){D.events=c.events;D.posts=c.posts;D.wb=c.wb;D.built=c.built;D.online=1}else if(localStorage.getItem("sameEventsData")&&!c)localStorage.removeItem("sameEventsData")}catch(e){try{localStorage.removeItem("sameEventsData")}catch(e2){}}
@@ -1435,6 +1442,7 @@ async function emailBlock(v){if(v.cal){const map=null;return emailHTML(v,map)}co
 function bindHtml(){const a=$("#x-html");if(a)a.onclick=async e=>{e.preventDefault();const v=viewData();if(!needView(v))return;const blk=await emailBlock(v);if(!(await GUARD.exportOK(blk,"html","newsletter block")))return;
  save(new Blob([`<!DOCTYPE html><html><head><meta charset="utf-8"><title>${esc(v.title)}</title></head><body style="margin:0;padding:16px;background:#ffffff;">\n<!-- BEGIN NEWSLETTER BLOCK -->\n${blk}\n<!-- END NEWSLETTER BLOCK -->\n</body></html>\n`],{type:"text/html"}),v.file+".html")}}
 bindHtml();
+$("#x-print").addEventListener("click",()=>window.print());
 $("#x-copy").addEventListener("click",async()=>{const v=viewData();if(!needView(v))return;if(!(await GUARD.exportOK(emailText(v),"text","copied block")))return;
  const htmlP=emailBlock(v).then(h=>new Blob([h],{type:"text/html"}));
  try{await navigator.clipboard.write([new ClipboardItem({"text/html":htmlP,"text/plain":new Blob([emailText(v)],{type:"text/plain"})})]);note(mode==="cal"?"Copied: header, calendar, and events. Paste into the newsletter.":"Copied: header, map, and events. Paste into the newsletter. If the map does not show there, add it with Download map image.")}
