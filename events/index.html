@@ -15,7 +15,7 @@ WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. SAME name and colors: Society of A
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-5lUfzcMvCdaFOyxRJtGNAdlEfg2mGKQaEevu4PbCDVQ=' 'sha256-KnPVLN2jpcT+M+j3ltebxkR1in6sWZy4WBoM38KgkqU=' 'sha256-sLdBrEmkFYiJb+8XEwxGthpwdEpveCAzquywfV7hYLc=' 'sha256-uc+P5JK1Em1kPdfFc0c3q4O5IgX2YMrkKCaC1qHWumg='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://same-post-tools.github.io; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-5lUfzcMvCdaFOyxRJtGNAdlEfg2mGKQaEevu4PbCDVQ=' 'sha256-KnPVLN2jpcT+M+j3ltebxkR1in6sWZy4WBoM38KgkqU=' 'sha256-j411EVZCOMoV9uOZpQNeQiZQ0ZMdur5z1GyYTDUhAe4=' 'sha256-uc+P5JK1Em1kPdfFc0c3q4O5IgX2YMrkKCaC1qHWumg='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://same-post-tools.github.io; base-uri 'none'; form-action 'none'">
 <script>/* SAME Post Tools page guard (same-post-tools/shared/page-guard.js). publish.py puts it right after the
    Content Security Policy on every published page (Scott, 2026-11-25).
    1. Framing: a page shown inside another site's frame is hidden and offers a link to open it on its own,
@@ -95,9 +95,8 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .maptip{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);background:rgba(20,33,58,.88);color:#fff;font-size:13px;padding:6px 10px;border-radius:6px;pointer-events:none;opacity:0;transition:opacity .2s}
 .maptip.on{opacity:1}
 .map [data-post],.map [data-ev]{cursor:pointer}
-.map [data-post]:hover,.map [data-post]:focus{fill:#1E407A;outline:none}
+.map [data-post]:hover{fill:#1E407A}
 .map [data-ev]:hover .dot,.map [data-ev]:focus .dot{stroke:#1E407A;stroke-width:3px;vector-effect:non-scaling-stroke}
-.map [data-ev]:focus{outline:none}
 li.ev.hl{background:var(--tint);box-shadow:-8px 0 0 var(--tint),8px 0 0 var(--tint);border-radius:2px}
 .ghost{background:var(--bg);color:var(--link);border:1px solid var(--blue);margin-top:8px}
 .legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--mute);margin-top:8px}
@@ -206,7 +205,10 @@ body[data-mode=post] .only-month,body[data-mode=month] .only-post{display:none}
 body[data-mode=cal] .only-month{display:none}
 body[data-mode=post] .rgn,body[data-mode=about] .rgn{display:none}
 body[data-mode=about] .controls,body[data-mode=about] main.grid,body[data-mode=about] .intro{display:none}
-body[data-mode=about] .vt{opacity:.85}
+#map [tabindex="0"]:focus{outline:3px solid #BF0A30;outline-offset:2px}
+.tscroll{overflow-x:auto;max-width:100%}
+.tscroll:focus-visible{outline:3px solid #BF0A30;outline-offset:2px}
+#map [tabindex="0"]:focus:not(:focus-visible){outline:none}
 body:not([data-mode=about]) #about{display:none}
 #about{max-width:980px}
 #about h2{font-size:24px;margin:34px 0 8px}
@@ -228,7 +230,6 @@ body:not([data-mode=about]) #about{display:none}
 details{margin-top:28px;border-top:2px solid var(--blue);padding-top:4px}
 summary{font-weight:bold;cursor:pointer;min-height:44px;display:flex;align-items:center}
 .map [data-group]{cursor:pointer}
-.map [data-group]:focus{outline:none}
 
 /* Dark theme (Display menu, or the device setting when "Match my device" is chosen). Exports always use the light colors. */
 :root[data-theme=dark]{color-scheme:dark;--blue:#8fb2ee;--red:#ef6a83;--navy:#dbe5f7;--bg:#0f1726;--ink:#e6ebf3;--mute:#a9b4c6;--rule:#2b3a55;--tint:#1b2a45;--land:#26344d;--line:#0f1726;--postdot:#6f7f99;--link:#9cc0ff;--date:#9cc0ff}
@@ -354,7 +355,7 @@ summary{font-weight:bold;cursor:pointer;min-height:44px;display:flex;align-items
 <main class="band grid">
   <div class="mapcol">
     <p class="summary" id="summary"></p>
-    <div class="mapwrap"><svg class="map" id="map" viewBox="0 0 975 610" role="img" aria-label="U.S. map by state showing SAME Posts and events"></svg>
+    <div class="mapwrap"><svg class="map" id="map" viewBox="0 0 975 610" role="group" aria-label="U.S. map of SAME events. Choose your Post with the Your Post list; event markers and groupings can be selected here"></svg>
     <div class="mapctl" role="group" aria-label="Map zoom"><button type="button" data-z="in" title="Zoom in (or Ctrl and scroll; pinch on a phone or trackpad)" aria-label="Zoom in">+</button><button type="button" data-z="out" title="Zoom out" aria-label="Zoom out">&minus;</button><button type="button" data-z="reset" title="Back to this view's own map" aria-label="Reset the map">&#8634;</button></div>
     <div class="maptip" id="maptip" aria-hidden="true">Use Ctrl and scroll (Cmd on a Mac) to zoom the map</div></div>
     <button type="button" id="zoom" class="ghost" hidden title="Switch between the zoomed map and the whole country">Show all of the U.S.</button>
@@ -413,10 +414,10 @@ summary{font-weight:bold;cursor:pointer;min-height:44px;display:flex;align-items
 
   <h2>Colors and fonts</h2>
   <p>The SAME colors and font follow the SAME logo standards manual (revised July 28, 2025). The manual gives PMS, CMYK, and RGB; the hex values are converted from RGB.</p>
-  <table><thead><tr><th>Color</th><th>Use on this page</th><th>PMS</th><th>CMYK</th><th>RGB</th><th>Hex</th></tr></thead><tbody>
+  <div class="tscroll" tabindex="0" role="region" aria-label="Brand colors table"><table><thead><tr><th>Color</th><th>Use on this page</th><th>PMS</th><th>CMYK</th><th>RGB</th><th>Hex</th></tr></thead><tbody>
     <tr><td><span class="sw" style="background:#1E407A"></span> SAME Blue</td><td>Menu, headings, links, dates, your Post, events on their own</td><td>281</td><td class="mono">100 84 24 0</td><td class="mono">30 64 122</td><td class="mono">#1E407A</td></tr>
     <tr><td><span class="sw" style="background:#BF0A30"></span> SAME Red</td><td>Stars, underlines, buttons, groupings, events in range, drive ring</td><td>193</td><td class="mono">12 100 71 0</td><td class="mono">191 10 48</td><td class="mono">#BF0A30</td></tr>
-  </tbody></table>
+  </tbody></table></div>
   <p>Supporting colors used by this page only (not part of SAME's standard):</p>
   <table><thead><tr><th>Color</th><th>Use</th><th>Hex</th></tr></thead><tbody>
     <tr><td><span class="sw" style="background:#0b1a3a"></span> <span class="sw" style="background:#132b5c"></span> Banner navy</td><td>Banner gradient, into SAME Blue</td><td class="mono">#0B1A3A, #132B5C</td></tr>
@@ -1014,7 +1015,7 @@ const D={"map":{"w":975,"h":610,"states":[{"n":"Alabama","d":"M648,492.4L648,492
    the newest it has seen in this browser, so copies passed around by email stay current. The connection rule above
    allows only that one address; nothing is ever sent from this page. */
 const DATA_URL="https://same-post-tools.github.io/events/data.json";
-const TOOL_VERSION="0.9.2";
+const TOOL_VERSION="0.9.3";
 /* Load checks (GUARD): the built-in list, a saved newer list, and any online list are all checked item by item. */
 {const b=GUARD.eventList(D);if(b){D.events=b.events;D.posts=b.posts}}
 try{const c=GUARD.eventList(JSON.parse(localStorage.getItem("sameEventsData")||"null"));if(c&&c.built>D.built){D.events=c.events;D.posts=c.posts;D.wb=c.wb;D.built=c.built;D.online=1}else if(localStorage.getItem("sameEventsData")&&!c)localStorage.removeItem("sameEventsData")}catch(e){try{localStorage.removeItem("sameEventsData")}catch(e2){}}
@@ -1064,7 +1065,7 @@ $("#month").innerHTML=MONTHS.map(m=>`<option value="${m}">${fmt(m+"-01",{month:"
  else fr.textContent=`Event list as of ${asof}${D.online?" (updated from the online list)":""}.`}
 $("#ver").textContent=`SAME Events Near You version ${TOOL_VERSION}. Data version: Industry Days list (Bobbi Jo Lang) version of ${D.wb}; SAME event listings and the Southeast regional calendar read ${fmt(D.built,{month:"long",day:"numeric",year:"numeric"})}. ${D.events.length} events on file.`;
 const base=`<defs><marker id="arr" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="4.2" markerHeight="4.2" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1E407A"/></marker></defs><g>${D.map.states.map(s=>`<path d="${s.d}" fill="var(--land)"><title>${esc(s.n)}</title></path>`).join("")}</g><path class="st-borders" d="${D.map.borders}" fill="none" stroke="var(--line)" stroke-width="1.2" vector-effect="non-scaling-stroke"/><path class="st-nation" d="${D.map.nation}" fill="none" stroke="var(--postdot)" stroke-width=".8" vector-effect="non-scaling-stroke"/>`;
-const postDots=f=>D.posts.flatMap(p=>p.locs.map(l=>[p,proj(l[1],l[0])])).map(([p,q])=>{return q?`<circle data-post="${p.slug}" tabindex="0" role="button" aria-label="Show events near the ${esc(unit(p))}" cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="${5*f}" fill="var(--postdot)" stroke="transparent" stroke-width="${10*f}"><title>${esc(unit(p))}: select to see events near it</title></circle>`:""}).join("");
+const postDots=f=>D.posts.flatMap(p=>p.locs.map(l=>[p,proj(l[1],l[0])])).map(([p,q])=>{return q?`<circle data-post="${p.slug}" aria-hidden="true" cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="${5*f}" fill="var(--postdot)" stroke="transparent" stroke-width="${10*f}"><title>${esc(unit(p))}: select to see events near it</title></circle>`:""}).join("");
 let mode="month",wide=false,sel=null,postMonth="all",calMonth="";
 /* The Month picker: Near a Post offers "All upcoming"; By month and Calendar show one month. */
 function syncMonth(){const el=$("#month"),opts=MONTHS.map(m=>`<option value="${m}">${fmt(m+"-01",{month:"long",year:"numeric"})}</option>`).join("");
