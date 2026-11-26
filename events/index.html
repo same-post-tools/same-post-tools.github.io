@@ -15,7 +15,7 @@ WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. SAME name and colors: Society of A
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-5fxYCZyxiswo75nAhCBAOmEnFwxWagzFJ1IxdiCiDj4=' 'sha256-5lUfzcMvCdaFOyxRJtGNAdlEfg2mGKQaEevu4PbCDVQ=' 'sha256-KnPVLN2jpcT+M+j3ltebxkR1in6sWZy4WBoM38KgkqU=' 'sha256-uc+P5JK1Em1kPdfFc0c3q4O5IgX2YMrkKCaC1qHWumg='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://same-post-tools.github.io; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-5lUfzcMvCdaFOyxRJtGNAdlEfg2mGKQaEevu4PbCDVQ=' 'sha256-KnPVLN2jpcT+M+j3ltebxkR1in6sWZy4WBoM38KgkqU=' 'sha256-sLdBrEmkFYiJb+8XEwxGthpwdEpveCAzquywfV7hYLc=' 'sha256-uc+P5JK1Em1kPdfFc0c3q4O5IgX2YMrkKCaC1qHWumg='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://same-post-tools.github.io; base-uri 'none'; form-action 'none'">
 <script>/* SAME Post Tools page guard (same-post-tools/shared/page-guard.js). publish.py puts it right after the
    Content Security Policy on every published page (Scott, 2026-11-25).
    1. Framing: a page shown inside another site's frame is hidden and offers a link to open it on its own,
@@ -303,7 +303,7 @@ summary{font-weight:bold;cursor:pointer;min-height:44px;display:flex;align-items
     <div class="ccard">
       <p class="ck">The event list</p>
       <p class="cn">Bobbi Jo Lang</p>
-      <p>The heart of this page is the Industry Days list that Bobbi Jo builds and updates by hand, on her own time, every week. She tracks industry days, conferences, and Post events across SAME so Posts can plan their events around each other and members can plan their attendance. Her list is the foundation of this page and of SAME Post Tools.</p>
+      <p>The heart of this page is the Industry Days list that Bobbi Jo, past Chair of the SAME Membership Community of Interest, builds and updates by hand, on her own time, every week. She tracks industry days, conferences, and Post events across SAME so Posts can plan their events around each other and members can plan their attendance. Her list is the foundation of this page and of SAME Post Tools.</p>
       <p class="cc"><strong>To add an event or correct one:</strong> <a class="mailto" data-u="same.post.tools" data-d="gmail.com" href="#contact">same.post.tools (at) gmail.com</a>. Additions and corrections go to Bobbi Jo for her list.</p>
     </div>
     <div class="ccard">
@@ -1014,7 +1014,7 @@ const D={"map":{"w":975,"h":610,"states":[{"n":"Alabama","d":"M648,492.4L648,492
    the newest it has seen in this browser, so copies passed around by email stay current. The connection rule above
    allows only that one address; nothing is ever sent from this page. */
 const DATA_URL="https://same-post-tools.github.io/events/data.json";
-const TOOL_VERSION="0.9.1";
+const TOOL_VERSION="0.9.2";
 /* Load checks (GUARD): the built-in list, a saved newer list, and any online list are all checked item by item. */
 {const b=GUARD.eventList(D);if(b){D.events=b.events;D.posts=b.posts}}
 try{const c=GUARD.eventList(JSON.parse(localStorage.getItem("sameEventsData")||"null"));if(c&&c.built>D.built){D.events=c.events;D.posts=c.posts;D.wb=c.wb;D.built=c.built;D.online=1}else if(localStorage.getItem("sameEventsData")&&!c)localStorage.removeItem("sameEventsData")}catch(e){try{localStorage.removeItem("sameEventsData")}catch(e2){}}

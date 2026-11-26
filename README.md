@@ -73,7 +73,7 @@ The license covers the code only. It does not cover the event information in `ev
 
 ## Credits
 
-SAME Post Tools grew out of the Industry Days list that Bobbi Jo Lang builds by hand, on her own time, every week, so Posts can plan their events around each other and members can plan their attendance. Her list is the foundation of this site.
+SAME Post Tools grew out of the Industry Days list that Bobbi Jo Lang, past Chair of the SAME Membership Community of Interest, builds by hand, on her own time, every week, so Posts can plan their events around each other and members can plan their attendance. Her list is the foundation of this site.
 
 The tools grew from an idea of Scott DeGaro's: group events that fall in the same week and region into one trip, first tried as a Gulf Coast trip in December 2026. Scott, a member of the SAME Membership Community of Interest, built them with the help of AI tools. The other tools formalize work Scott was already doing for his own Post, so any Post can use them.
 

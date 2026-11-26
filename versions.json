@@ -1,7 +1,7 @@
 {
-  "hub": "0.8.16",
+  "hub": "0.8.17",
   "events": {
-    "version": "0.9.1",
+    "version": "0.9.2",
     "data": "November 23, 2026"
   },
   "membership": {
