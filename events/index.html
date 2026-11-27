@@ -15,7 +15,7 @@ WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. SAME name and colors: Society of A
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-5lUfzcMvCdaFOyxRJtGNAdlEfg2mGKQaEevu4PbCDVQ=' 'sha256-KnPVLN2jpcT+M+j3ltebxkR1in6sWZy4WBoM38KgkqU=' 'sha256-nmdmDioUHK6cTJSVn+YeJsusOBqdYmHOYj2Jqe7jkz8=' 'sha256-uc+P5JK1Em1kPdfFc0c3q4O5IgX2YMrkKCaC1qHWumg='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://same-post-tools.github.io; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-5lUfzcMvCdaFOyxRJtGNAdlEfg2mGKQaEevu4PbCDVQ=' 'sha256-KnPVLN2jpcT+M+j3ltebxkR1in6sWZy4WBoM38KgkqU=' 'sha256-YQdo1N7DdckbgYOweyB//JCsIMU02iFVLw8DNmmUM/0=' 'sha256-uc+P5JK1Em1kPdfFc0c3q4O5IgX2YMrkKCaC1qHWumg='; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src https://same-post-tools.github.io; base-uri 'none'; form-action 'none'">
 <script>/* SAME Post Tools page guard (same-post-tools/shared/page-guard.js). publish.py puts it right after the
    Content Security Policy on every published page (Scott, 2026-11-25).
    1. Framing: a page shown inside another site's frame is hidden and offers a link to open it on its own,
@@ -134,6 +134,8 @@ li.ev.isnat{background:#EAF0F8;border-left:5px solid var(--blue);border-bottom:0
 .xbtns .ghost{margin-top:0}
 .xnote{font-size:13px;color:var(--mute);margin:8px 0 0}
 .xnote a{color:var(--link)}
+.lic summary{cursor:pointer}.lic pre{white-space:pre-wrap;font-size:12px}
+@media print{.lic{display:none}}
 .skip{position:absolute;left:-9999px;top:auto}.skip:focus{position:static;display:inline-block;margin:0 0 8px;padding:6px 10px;background:var(--blue);color:#fff;border-radius:4px;outline:3px solid #BF0A30;outline-offset:2px}
 @media print{.skip{display:none}}
 .printonly{display:none}
@@ -347,11 +349,12 @@ summary{font-weight:bold;cursor:pointer;min-height:44px;display:flex;align-items
       <option value="0.75">Local only, no travel (about 45 minutes)</option><option value="2">About 2 hours</option><option value="4" selected>About 4 hours</option><option value="6">About 6 hours</option>
     </select>
   </label>
-  <div class="chips" role="group" aria-label="Event types">
+  <div class="chips" role="group" aria-label="Event types and hosts">
     <label title="Show or hide industry days and conferences"><input type="checkbox" value="industry" checked> Industry days and conferences</label>
     <label title="Show or hide Post meetings, luncheons, and socials"><input type="checkbox" value="post" checked> Post meetings and socials</label>
     <label title="Show or hide golf tournaments and other sporting events"><input type="checkbox" value="golf" checked> Golf and sporting</label>
     <label title="Show or hide veteran events"><input type="checkbox" value="veteran" checked> Veteran</label>
+    <label title="Show or hide events hosted by organizations other than SAME, such as federal agencies and other associations"><input type="checkbox" id="otherorg" checked> Events by other organizations</label>
   </div>
 </div>
 <main class="band grid">
@@ -387,7 +390,7 @@ summary{font-weight:bold;cursor:pointer;min-height:44px;display:flex;align-items
   <p>With a mouse, hover over any tab, filter, button, or map dot for a short tip.</p>
   <ol class="howto">
     <li><strong>Pick a view</strong> with the tabs above the filters. <strong>By month</strong> finds trips: events in the same week, close enough that one trip covers them. <strong>Near a Post</strong> lists everything within driving distance of a Post. <strong>Calendar</strong> shows every event in a month on a grid.</li>
-    <li><strong>Set the filters.</strong> Choose a Post (Near a Post and Calendar), a Region (By month shows only the groupings near that Region's Posts; Calendar shows every event within the driving distance of one of them; useful for Regional leaders, and the exports follow it), a month (By month and Calendar), how far you will go (Local only for your Post's own area with no travel, or a drive of about 2, 4, or 6 hours), and the event types you want. Clear a type to hide it.</li>
+    <li><strong>Set the filters.</strong> Choose a Post (Near a Post and Calendar), a Region (By month shows only the groupings near that Region's Posts; Calendar shows every event within the driving distance of one of them; useful for Regional leaders, and the exports follow it), a month (By month and Calendar), how far you will go (Local only for your Post's own area with no travel, or a drive of about 2, 4, or 6 hours), and the event types you want. Clear a type to hide it. Clear Events by other organizations to see only events hosted by SAME, its Posts, Regions, and Field Chapters (an event counts as SAME's when its host names one of them).
     <li><strong>Use the map.</strong> Zoom with the + and &minus; buttons on the map, with Ctrl and scroll (Cmd and scroll on a Mac), or by pinching on a phone or trackpad; drag to move around, and &#8634; returns to the view's own map. In By month, red circles are groupings; select one to zoom to it and see its stops in order. Blue dots are events on their own. In Near a Post, select any gray Post dot to switch to that Post, or an event dot to find it in the list. Use the button under the map to zoom back out.</li>
     <li><strong>Open an event.</strong> Select an event's title to go to its own page or registration. Titles marked "Link: Post website" open the host Post's site because no event page was found.</li>
     <li><strong>Share it.</strong> <strong>Save as PDF</strong> downloads the current view with numbered maps and linked events, ready to print or attach. <strong>Copy for email</strong> copies the same layout to paste into a Post's email newsletter; if your newsletter tool drops the maps, use <strong>Download the email version as an HTML file</strong> instead. <strong>Download map image</strong> saves the map alone. <strong>Download spreadsheet (.xlsx)</strong> saves the events in the current view as an Excel file, one row per event with dates, type, host, place, drive time, and link, to sort, filter, or plan with. Select a single grouping first to share just that trip.</li>
@@ -398,6 +401,22 @@ summary{font-weight:bold;cursor:pointer;min-height:44px;display:flex;align-items
 
 
   <p>Credits and contact details are at the <a href="#contact">top of every view</a>.</p>
+
+  <h2 id="organizers">For Post event organizers: getting your events found</h2>
+  <p>Members often look for events in an area they are traveling to, and many are not on your mailing list. These practices help them, and this page, find your events.</p>
+  <ol class="howto">
+    <li><strong>Post every event where anyone can find it without signing in:</strong> your Post's page on same.org or a public registration page. An event that is only in an email, a members-only page, or social media cannot be found by someone searching the area.</li>
+    <li><strong>Get it on SAME's national calendar.</strong> Adding the event with the calendar feature of your Post's same.org page puts it on the national calendar, and SAME's web manager (webmanager (at) same.org) can add or fix a listing. Many Post pages on same.org show an empty list or another Post's events.</li>
+    <li><strong>Give the full date with the year,</strong> and check that the weekday matches. A missing year or a wrong weekday is the most common reason an event cannot be confirmed.</li>
+    <li><strong>Never post a placeholder date.</strong> If the date is not set, say "date to be announced," not January 1.</li>
+    <li><strong>List the venue and city.</strong> Without a place, no one can tell whether the event is within reach.</li>
+    <li><strong>Give start and end times,</strong> with the time zone.</li>
+    <li><strong>Put the details in text,</strong> not only in a flyer image. Search engines and screen readers cannot read an image.</li>
+    <li><strong>Say who can attend:</strong> members, guests, the public, or the board only.</li>
+    <li><strong>Update the event page when plans change.</strong> Mark a rescheduled or canceled event on its page, so an old date does not keep circulating.</li>
+    <li><strong>Keep the registration link public and working.</strong></li>
+    <li><strong>Send your events to the SAME Industry Days list,</strong> kept by the SAME Membership Community of Interest, so other Posts can plan around them: same.post.tools (at) gmail.com reaches it.</li>
+  </ol>
 
   <h2>Disclaimer</h2>
   <div class="notice">
@@ -436,20 +455,11 @@ summary{font-weight:bold;cursor:pointer;min-height:44px;display:flex;align-items
   </tbody></table>
   <p><strong>Font:</strong> Arial, with Helvetica as the alternative, as the manual specifies; both come from the viewer's own device, so no font is downloaded. The fallback is the device's default sans-serif.</p>
 
-  <h2>Built with AI assistance, not an AI tool</h2>
-  <p>The code was written with help from an AI coding assistant, then reviewed and tested before release. The page itself contains no AI: nothing you open or enter is sent to, seen by, or processed by any AI service. The events list is compiled with AI help from Post websites and public event pages, using public information only.</p>
-
-  <h2>Licensing</h2>
-  <table><thead><tr><th>Part</th><th>Owner or source</th><th>Terms</th></tr></thead><tbody>
-    <tr><td>Page design and code</td><td>Written for this page for the SAME Membership Community of Interest</td><td>Free for SAME Posts and members to link to and share</td></tr>
-    <tr><td>State, Alaska, Hawaii, and Puerto Rico outlines</td><td>us-atlas 3.0.1 (Copyright 2013-2019 Michael Bostock), from U.S. Census Bureau 2017 cartographic boundary files</td><td>ISC license (notice below); Census files are U.S. government work in the public domain</td></tr>
-    <tr><td>Map projection (Albers, with Alaska, Hawaii, and Puerto Rico insets)</td><td>Written for this page; checked against d3-geo (Copyright 2010-2026 Mike Bostock)</td><td>d3-geo: ISC license (notice below)</td></tr>
-    <tr><td>PDF maker</td><td>jsPDF 4.2.1, Copyright (c) 2010-2021 James Hall and (c) 2015-2021 yWorks GmbH</td><td>MIT license; included in this page so PDFs work with no internet connection</td></tr>
-    <tr><td>Atkinson Hyperlegible font (optional, in Options)</td><td>Copyright 2020 Braille Institute of America, Inc.</td><td>SIL Open Font License 1.1 (text below); included in this page so it works with no internet connection</td></tr>
-    <tr><td>SAME name and colors</td><td>Society of American Military Engineers</td><td>The SAME name and colors belong to SAME. This page does not use the SAME logo.</td></tr>
-    <tr><td>Event listings</td><td>The sources above</td><td>Facts and links from public listings; credited above</td></tr>
-  </tbody></table>
-  <p>Used only to build the map file, not included in the page: topojson-client and topojson-simplify (Copyright 2012-2019 Michael Bostock, ISC).</p>
+</section>
+<footer class="band">
+  <p id="ver"></p>
+  <p>Code: same-post-tools Noncommercial License. Built in: jsPDF 4.2.1 (James Hall and yWorks GmbH, MIT); state outlines from us-atlas 3.0.1 (Michael Bostock, ISC; from U.S. Census Bureau public domain boundary files); map projection written for this page and checked against d3-geo (Mike Bostock, ISC); Atkinson Hyperlegible (Braille Institute of America, SIL Open Font License 1.1). Map file built with topojson-client and topojson-simplify (Michael Bostock, ISC), not included. The SAME name and colors belong to the Society of American Military Engineers. <a href="https://github.com/same-post-tools/same-post-tools.github.io/blob/main/THIRD-PARTY-NOTICES.md">License texts and notices</a>.</p>
+  <details class="lic"><summary>License texts</summary>
   <details><summary>SIL Open Font License 1.1 (Atkinson Hyperlegible)</summary><pre>Copyright 2020 Braille Institute of America, Inc.
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
@@ -546,9 +556,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   <details><summary>ISC license text</summary><pre>Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
 
 THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.</pre></details>
-</section>
-<footer class="band">
-  <p id="ver"></p>
+  </details>
   <p>SAME Post Tools is a volunteer-built member resource, not an official SAME National site, and is not endorsed, licensed, sponsored, or approved by SAME National or any SAME Post. The only official address is <a href="https://same-post-tools.github.io/">same-post-tools.github.io</a>. A copy anywhere else may have been changed: do not open member files in it.</p>
   <p>Drive times are rough estimates from straight-line distance. A grouping is events in the same work week (Monday to Sunday), each within the chosen driving distance of another one in the group. Events are placed at their venue city when it is listed, otherwise at the host Post. Dates and details change: confirm with the host before you register or travel. State boundaries: U.S. Census Bureau cartographic boundary files (2017) via us-atlas (ISC license); Alaska, Hawaii, and Puerto Rico are shown as insets.</p>
 </footer>
@@ -1022,7 +1030,7 @@ const D={"map":{"w":975,"h":610,"states":[{"n":"Alabama","d":"M648,492.4L648,492
    the newest it has seen in this browser, so copies passed around by email stay current. The connection rule above
    allows only that one address; nothing is ever sent from this page. */
 const DATA_URL="https://same-post-tools.github.io/events/data.json";
-const TOOL_VERSION="0.9.4";
+const TOOL_VERSION="0.9.7";
 /* Load checks (GUARD): the built-in list, a saved newer list, and any online list are all checked item by item. */
 {const b=GUARD.eventList(D);if(b){D.events=b.events;D.posts=b.posts}}
 try{const c=GUARD.eventList(JSON.parse(localStorage.getItem("sameEventsData")||"null"));if(c&&c.built>D.built){D.events=c.events;D.posts=c.posts;D.wb=c.wb;D.built=c.built;D.online=1}else if(localStorage.getItem("sameEventsData")&&!c)localStorage.removeItem("sameEventsData")}catch(e){try{localStorage.removeItem("sameEventsData")}catch(e2){}}
@@ -1089,6 +1097,9 @@ function syncMyPost(){const b=$("#mypost"),v=$("#post").value,P=bySlug[v],mine=!
 function nearPost(e,R){const P=calP();if(!P)return true;if(e.n)return true;if(e.la==null)return false;return nearest(P,e.la,e.lo).h<=R}
 function inMonth(e,m){if(!m||m==="all")return true;const ms=m+"-01",me=iso(new Date(+m.slice(0,4),+m.slice(5,7),0));return e.s<=me&&e.e>=ms}
 const rt=R=>R<1?"about 45 minutes":`about ${R} hours`;
+/* SAME or other host (Scott, 2026-11-27): an event is SAME's when it came from same.org's calendar, has no host listed (all such rows come from SAME sources), or its host names a Post, a Region, a Field Chapter, or SAME. Everything else (agencies, other associations) is another organization's. */
+function isOther(e){if(e.src==="same.org")return false;const h=e.h||"";return !!h&&!/\b(Posts?|SAME|Region|Field Chapter)\b/i.test(h)}
+function keep(K,e){return K.has(e.k)&&($("#otherorg").checked||!isOther(e))}
 function kinds(){return new Set([...document.querySelectorAll('.chips input[value]:checked')].map(i=>i.value))}
 function when(e){const s=dt(e.s),t=dt(e.e);const day=fmt(e.s,{month:"short",day:"numeric"});let sub=fmt(e.s,{weekday:"short"});if(e.e!==e.s)sub+=" to "+(s.getMonth()===t.getMonth()?fmt(e.e,{weekday:"short"})+" "+t.getDate():fmt(e.e,{month:"short",day:"numeric"}));return `<div class="when"><b>${day}</b><span>${sub}</span></div>`}
 function whereLink(e){return whereLine(e)+(e.u&&e.uk==="post"?" | link opens the Post website":"")}
@@ -1127,7 +1138,7 @@ function spots(list,f){const s={};for(const e of list){const p=proj(e.lo,e.la);i
 function renderPost(R,K){
  const P=cur(),PM=$("#month").value,pmn=PM&&PM!=="all"?" in "+fmt(PM+"-01",{month:"long",year:"numeric"}):"";
  const locs=P?P.locs.map(l=>({lat:l[0],lon:l[1],q:proj(l[1],l[0])})).filter(l=>l.q):[],q=locs.length?(P.isReg?[locs.reduce((a,l)=>a+l.q[0],0)/locs.length,locs.reduce((a,l)=>a+l.q[1],0)/locs.length]:locs[0].q):null;
- const live=D.events.filter(e=>e.e>=today&&K.has(e.k)&&inMonth(e,PM));
+ const live=D.events.filter(e=>e.e>=today&&keep(K,e)&&inMonth(e,PM));
  if(!P){/* All Posts: every upcoming event, by date */
   const all=live.slice().sort((a,b)=>a.s.localeCompare(b.s)||a.t.localeCompare(b.t));
   $("#list").innerHTML=all.length?`<h3>Every SAME event on file${esc(pmn)}</h3>`+group(all,e=>item(e,null)):`<div class="empty">Nothing on file${esc(pmn)} for the types you picked.</div>`;
@@ -1163,7 +1174,7 @@ function groupsFor(m,R,K){
  const ms=m+"-01",me=m+"-31";
  const G=curReg();
  /* A Region keeps only events within the grouping distance of one of its Posts, then groups as usual. */
- const evs=D.events.filter(e=>K.has(e.k)&&e.la!=null&&e.e>=today&&e.s<=me&&e.e>=ms&&(!G||nearest(G,e.la,e.lo).h<=R));
+ const evs=D.events.filter(e=>keep(K,e)&&e.la!=null&&e.e>=today&&e.s<=me&&e.e>=ms&&(!G||nearest(G,e.la,e.lo).h<=R));
  const par=evs.map((_,i)=>i),find=i=>par[i]===i?i:(par[i]=find(par[i]));
  for(let i=0;i<evs.length;i++)for(let j=i+1;j<evs.length;j++){const a=evs[i],b=evs[j];
   if(weekOf(a.s)!==weekOf(b.s)||hrs(a.la,a.lo,b.la,b.lo)>R)continue;par[find(i)]=find(j)}
@@ -1229,7 +1240,7 @@ function renderMonth(R,K){
 const WD=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
 const iso=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
 function calData(m,K){const ms=m+"-01",last=new Date(+m.slice(0,4),+m.slice(5,7),0),me=iso(last),R=+$("#radius").value;
- const evs=D.events.filter(e=>K.has(e.k)&&e.e>=today&&e.s<=me&&e.e>=ms&&nearPost(e,R)).sort((a,b)=>a.s.localeCompare(b.s)||a.t.localeCompare(b.t));
+ const evs=D.events.filter(e=>keep(K,e)&&e.e>=today&&e.s<=me&&e.e>=ms&&nearPost(e,R)).sort((a,b)=>a.s.localeCompare(b.s)||a.t.localeCompare(b.t));
  const start=dt(weekOf(ms)),weeks=[];let d=new Date(start);
  while(true){const wk=[];for(let i=0;i<7;i++){const x=iso(d);wk.push({d:x,inm:x.slice(0,7)===m,ev:x.slice(0,7)===m?evs.filter(e=>e.s<=x&&e.e>=x):[]});d.setDate(d.getDate()+1)}weeks.push(wk);if(iso(d)>me)break}
  return{m,evs,weeks}}
@@ -1266,6 +1277,7 @@ function render(){
 function setUrl(){const h=linkFor().split("#")[1];try{history.replaceState(null,"",h?"#"+h:location.pathname)}catch(e){location.hash=h||""}}
 function fromUrl(){const q=new URLSearchParams(location.search);let h="";try{h=decodeURIComponent(location.hash.slice(1))}catch(e){h=""}/* a mangled link opens the default view */
  if(h==="about"){mode="about";return}
+ if(h==="organizers"){mode="about";setTimeout(()=>{const o=document.getElementById("organizers");if(o)o.scrollIntoView()},80);return}
  const isReg=v=>!!(v&&REG[v]);
  /* Region links from Near a Post before 0.7.0 (#region-x, #region-x/2027-03, ?region=x) open By month on that Region; #calendar-<month>/region-x opens the Calendar on it. */
  {const ox=h.match(/^(region-[a-z0-9-]+)(?:\/(\d{4}-\d{2}))?$/)||[],orr=isReg(ox[1])?ox[1]:(isReg(q.get("region"))&&!h?q.get("region"):"");
@@ -1331,6 +1343,7 @@ $("#mypost").addEventListener("click",()=>{const P=bySlug[$("#post").value];try{
 $("#month").addEventListener("change",()=>{const v=$("#month").value;if(mode==="post"){postMonth=v;if(v!=="all"){calMonth=v;monthPicked=true}}else{monthPicked=true;calMonth=v;postMonth=v}sel=null;wide=false;setUrl();render()});
 $("#radius").addEventListener("change",()=>{sel=null;render()});
 document.querySelectorAll(".chips input[value]").forEach(i=>i.addEventListener("change",()=>{sel=null;render()}));
+$("#otherorg").addEventListener("change",()=>{sel=null;render()});
 /* ---------- Newsletter exports (local: no links back to this page) ---------- */
 /* ---------- Writeup for each grouping in the PDF and email: the trip, and who it suits. Built only from the data. ---------- */
 const NUMW=["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve"];
@@ -1373,9 +1386,9 @@ function viewData(){const R=+$("#radius").value,K=kinds();
    sections:pick.map(g=>({trip:tripText(g.ev),suits:suitsText(g.ev,R),head:`${g.name}, week of ${fmt(g.wk,{month:"long",day:"numeric"})}`,note:`${g.ev.length} events, ${spanText(g.start,g.end)}${g.cities.length>1?" | "+g.cities.slice(0,4).join(", "):""}`,ev:g.ev})).concat(G&&!one&&singles.length?[{lone:true,head:`Other events near the ${G.name} Region's Posts (not in a grouping)`,note:"",ev:singles}]:[]),
    file:one?`same-events-${slugify(pick[0].name)}-week-of-${pick[0].wk}`:`same-events-${m}`+(G?"-"+G.slug:"")}}
  const P=cur(),PM=$("#month").value,pmn=PM&&PM!=="all"?fmt(PM+"-01",{month:"long",year:"numeric"}):"";
- if(!P){const all=D.events.filter(e=>e.e>=today&&K.has(e.k)&&inMonth(e,PM)).sort((a,b)=>a.s.localeCompare(b.s)||a.t.localeCompare(b.t));const mo={};for(const e of all){const mm=fmt(e.s,{month:"long",year:"numeric"});(mo[mm]=mo[mm]||[]).push(e)}
+ if(!P){const all=D.events.filter(e=>e.e>=today&&keep(K,e)&&inMonth(e,PM)).sort((a,b)=>a.s.localeCompare(b.s)||a.t.localeCompare(b.t));const mo={};for(const e of all){const mm=fmt(e.s,{month:"long",year:"numeric"});(mo[mm]=mo[mm]||[]).push(e)}
   return{title:pmn?`SAME events: ${pmn}`:"Upcoming SAME events",intro:`Every upcoming SAME event on file${pmn?" for "+pmn:""}, all Posts.`,sections:Object.entries(mo).map(([mm,ev])=>({head:mm,note:"",ev})),file:"same-events-all"+(pmn?"-"+PM:"")}}
- const near=[];for(const e of D.events){if(e.e<today||!K.has(e.k)||e.la==null||!inMonth(e,PM))continue;const nb=nearest(P,e.la,e.lo);if(nb.h<=R)near.push(Object.assign({},e,{_h:nb.h,_np:P.isReg?nb.p:null}))}
+ const near=[];for(const e of D.events){if(e.e<today||!keep(K,e)||e.la==null||!inMonth(e,PM))continue;const nb=nearest(P,e.la,e.lo);if(nb.h<=R)near.push(Object.assign({},e,{_h:nb.h,_np:P.isReg?nb.p:null}))}
  const months={};for(const e of near){const mm=fmt(e.s,{month:"long",year:"numeric"});(months[mm]=months[mm]||[]).push(e)}
  return{title:`SAME events near the ${unit(P)}`+(pmn?`: ${pmn}`:""),intro:`Upcoming SAME events within ${rt(R)} of the ${unit(P)}${pmn?" in "+pmn:""}.`,
   sections:Object.entries(months).map(([mm,ev])=>({head:mm,note:"",ev})),file:`same-events-near-${P.slug}`}}
@@ -1490,7 +1503,7 @@ function xlsxBlob(sheets){const files=[],H='<?xml version="1.0" encoding="UTF-8"
 function xlsxView(){const v=viewData(),P=mode==="cal"?calP():mode!=="month"?cur():null,R=+$("#radius").value;
  const secs=v.sections.map(x=>({head:x.head,ev:x.ev}));
  if(mode==="post"&&P){const PM=$("#month").value,K=kinds(),shown=new Set(secs.flatMap(x=>x.ev.map(e=>e.i)));
-  const nat=D.events.filter(e=>e.n&&e.e>=today&&K.has(e.k)&&inMonth(e,PM)&&!shown.has(e.i)).sort((a,b)=>a.s.localeCompare(b.s)||a.t.localeCompare(b.t));
+  const nat=D.events.filter(e=>e.n&&e.e>=today&&keep(K,e)&&inMonth(e,PM)&&!shown.has(e.i)).sort((a,b)=>a.s.localeCompare(b.s)||a.t.localeCompare(b.t));
   if(nat.length)secs.push({head:"SAME National events, anywhere",ev:nat})}
  if(mode==="month"&&!(sel!=null&&!wide)&&!curReg()){const{singles}=groupsFor($("#month").value,R,kinds());if(singles.length)secs.push({head:"Events on their own (no grouping)",ev:singles})}
  const near=!!P,reg=near&&P.isReg;
@@ -1502,7 +1515,7 @@ function xlsxView(){const v=viewData(),P=mode==="cal"?calP():mode!=="month"?cur(
   const nb=near&&e.la!=null?nearest(P,e.la,e.lo):null;if(near)r.push(nb?Math.round(nb.h*10)/10:"");if(reg)r.push(nb?pUnit(nb.p):"");
   r.push(e.u?{t:e.u,u:e.u}:"",e.u?(e.uk==="post"?"Host Post website":"Event page"):"",e.tbd?"Yes":"",SRC[e.src]||"");rows.push(r)}
  const widths=[34,18,18,56,26,10,30,28].concat(near?[14]:[],reg?[26]:[],[60,18,12,26]);
- const tys=[...kinds()].map(k=>KIND[k]).join("; ");
+ const tys=[...kinds()].map(k=>KIND[k]).join("; ")+($("#otherorg").checked?"; events by other organizations included":"; SAME events only");
  const about=[["SAME Events Near You: spreadsheet"],[],["View",v.title],["About this view",v.intro],
   ["Tab",{month:"By month",post:"Near a Post",cal:"Calendar"}[mode]],
   mode==="cal"&&P&&P.isReg?["Region",P.name+" Region (all "+P.posts.length+" Posts; drive time from the nearest)"]:mode==="month"?["Region",curReg()?curReg().name+" Region (all "+curReg().posts.length+" Posts; events within the grouping distance of one of them)":"All Regions"]:["Post",P?unit(P):"All Posts"],

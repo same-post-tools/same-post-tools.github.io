@@ -1,15 +1,15 @@
 {
-  "hub": "0.8.18",
+  "hub": "0.8.19",
   "events": {
-    "version": "0.9.4",
+    "version": "0.9.7",
     "data": "November 23, 2026"
   },
   "membership": {
-    "version": "0.7.4",
+    "version": "0.7.5",
     "data": "2026-11-01"
   },
   "roster": {
-    "version": "0.7.4",
-    "data": "none built in"
+    "version": "0.8.0",
+    "data": "no member data built in; location facts as of 2026-11-27"
   }
 }
